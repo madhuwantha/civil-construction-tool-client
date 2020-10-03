@@ -7,7 +7,7 @@ import { Container } from "reactstrap";
 import LoadingOverlay from "react-loading-overlay";
 
 import {
-  AppAside,
+  // AppAside,
   AppFooter,
   AppHeader,
   AppSidebar,
@@ -23,7 +23,7 @@ import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
 
-const DefaultAside = React.lazy(() => import("./DefaultAside"));
+// const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
