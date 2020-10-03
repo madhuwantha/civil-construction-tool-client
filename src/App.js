@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
 
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
@@ -22,9 +21,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   render() {
     return (

@@ -24,7 +24,7 @@ const ButtonDropdowns = React.lazy(() =>
 const ButtonGroups = React.lazy(() => import("./views/Buttons/ButtonGroups"));
 const Buttons = React.lazy(() => import("./views/Buttons/Buttons"));
 const Charts = React.lazy(() => import("./views/Charts"));
-const Dashboard = React.lazy(() => import("./views/Dashboard"));
+// const Dashboard = React.lazy(() => import("./views/Dashboard"));
 const CoreUIIcons = React.lazy(() => import("./views/Icons/CoreUIIcons"));
 const Flags = React.lazy(() => import("./views/Icons/Flags"));
 const FontAwesome = React.lazy(() => import("./views/Icons/FontAwesome"));
@@ -43,6 +43,7 @@ const User = React.lazy(() => import("./views/Users/User"));
 
 const DepartmentCreate = React.lazy(() => import("./screens/department/DepartmentCreate"));
 const DepartmentList = React.lazy(() => import("./screens/department/DepartmentList"));
+const CustomDashboard = React.lazy(() => import("./screens/CustomDashboard"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -51,7 +52,7 @@ const routes = [
   { path: "/department/list", name: "Department List", component: DepartmentList,},
 
   { path: "/", exact: true, name: "Home" },
-  { path: "/dashboard", name: "Dashboard", component: Dashboard },
+  { path: "/dashboard", name: "Dashboard", component: CustomDashboard },
   { path: "/theme", exact: true, name: "Theme", component: Colors },
   { path: "/theme/colors", name: "Colors", component: Colors },
   { path: "/theme/typography", name: "Typography", component: Typography },

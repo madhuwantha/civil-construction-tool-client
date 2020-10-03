@@ -34,7 +34,7 @@ export const post = (url, body) => {
       headers: headers,
     })
       .then((res) => {
-        if (res.status == 200){
+        if (res.status === 200){
           resolve({stated: 200, response: res.json()})
         }else {
           reject({states: res.status, message: res.json()});

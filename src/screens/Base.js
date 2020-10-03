@@ -4,7 +4,6 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import {
   NotificationContainer,
 } from "react-notifications";
-import LoadingOverlay from "react-loading-overlay";
 import Loading from "../components/Loading";
 
 import { connect } from "react-redux";
@@ -20,9 +19,7 @@ const Page404 = React.lazy(() => import("../views/Pages/Page404"));
 const Page500 = React.lazy(() => import("../views/Pages/Page500"));
 
 class Base extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     return (
       <HashRouter>

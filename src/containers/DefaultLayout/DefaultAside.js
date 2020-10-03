@@ -3,15 +3,10 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Progress,
   TabContent,
   TabPane,
-  ListGroup,
-  ListGroupItem,
-  Form,
   FormGroup,
   Input,
-  Label,
   Col,
 } from "reactstrap";
 import PropTypes from "prop-types";
