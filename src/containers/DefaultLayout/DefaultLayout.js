@@ -7,7 +7,7 @@ import { Container } from "reactstrap";
 import LoadingOverlay from "react-loading-overlay";
 
 import {
-  AppAside,
+  // AppAside,
   AppFooter,
   AppHeader,
   AppSidebar,
