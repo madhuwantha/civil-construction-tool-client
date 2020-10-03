@@ -17,7 +17,7 @@ export const createDepartment = (department) => {
   return async (dispatch) => {
     try {
       dispatch(isLoading(true));
-      const apiResult = await http.post(CREATE_DEPARTMENT_URl, {
+      await http.post(CREATE_DEPARTMENT_URl, {
         name: department.name,
         code: department.code,
       });
