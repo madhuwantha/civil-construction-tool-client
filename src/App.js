@@ -21,9 +21,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   render() {
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import {
   Badge,
   UncontrolledDropdown,
@@ -17,7 +17,6 @@ import {
   AppSidebarToggler,
 } from "@coreui/react";
 import logo from "../../assets/img/brand/foe.png";
-import sygnet from "../../assets/img/brand/sygnet.svg";
 
 const propTypes = {
   children: PropTypes.node,
@@ -106,7 +105,7 @@ class DefaultHeader extends Component {
               {/* <DropdownItem header tag="div" className="text-center">
                 <strong>Settings</strong>
               </DropdownItem>
-             
+
               <DropdownItem>
                 <i className="fa fa-wrench"></i> Settings
               </DropdownItem>

@@ -5,12 +5,7 @@ import { connect } from "react-redux";
 
 
 class MyPagination extends Component{
-
-  constructor(props) {
-    super(props);
-
-  }
-
+  
   handlePageChange(pageNumber) {
     console.log(`active page is ${pageNumber}`);
     this.props.fetch(pageNumber, this.props.pagination.size)
