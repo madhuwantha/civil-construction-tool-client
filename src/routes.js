@@ -1,4 +1,6 @@
 import React from "react";
+import {MAIN_SELECTION_ONE, MAIN_SELECTION_THREE, MAIN_SELECTION_TWO} from "./urls";
+import MainSelectionScreen from "./screens/MainSelectionScreen";
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
 const Cards = React.lazy(() => import("./views/Base/Cards"));
@@ -50,6 +52,9 @@ const routes = [
 
   { path: "/department/create", name: "Create Department", component: DepartmentCreate,},
   { path: "/department/list", name: "Department List", component: DepartmentList,},
+  { path: MAIN_SELECTION_ONE, name: "Main Selection One", component: MainSelectionScreen,},
+  { path: MAIN_SELECTION_TWO, name: "Main Selection Two", component: MainSelectionScreen,},
+  { path: MAIN_SELECTION_THREE, name: "Main Selection Two", component: MainSelectionScreen,},
 
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: CustomDashboard },

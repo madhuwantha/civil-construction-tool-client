@@ -24,3 +24,18 @@
 .text-align-center {
   text-align: center;
 }
+
+.main-image-card:hover {
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+  box-shadow: 5px 5px 5px #2f353a;
+  transform: scale(1.02);
+}
+
+.main-image-card{
+  border-radius: 5px;
+  border: 2px solid black;
+}

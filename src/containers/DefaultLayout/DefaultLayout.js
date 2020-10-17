@@ -98,6 +98,7 @@ class DefaultLayout extends Component {
           <main className="main">
             <AppBreadcrumb appRoutes={routes} router={router} />
             <Container fluid>
+
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {routes.map((route, idx) => {
