@@ -5,7 +5,7 @@ import {
 
 import {connect} from "react-redux";
 import MainImageButton from "../components/MainImageButton";
-import {SERVICEABILITY_CONTENT_URL, MAIN_SELECTION_THREE, ULTIMATE_URL} from "../urls";
+import {SERVICEABILITY_CONTENT_URL, ULTIMATE_URL} from "../urls";
 
 class CustomDashboard extends Component {
 
