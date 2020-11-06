@@ -5,16 +5,20 @@ import {
 
 import {connect} from "react-redux";
 import MainImageButton from "../components/MainImageButton";
-import {MAIN_SELECTION_ONE, MAIN_SELECTION_THREE, MAIN_SELECTION_TWO} from "../urls";
+import {SERVICEABILITY_CONTENT_URL, MAIN_SELECTION_THREE, ULTIMATE_URL} from "../urls";
 
 class CustomDashboard extends Component {
 
   render() {
     return (
       <Row>
-            <MainImageButton click={() =>this.props.history.push(MAIN_SELECTION_ONE)} class="col-md-4"/>
-            <MainImageButton click={() =>this.props.history.push(MAIN_SELECTION_TWO)} class="col-md-4"/>
-            <MainImageButton click={() =>this.props.history.push(MAIN_SELECTION_THREE)} class="col-md-4"/>
+            <MainImageButton image={require('../assets/img/dashboard/limit_state_of_serviceability.jpg')}
+                             click={() =>this.props.history.push(SERVICEABILITY_CONTENT_URL)}
+                             class="col-md-4"/>
+            <MainImageButton image={require('../assets/img/dashboard/ultimate_limite_state.jpg')}
+                             click={() =>this.props.history.push(ULTIMATE_URL)}
+                             class="col-md-4"/>
+            <MainImageButton click={() =>{}} class="col-md-4"/>
       </Row>
     );
   }

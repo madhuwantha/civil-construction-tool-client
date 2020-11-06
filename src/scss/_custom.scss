@@ -33,9 +33,12 @@
   transition:.5s;
   box-shadow: 5px 5px 5px #2f353a;
   transform: scale(1.02);
+  cursor: pointer;
 }
 
 .main-image-card{
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   border: 2px solid black;
 }
@@ -44,4 +47,20 @@
   border-radius: 5px;
   border: 2px solid black;
   margin-bottom: 5px;
+  height: 100%;
+}
+.listIcon{
+  max-width: 70px;
+  border: 2px solid black;
+  text-align: center;
+}
+.list-text{
+  margin-bottom: 0;
+}
+.list-description {
+  margin-top: 6px;
+}
+.lesion-image-container{
+  max-height: 550px;
+  margin-bottom: 10px;
 }

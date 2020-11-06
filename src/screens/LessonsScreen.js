@@ -10,7 +10,7 @@ class LessonsScreen extends Component {
     return (
       <Row className="container-fluid">
         {images.map((image,idx)=>{
-          return  <LessonImage img={image}/>;
+          return  <LessonImage key={idx} img={image}/>;
         })}
       </Row>
     );

@@ -106,7 +106,7 @@ class DefaultLayout extends Component {
                       <Route
                         params={{
                           key: idx,
-                          logig: route.props ? route.props.logic : null,
+                          routerParameters: route.props ? route.props : null,
                         }}
                         key={idx}
                         path={route.path}
