@@ -1,7 +1,18 @@
 import React from "react";
-import {LESSON_PAGE, MAIN_SELECTION_ONE, MAIN_SELECTION_THREE, MAIN_SELECTION_TWO} from "./urls";
-import MainSelectionScreen from "./screens/MainSelectionScreen";
+import {
+  CALCULATION_PAGE,
+  LESSON_PAGE,
+  LIST_SCREEN_PAGE,
+  SERVICEABILITY_CONTENT_URL,
+  MAIN_SELECTION_THREE,
+  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL
+} from "./urls";
+import MainSelectionScreen_I5 from "./screens/MainSelectionScreen_I5";
 import LessonsScreen from "./screens/LessonsScreen";
+import MainSelectionScreen_I6 from "./screens/MainSelectionScreen_I6";
+import CalculationScreen from "./screens/CalculationScreen";
+import ListScreen from "./screens/ListScreen";
+import CompareScreen from "./screens/CompareScreen";
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
 const Cards = React.lazy(() => import("./views/Base/Cards"));
@@ -53,10 +64,16 @@ const routes = [
 
   {path: "/department/create", name: "Create Department", component: DepartmentCreate,},
   {path: "/department/list", name: "Department List", component: DepartmentList,},
-  {path: MAIN_SELECTION_ONE, name: "Main Selection One", component: MainSelectionScreen,},
-  {path: MAIN_SELECTION_TWO, name: "Main Selection Two", component: MainSelectionScreen,},
-  {path: MAIN_SELECTION_THREE, name: "Main Selection Two", component: MainSelectionScreen,},
+  {path: SERVICEABILITY_CONTENT_URL, name: "Serviceability", component: MainSelectionScreen_I6,
+    props: { logic: "CONTENT" },},
+  {path: SERVICEABILITY_CODE_APPROACHES_URL, name: "Code approaches", component: MainSelectionScreen_I6,
+    props: { logic: "CODE_APPROACHES" },},
+  {path: ULTIMATE_URL, name: "Ultimate", component: MainSelectionScreen_I5,},
+  {path: MAIN_SELECTION_THREE, name: "Main Selection Two", component: MainSelectionScreen_I5,},
   {path: LESSON_PAGE, name: "Lesson", component: LessonsScreen},
+  {path: CALCULATION_PAGE, name: "Calculation", component: CalculationScreen},
+  {path: LIST_SCREEN_PAGE, name: "List of lesson", component: ListScreen},
+  {path: COMPARE_PAGE, name: "Compare page", component: CompareScreen},
 
   {path: "/", exact: true, name: "Home"},
   {path: "/dashboard", name: "Dashboard", component: CustomDashboard},
