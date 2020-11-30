@@ -7,6 +7,7 @@ import {
   LIST_SCREEN_PAGE,
   SERVICEABILITY_CODE_APPROACHES_URL
 } from "../urls";
+import {LESSON_SERVICEABILITY_LIMIT_STATE} from "../constance/dataFiles";
 
 class MainSelectionScreen_I6 extends Component {
   constructor(props) {
@@ -69,9 +70,12 @@ class MainSelectionScreen_I6 extends Component {
           <div className="col-sm">
             <MainImageButton image={this.state.imageThree}
                              click={() => this.props.history.push(
-                               this.props.params.logic === "CONTENT"
-                                 ? LESSON_PAGE
-                                 : LIST_SCREEN_PAGE
+                               {
+                                 pathname: this.props.params.logic === "CONTENT"
+                                   ? LESSON_PAGE
+                                   : LIST_SCREEN_PAGE,
+                                 state: {data: LESSON_SERVICEABILITY_LIMIT_STATE}
+                               }
                              )} class=""
             /><br/>
             <MainImageButton image={this.state.imageFour}
