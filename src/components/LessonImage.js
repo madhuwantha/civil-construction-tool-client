@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from "reactstrap/es/Button";
 import LessonPopUp from "./LessonPopUp";
-import Row from "reactstrap/es/Row";
+import {LESSON_PAGE} from "../urls";
 
 class LessonImage extends Component {
 
@@ -21,6 +21,24 @@ class LessonImage extends Component {
   }
 
   render() {
+
+    const { img } = this.props;
+    // const image = require(img.imagePath);
+    const imgPre = img
+      ? (
+        <img
+          className="lesson-image-card"
+          width="100%"
+          height="auto"
+          src={img.imagePath}
+          alt="Lesson"
+          style={{border: this.props.img.buttons !== [] ? 'border' : '1px solid black' }}
+        />
+      )
+      : (<p>loading</p>);
+
+
+
     if (this.props.img.title){
       this.title_dev = <div className="lesson-title">{this.props.img.title}</div>
     }
@@ -32,11 +50,23 @@ class LessonImage extends Component {
         {this.props.img.buttons.map((button,idx) => {
           return(
             <div>
-              <Button onClick={this.toggle} color="primary" >{button.name}</Button>
+              <Button
+                onClick={
+                  button.lessonPageId !== ""
+                    ? () => this.props.history.push(LESSON_PAGE)
+                    : () =>  this.toggle()
+                }
+                // onClick={this.toggle}
+                color="primary" >{button.name}</Button>
               <LessonPopUp
                 isOpen={this.state.modal}
                 toggle={this.toggle}
-                onClick={this.toggle}
+                // onClick={this.toggle}
+                onClick={
+                  button.lessonPageId != ""
+                  ? () => this.props.history.push(LESSON_PAGE)
+                  :  this.toggle
+                }
                 image={button.url}
                 title={button.title}
               />
@@ -52,14 +82,15 @@ class LessonImage extends Component {
       <div className="col-12 lesson-image-container">
         {this.title_dev}
         <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
-          <img
-            className="lesson-image-card"
-            width="100%"
-            height="auto"
-            src={this.props.img.imagePath}
-            alt="Lesson"
-            style={{border: this.props.img.buttons !== [] ? 'border' : '1px solid black' }}
-          />
+          {imgPre}
+          {/*<img*/}
+          {/*  className="lesson-image-card"*/}
+          {/*  width="100%"*/}
+          {/*  height="auto"*/}
+          {/*  src={require(`${img.imagePath}`)}*/}
+          {/*  alt="Lesson"*/}
+          {/*  style={{border: this.props.img.buttons !== [] ? 'border' : '1px solid black' }}*/}
+          {/*/>*/}
           <br/>
           {this.button_dev}
         </div>
