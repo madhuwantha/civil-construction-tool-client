@@ -21,9 +21,7 @@ class LessonImage extends Component {
   }
 
   render() {
-
     const { img } = this.props;
-    // const image = require(img.imagePath);
     const imgPre = img
       ? (
         <img
@@ -36,8 +34,6 @@ class LessonImage extends Component {
         />
       )
       : (<p>loading</p>);
-
-
 
     if (this.props.img.title){
       this.title_dev = <div className="lesson-title">{this.props.img.title}</div>
@@ -63,7 +59,7 @@ class LessonImage extends Component {
                 toggle={this.toggle}
                 // onClick={this.toggle}
                 onClick={
-                  button.lessonPageId != ""
+                  button.lessonPageId !== ""
                   ? () => this.props.history.push(LESSON_PAGE)
                   :  this.toggle
                 }
