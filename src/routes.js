@@ -5,14 +5,15 @@ import {
   LIST_SCREEN_PAGE,
   SERVICEABILITY_CONTENT_URL,
   MAIN_SELECTION_THREE,
-  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL
+  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL, CODE_SELECTION
 } from "./urls";
 import MainSelectionScreen_I5 from "./screens/MainSelectionScreen_I5";
 import LessonsScreen from "./screens/LessonsScreen";
-import CategoryScreen_6 from "./screens/CategoryScreen_6";
+import CategoryScreenServiceability from "./screens/CategoryScreenServiceability";
 import CalculationScreen from "./screens/CalculationScreen";
 import ListScreen from "./screens/ListScreen";
 import CompareScreen from "./screens/CompareScreen";
+import CodeSelect from "./screens/CodeSelection";
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
 const Cards = React.lazy(() => import("./views/Base/Cards"));
@@ -64,9 +65,9 @@ const routes = [
 
   {path: "/department/create", name: "Create Department", component: DepartmentCreate,},
   {path: "/department/list", name: "Department List", component: DepartmentList,},
-  {path: SERVICEABILITY_CONTENT_URL, name: "Serviceability", component: CategoryScreen_6,
+  {path: SERVICEABILITY_CONTENT_URL, name: "Serviceability", component: CategoryScreenServiceability,
     props: { logic: "CONTENT" },},
-  {path: SERVICEABILITY_CODE_APPROACHES_URL, name: "Code approaches", component: CategoryScreen_6,
+  {path: SERVICEABILITY_CODE_APPROACHES_URL, name: "Code approaches", component: CategoryScreenServiceability,
     props: { logic: "CODE_APPROACHES" },},
   {path: ULTIMATE_URL, name: "Ultimate", component: MainSelectionScreen_I5,},
   {path: MAIN_SELECTION_THREE, name: "Main Selection Two", component: MainSelectionScreen_I5,},
@@ -74,6 +75,7 @@ const routes = [
   {path: CALCULATION_PAGE, name: "Calculation", component: CalculationScreen},
   {path: LIST_SCREEN_PAGE, name: "List of lesson", component: ListScreen},
   {path: COMPARE_PAGE, name: "Compare page", component: CompareScreen},
+  {path: CODE_SELECTION, name: "Compare page", component: CodeSelect},
 
   {path: "/", exact: true, name: "Home"},
   {path: "/dashboard", name: "Dashboard", component: CustomDashboard},
