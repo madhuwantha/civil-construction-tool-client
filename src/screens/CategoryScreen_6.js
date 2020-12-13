@@ -9,7 +9,7 @@ import {
 } from "../urls";
 import {LESSON_SERVICEABILITY_LIMIT_STATE} from "../constance/dataFiles";
 
-class MainSelectionScreen_I6 extends Component {
+class CategoryScreen_6 extends Component {
   constructor(props) {
     super(props);
     if (this.props.params.logic === "CONTENT"){
@@ -108,4 +108,4 @@ class MainSelectionScreen_I6 extends Component {
 }
 
 
-export default MainSelectionScreen_I6;
+export default CategoryScreen_6;

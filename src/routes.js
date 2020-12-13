@@ -9,7 +9,7 @@ import {
 } from "./urls";
 import MainSelectionScreen_I5 from "./screens/MainSelectionScreen_I5";
 import LessonsScreen from "./screens/LessonsScreen";
-import MainSelectionScreen_I6 from "./screens/MainSelectionScreen_I6";
+import CategoryScreen_6 from "./screens/CategoryScreen_6";
 import CalculationScreen from "./screens/CalculationScreen";
 import ListScreen from "./screens/ListScreen";
 import CompareScreen from "./screens/CompareScreen";
@@ -64,9 +64,9 @@ const routes = [
 
   {path: "/department/create", name: "Create Department", component: DepartmentCreate,},
   {path: "/department/list", name: "Department List", component: DepartmentList,},
-  {path: SERVICEABILITY_CONTENT_URL, name: "Serviceability", component: MainSelectionScreen_I6,
+  {path: SERVICEABILITY_CONTENT_URL, name: "Serviceability", component: CategoryScreen_6,
     props: { logic: "CONTENT" },},
-  {path: SERVICEABILITY_CODE_APPROACHES_URL, name: "Code approaches", component: MainSelectionScreen_I6,
+  {path: SERVICEABILITY_CODE_APPROACHES_URL, name: "Code approaches", component: CategoryScreen_6,
     props: { logic: "CODE_APPROACHES" },},
   {path: ULTIMATE_URL, name: "Ultimate", component: MainSelectionScreen_I5,},
   {path: MAIN_SELECTION_THREE, name: "Main Selection Two", component: MainSelectionScreen_I5,},
