@@ -1,6 +1,6 @@
 import {SERVICEABILITY,ULTIMATE} from "./designLimitState";
 import {CRACK_WIDTH,DEFLECTION,SHEAR,FLEXURE} from "./category";
-import {LESSON,CALCULATION} from "./method";
+import {LESSON} from "./method";
 import {BSI,EC} from "./code";
 
 

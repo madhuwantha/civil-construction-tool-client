@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import MainImageButton from "../components/MainImageButton";
 import {Row} from "reactstrap";
-import {CODE_SELECTION, LESSON_PAGE, LIST_SCREEN_PAGE} from "../urls";
+import {CODE_SELECTION, LESSON_PAGE} from "../urls";
 
 import { connect } from "react-redux";
 import {setCurrentLesson} from '../store/action/lessonPage';

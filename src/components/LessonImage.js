@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Button from "reactstrap/es/Button";
 import LessonPopUp from "./LessonPopUp";
-import {LESSON_PAGE} from "../urls";
 import {connect} from "react-redux";
 import {setCurrentLesson} from "../store/action/lessonPage";
 import {setCurrentMethod} from "../store/action/method";

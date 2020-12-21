@@ -6,7 +6,6 @@ import {
 import {connect} from "react-redux";
 import MainImageButton from "../components/MainImageButton";
 import {SERVICEABILITY_CONTENT_URL, ULTIMATE_URL} from "../urls";
-import CodeSelect from "./CodeSelection";
 import {setCurrentLimitState} from "../store/action/designLimitState";
 import {SERVICEABILITY, ULTIMATE} from "../constance/designLimitState";
 

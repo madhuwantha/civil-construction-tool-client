@@ -11,10 +11,6 @@ import {setCurrentLesson} from '../store/action/lessonPage';
 import {setCurrentCategory} from "../store/action/category";
 import {setCurrentMethod} from '../store/action/method';
 import {
-  CRACK_WIDTH_ANALYTICAL_METHOD_EC,
-  CRACK_WIDTH_ANALYTICAL_METHOD_EC_EXAMPLE_EC,
-  CRACK_WIDTH_SIMPLIFIED_METHOD_EC,
-  LEARN_HOW_TO_CALCULATE_CRACK_WIDTH_EC,
   LESSON_SERVICEABILITY_LIMIT_STATE
 } from "../constance/dataFiles";
 import {CALCULATION, LESSON} from "../constance/method";

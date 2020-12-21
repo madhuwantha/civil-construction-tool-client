@@ -1,6 +1,6 @@
 import  React from 'react';
 import MainImageButton from "../components/MainImageButton";
-import {LESSON_PAGE, SERVICEABILITY_CONTENT_URL, ULTIMATE_URL} from "../urls";
+import {LESSON_PAGE,} from "../urls";
 import {Row} from "reactstrap";
 import {useDispatch,useSelector} from "react-redux";
 import {setCurrentCode} from "../store/action/code";
