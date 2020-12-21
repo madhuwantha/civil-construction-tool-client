@@ -4,11 +4,11 @@ import {Modal, ModalHeader} from "reactstrap";
 class LessonPopUp extends Component {
   render() {
     return (
-      <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
+      <Modal className="custom-modal" isOpen={this.props.isOpen} toggle={this.props.toggle}>
         <ModalHeader toggle={this.props.toggle}>{this.props.title} </ModalHeader>
-        {this.props.image.map((image,idx) => {
+        {this.props.image.map((image, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <img
                 key={idx}
                 width="100%"

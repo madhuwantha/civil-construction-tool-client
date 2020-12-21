@@ -22,13 +22,13 @@ export default {
       "imagePath": "",
       "buttons": [
         {
-          "lessonpageId":"Analytical_Method",
+          "lessonpageId":"CRACK_WIDTH_ANALYTICAL_METHOD_EC",
           "name": "Analytical Method",
           "imagePath": [],
           "title": ""
         },
         {
-          "lessonpageId":"Simplified_Method",
+          "lessonpageId":"CRACK_WIDTH_SIMPLIFIED_METHOD_EC",
           "name": "Simplified Method",
           "imagePath": [],
           "title": ""

@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import Button from "reactstrap/es/Button";
 import LessonPopUp from "./LessonPopUp";
 import {LESSON_PAGE} from "../urls";
+import {connect} from "react-redux";
+import {setCurrentLesson} from "../store/action/lessonPage";
+import {setCurrentMethod} from "../store/action/method";
+import {setCurrentCategory} from "../store/action/category";
 
 class LessonImage extends Component {
 
@@ -51,12 +55,16 @@ class LessonImage extends Component {
             <div className="col"  key={idx}>
               <Button
                 className="btn btn-default lesson-button"
-                onClick={this.toggle}
-                // onClick={
-                //   button.lessonPageId !== ""
-                //     ? () => this.props.history.push(LESSON_PAGE)
-                //     : () =>  this.toggle()
-                // }
+                onClick={
+                  button.lessonpageId !== "" && button.lessonpageId !== null && button.lessonpageId !== undefined
+                    ? () => {
+                    console.log(button);
+                      this.props.setCurrentLesson(button.lessonpageId)
+                      // this.props.history.pop();
+                      // this.props.history.push(LESSON_PAGE)
+                    }
+                    : () =>  this.toggle()
+                }
                 // onClick={this.toggle}
                 color="primary" >{button.name}</Button>
               <LessonPopUp
@@ -91,4 +99,10 @@ class LessonImage extends Component {
   }
 }
 
-export default LessonImage;
+// export default LessonImage;
+
+const mapStateToProps = (state) => {
+  return {...state};
+};
+
+export default connect(mapStateToProps, { setCurrentLesson,setCurrentMethod,setCurrentCategory })(LessonImage);

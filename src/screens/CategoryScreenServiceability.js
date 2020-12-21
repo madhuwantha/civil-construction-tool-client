@@ -8,14 +8,17 @@ import {
 
 import { connect } from "react-redux";
 import {setCurrentLesson} from '../store/action/lessonPage';
+import {setCurrentCategory} from "../store/action/category";
 import {setCurrentMethod} from '../store/action/method';
 import {
   CRACK_WIDTH_ANALYTICAL_METHOD_EC,
-  CRACK_WIDTH_ANALYTICAL_METHOD_EC_EXAMPLE_EC, CRACK_WIDTH_SIMPLIFIED_METHOD_EC,
+  CRACK_WIDTH_ANALYTICAL_METHOD_EC_EXAMPLE_EC,
+  CRACK_WIDTH_SIMPLIFIED_METHOD_EC,
   LEARN_HOW_TO_CALCULATE_CRACK_WIDTH_EC,
   LESSON_SERVICEABILITY_LIMIT_STATE
 } from "../constance/dataFiles";
 import {CALCULATION, LESSON} from "../constance/method";
+import {CRACK_WIDTH, DEFLECTION} from "../constance/category";
 
 class CategoryScreenServiceability extends Component {
   constructor(props) {
@@ -38,14 +41,16 @@ class CategoryScreenServiceability extends Component {
             <br/>
             <MainImageButton image={this.state.imageOne}
                              click={() => {
-                               setCurrentMethod(LESSON);
+                               this.props.setCurrentMethod(LESSON);
+                               this.props.setCurrentCategory(CRACK_WIDTH);
                                this.props.history.push(CODE_SELECTION)
                              }}
                              class=""/>
             <br/>
             <MainImageButton image={this.state.imageTwo}
                              click={() => {
-                               setCurrentMethod(CALCULATION);
+                               this.props.setCurrentMethod(CALCULATION);
+                               this.props.setCurrentCategory(CRACK_WIDTH);
                                this.props.history.push(CODE_SELECTION)
                              }}
                              class=""/>
@@ -53,7 +58,7 @@ class CategoryScreenServiceability extends Component {
           <div className="col-sm">
             <MainImageButton image={this.state.imageThree}
                              click={() => {
-                               this.props.setCurrentLesson(CRACK_WIDTH_SIMPLIFIED_METHOD_EC)
+                               this.props.setCurrentLesson(LESSON_SERVICEABILITY_LIMIT_STATE)
                                this.props.history.push(LESSON_PAGE);
                              }}
                              class=""/>
@@ -66,14 +71,16 @@ class CategoryScreenServiceability extends Component {
             <br/>
             <MainImageButton image={this.state.imageFive}
                              click={() => {
-                               setCurrentMethod(LESSON);
+                               this.props.setCurrentCategory(DEFLECTION);
+                               this.props.setCurrentMethod(LESSON);
                                this.props.history.push(CODE_SELECTION)
                              }}
                              class=""/>
             <br/>
             <MainImageButton image={this.state.imageSix}
                              click={() => {
-                               setCurrentMethod(CALCULATION);
+                               this.props.setCurrentCategory(DEFLECTION);
+                               this.props.setCurrentMethod(CALCULATION);
                                this.props.history.push(CODE_SELECTION)
                              }}
                              class=""/>
@@ -89,4 +96,4 @@ const mapStateToProps = (state) => {
   return {currentLesson: state.lessonPage.currentLesson };
 };
 
-export default connect(mapStateToProps, { setCurrentLesson, })(CategoryScreenServiceability);
+export default connect(mapStateToProps, { setCurrentLesson,setCurrentMethod,setCurrentCategory })(CategoryScreenServiceability);
