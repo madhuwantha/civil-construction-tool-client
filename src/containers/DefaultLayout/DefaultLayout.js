@@ -13,7 +13,6 @@ import {
   AppBreadcrumb2 as AppBreadcrumb,
 } from "@coreui/react";
 // sidebar nav config
-import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
 
