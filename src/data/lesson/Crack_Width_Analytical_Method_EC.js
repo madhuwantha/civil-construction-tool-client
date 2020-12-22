@@ -1,3 +1,5 @@
+import {CRACK_WIDTH_ANALYTICAL_METHOD_EC_EXAMPLE_EC} from "../../constance/dataFiles";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -73,7 +75,7 @@ export default {
       "imagePath": "",
       "buttons": [
         {
-          "lessonpageId":"Example",
+          "lessonpageId":CRACK_WIDTH_ANALYTICAL_METHOD_EC_EXAMPLE_EC,
           "name": "Example",
           "imagePath": [],
           "title": ""

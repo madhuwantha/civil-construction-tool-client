@@ -1,3 +1,5 @@
+import {DEFLECTION_BS_ANALYTICAL_METHOD_BS_EXAMPLE} from "../../constance/dataFiles";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -59,7 +61,7 @@ export default {
       "imagePath": "",
       "buttons": [
         {
-          "lessonpageId":"BS_Example",
+          "lessonpageId":DEFLECTION_BS_ANALYTICAL_METHOD_BS_EXAMPLE,
           "name": "Example",
           "imagePath": [],
           "title": ""

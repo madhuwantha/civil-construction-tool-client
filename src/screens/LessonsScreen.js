@@ -19,12 +19,12 @@ const  LessonsScreen = (props) => {
 
   useEffect(() => {
     console.log(data);
+  },[data])
+
+  useEffect( ()=> {
     console.log(path);
-
-  },[data,path])
-
-  useEffect(()=> {
     if (path !== null && path !== ""){
+      setData([]);
 
       /**
        * Getting the correct JSON object for a lesson
@@ -33,9 +33,9 @@ const  LessonsScreen = (props) => {
       let currentLesson = lesson[path];
       if (currentLesson){
         currentLesson
-          .then(d => {
-            console.log(d.default.images);
-            setData(d.default.images);
+          .then(async d => {
+            // console.log(d.default.images);
+            await setData([...d.default.images]);
           }).catch((e) => {
           console.log(e);
         })

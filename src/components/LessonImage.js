@@ -57,7 +57,7 @@ class LessonImage extends Component {
                 onClick={
                   button.lessonpageId !== "" && button.lessonpageId !== null && button.lessonpageId !== undefined
                     ? () => {
-                    console.log(button);
+                    // console.log(button);
                       this.props.setCurrentLesson(button.lessonpageId)
                       // this.props.history.pop();
                       // this.props.history.push(LESSON_PAGE)

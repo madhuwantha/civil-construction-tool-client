@@ -17,14 +17,14 @@ class MainSelectionScreen_I5 extends Component {
       <div>
         <Row className="justify-content-around">
           <MainImageButton
-            image={require('../assets/img/ultimate/content/learn_shear.jpg')}
+            image={require('../assets/img/ultimate/content/learn_shear.jpeg')}
             click={() => {
             this.props.setCurrentMethod(LESSON);
             this.props.setCurrentCategory(SHEAR);
             this.props.history.push(CODE_SELECTION)
           }} class="col-md-3"/>
           <MainImageButton
-            image={require('../assets/img/ultimate/content/learn_flexure.jpg')}
+            image={require('../assets/img/ultimate/content/learn_flexure.jpeg')}
             click={() => {
             this.props.setCurrentMethod(LESSON);
             this.props.setCurrentCategory(FLEXURE);
@@ -41,14 +41,14 @@ class MainSelectionScreen_I5 extends Component {
         </Row>
         <Row className="justify-content-around">
           <MainImageButton
-            image={require('../assets/img/ultimate/content/shear_capacity_and_shear_reinforcement_calculator.jpg')}
+            image={require('../assets/img/ultimate/content/shear_capacity_and_shear_reinforcement_calculator.jpeg')}
             click={() => {
             this.props.setCurrentMethod(CALCULATION);
             this.props.setCurrentCategory(SHEAR);
             // this.props.history.push(LIST_SCREEN_PAGE)
           }} class="col-md-3"/>
           <MainImageButton
-            image={require('../assets/img/ultimate/content/flexural_reinforcement_calculator.jpg')}
+            image={require('../assets/img/ultimate/content/flexural_reinforcement_calculator.jpeg')}
             click={() => {
             this.props.setCurrentMethod(CALCULATION);
               this.props.setCurrentCategory(FLEXURE);

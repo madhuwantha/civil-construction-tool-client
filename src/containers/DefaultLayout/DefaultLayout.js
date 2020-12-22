@@ -7,7 +7,6 @@ import { Container } from "reactstrap";
 import LoadingOverlay from "react-loading-overlay";
 
 import {
-
   AppFooter,
   AppHeader,
   AppBreadcrumb2 as AppBreadcrumb,

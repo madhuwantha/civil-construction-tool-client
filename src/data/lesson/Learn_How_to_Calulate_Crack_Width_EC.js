@@ -1,3 +1,5 @@
+import {CRACK_WIDTH_ANALYTICAL_METHOD_EC, CRACK_WIDTH_SIMPLIFIED_METHOD_EC} from "../../constance/dataFiles";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -22,13 +24,13 @@ export default {
       "imagePath": "",
       "buttons": [
         {
-          "lessonpageId":"CRACK_WIDTH_ANALYTICAL_METHOD_EC",
+          "lessonpageId":CRACK_WIDTH_ANALYTICAL_METHOD_EC,
           "name": "Analytical Method",
           "imagePath": [],
           "title": ""
         },
         {
-          "lessonpageId":"CRACK_WIDTH_SIMPLIFIED_METHOD_EC",
+          "lessonpageId":CRACK_WIDTH_SIMPLIFIED_METHOD_EC,
           "name": "Simplified Method",
           "imagePath": [],
           "title": ""

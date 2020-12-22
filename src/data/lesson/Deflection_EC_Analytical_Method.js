@@ -1,3 +1,5 @@
+import {DEFLECTION_EC_ANALYTICAL_METHOD_EC_EXAMPLE} from "../../constance/dataFiles";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -73,7 +75,7 @@ export default {
       "imagePath": "",
       "buttons": [
         {
-          "lessonpageId":"DEFLECTION_EC_ANALYTICAL_METHOD_EC_EXAMPLE",
+          "lessonpageId":DEFLECTION_EC_ANALYTICAL_METHOD_EC_EXAMPLE,
           "name": "Example",
           "imagePath": [],
           "title": ""

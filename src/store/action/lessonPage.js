@@ -2,6 +2,22 @@ import {error, isLoading, success} from './behavior'
 import store from '../store';
 import {lessons} from '../../constance/dataFiles'
 export const SET_CURRENT_LESSON  = "SET_CURRENT_LESSON";
+export const SET_CHANGE_FALSE  = "SET_CHANGE_FALSE";
+export const SET_CHANGE_TRUE  = "SET_CHANGE_TRUE";
+
+
+export const changeToFalse = () => {
+  return {
+    type: SET_CHANGE_FALSE
+  }
+}
+
+export const changeToTrue = () => {
+  return {
+    type: SET_CHANGE_TRUE
+  }
+}
+
 
 
 export const setCurrentLesson = (lesson) => {

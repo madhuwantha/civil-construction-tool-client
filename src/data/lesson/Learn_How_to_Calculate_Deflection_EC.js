@@ -1,3 +1,5 @@
+import {DEFLECTION_EC_ANALYTICAL_METHOD, DEFLECTION_EC_SIMPLIFIED_METHOD} from "../../constance/dataFiles";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -11,13 +13,13 @@ export default {
       "imagePath": require("../../assets/img/lesson/Learn_How_to_Calculate_Deflection_EC/images/EC_simplify_deflection1-2.jpg"),
       "buttons": [
         {
-          "lessonpageId":"Analytical_Method",
+          "lessonpageId":DEFLECTION_EC_ANALYTICAL_METHOD,
           "name": "Analytical Method",
           "imagePath": [],
           "title": ""
         },
         {
-          "lessonpageId":"Simplified_Method",
+          "lessonpageId":DEFLECTION_EC_SIMPLIFIED_METHOD,
           "name": "Simplified Method",
           "imagePath": [],
           "title": ""

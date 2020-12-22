@@ -3,8 +3,6 @@ import {CRACK_WIDTH,DEFLECTION,SHEAR,FLEXURE} from "./category";
 import {LESSON} from "./method";
 import {BSI,EC} from "./code";
 
-
-
 /**
  * Serviceability
  * @type {string}
@@ -13,6 +11,11 @@ export const  LESSON_SERVICEABILITY_LIMIT_STATE = "Serviceability_Limit_State";
 
 //CRACK_WIDTH
 export const  LEARN_HOW_TO_CALCULATE_CRACK_WIDTH_BS = "Learn_How_to_Calculate_Crack_Width_BS";
+export const CRACK_WIDTH_ANALYTICAL_METHOD_BS = "Crack_Width_Analytical_Method_BS";
+export const CRACK_WIDTH_ANALYTICAL_METHOD_BS_EXAMPLE_BS = "Crack_Width_Analytical_Method_BS_Example_BS";
+export const CRACK_WIDTH_BS_SIMPLIFIED_METHOD_BS = "Crack_Width_BS_Simplified_Method_BS";
+
+
 export const  LEARN_HOW_TO_CALCULATE_CRACK_WIDTH_EC = "Learn_How_to_Calculate_Crack_Width_EC";
 export const  CRACK_WIDTH_ANALYTICAL_METHOD_EC = "Crack_Width_Analytical_Method_EC";
 export const  CRACK_WIDTH_ANALYTICAL_METHOD_EC_EXAMPLE_EC = "Crack_Width_Analytical_Method_EC_Example_EC";
@@ -24,6 +27,7 @@ export const  LEARN_HOW_TO_CALCULATE_DEFLECTION_BS = "Learn_How_to_Calculate_Def
 export const  DEFLECTION_BS_SIMPLIFIED_METHOD = "Deflection_BS_Simplified_Method";
 export const  DEFLECTION_BS_ANALYTICAL_METHOD = "Deflection_BS_Analytical_Method";
 export const  DEFLECTION_BS_ANALYTICAL_METHOD_BS_EXAMPLE = "Deflection_BS_Analytical_Method_BS_Example";
+
 export const  LEARN_HOW_TO_CALCULATE_DEFLECTION_EC = "Learn_How_to_Calculate_Deflection_EC";
 export const  DEFLECTION_EC_SIMPLIFIED_METHOD = "Deflection_EC_Simplified_Method";
 export const  DEFLECTION_EC_ANALYTICAL_METHOD = "Deflection_EC_Analytical_Method";
