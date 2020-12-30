@@ -2,22 +2,25 @@ import store from "../store";
 import {error, isLoading, success} from "./behavior";
 import {calculation} from "../../constance/calculation";
 
-export const SET_CURRENT_CALCULATION  = "SET_CURRENT_CALCULATION";
+export const SET_CURRENT_CALCULATION = "SET_CURRENT_CALCULATION";
+export const ADD_CALCULATION = "ADD_CALCULATION";
+export const REMOVE_CALCULATION = "REMOVE_CALCULATION";
 
-
+// TODO : add redirect (url)
+// TODO :remove redirect
 
 export const setCurrentCalculation = (calculationPage) => {
-  if (calculationPage !== undefined){
+  if (calculationPage !== undefined) {
     let limitState = store.getState().limitState.currentLimitState
     let category = store.getState().category.currentCategory
     let method = store.getState().method.currentMethod
     let code = store.getState().code.currentCode
 
     return async (dispatch) => {
-      try{
+      try {
         dispatch(isLoading(true));
         let calculation_ = []
-        calculation_  = calculation.filter(cal =>
+        calculation_ = calculation.filter(cal =>
           cal.limitState === limitState &&
           cal.category === category &&
           cal.method === method &&
@@ -30,11 +33,25 @@ export const setCurrentCalculation = (calculationPage) => {
           data: calculation_[0].calUrl,
         });
 
-      }catch (e){
+      } catch (e) {
         dispatch(error("Calculation page Loading Failed"))
       }
     }
 
-  }else {}
+  } else {
+  }
 
+}
+
+export const addCalculation = (url) => {
+  return {
+    type: ADD_CALCULATION,
+    data: url
+  }
+}
+
+export const removeCalculation = () => {
+  return{
+    type: REMOVE_CALCULATION
+  }
 }
