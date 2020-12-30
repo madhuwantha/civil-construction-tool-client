@@ -2,8 +2,6 @@ import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container } from "reactstrap";
-// import { isLoading } from "../../store/action/behavior";
-// import { connect } from "react-redux";
 import LoadingOverlay from "react-loading-overlay";
 
 import {
@@ -11,11 +9,9 @@ import {
   AppHeader,
   AppBreadcrumb2 as AppBreadcrumb,
 } from "@coreui/react";
-// sidebar nav config
-// routes config
+
 import routes from "../../routes";
 
-// const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 

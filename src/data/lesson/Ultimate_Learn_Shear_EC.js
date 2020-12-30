@@ -1,3 +1,5 @@
+import {ULTIMATE_VSI_METHOD_EC} from "../../constance/dataFiles";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -35,7 +37,7 @@ export default {
       "imagePath": require("../../assets/img/lesson/Ultimate_Learn_Shear_EC/images/3.1.PNG"),
       "buttons": [
         {
-          "lessonpageId":"VSI_Method",
+          "lessonpageId":ULTIMATE_VSI_METHOD_EC,
           "name": "Guided Example",
           "imagePath": [],
           "title": "Guided Example"

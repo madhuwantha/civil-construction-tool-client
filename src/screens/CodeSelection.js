@@ -11,6 +11,7 @@ import {CALCULATION} from "../constance/method";
 
 function CodeSelect(props){
   const method = useSelector(state => state.method.currentMethod)
+  let currentLimitState  = useSelector(state => state.limitState.currentLimitState)
   const dispatch = useDispatch();
   return(
     <Row className="justify-content-center">

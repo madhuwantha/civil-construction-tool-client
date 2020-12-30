@@ -7,3 +7,7 @@ export const CALCULATION_PAGE = "/calculation"
 export const LIST_SCREEN_PAGE = "/list"
 export const COMPARE_PAGE = "/compare"
 export const CODE_SELECTION = "/select-code"
+
+
+export const CALCULATION_SERVICEABILITY_CW_BSI = "/serviceability-crack-width-bsi-calculation"
+
