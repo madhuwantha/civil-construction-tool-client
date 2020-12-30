@@ -1,59 +1,63 @@
-import React, {Component} from "react";
+import React, {useState,useEffect} from "react";
 import LessonImage from "../components/LessonImage";
 import {Row} from "reactstrap";
-
 import * as lesson from '../data/lesson/lesson'
+import { useSelector } from 'react-redux';
 
-const images = [
-  // {
-  // "title": "Lesson Title1",
-  // "imagePath": "https://source.unsplash.com/user/erondu/700x400",
-  // "buttons": [
-  //   {"name":"Button1", "url":"","title":"Button1 Title","lessonPageId": "csdcsd"},
-  //   {"name":"Button2", "url":"https://source.unsplash.com/user/erondu/700x400", "title":"Button2 Title", "lessonPageId": ""},
-  //   {"name":"Button3", "url":"https://source.unsplash.com/user/erondu/700x400", "title":"Button3 Title", "lessonPageId":""},
-  //   {"name":"Button4", "url":"https://source.unsplash.com/user/erondu/700x400", "title":"Button4 Title", "lessonPageId": ""}
-  //   ]
-  // },
-  // {
-  //   "title": "Lesson Title2",
-  //   "imagePath": "https://source.unsplash.com/user/erondu/700x400",
-  //  }
-]
 
-class LessonsScreen extends Component {
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      data : [],
-      path: props.location.state["data"]
+const  LessonsScreen = (props) => {
+  let [data,setData] = useState([]);
+
+  /**
+   * The  variable name for getting correct
+   * JSON object for a lesson from the "../data/lesson/lesson"
+   *
+   * All the variable names are defined in the "src/constance/dataFiles.js"
+   */
+  const path = useSelector(state => state.lessonPage.currentLesson)
+
+  useEffect(() => {
+    console.log(data);
+  },[data])
+
+  useEffect( ()=> {
+    console.log(path);
+    if (path !== null && path !== ""){
+      setData([]);
+
+      /**
+       * Getting the correct JSON object for a lesson
+       */
+
+      let currentLesson = lesson[path];
+      if (currentLesson){
+        currentLesson
+          .then(async d => {
+            // console.log(d.default.images);
+            await setData([...d.default.images]);
+          }).catch((e) => {
+          console.log(e);
+        })
+      }
     }
+  },[path])
 
-    lesson[this.state.path]
-      .then(d => {
-        this.setState(
-          {
-            data : d.default.images
-          }
-        )
-      }).catch((e) => {
-        console.log(e);
-    })
+  return(
+    <Row className="container-fluid">
+      {data !== null
+        ?data.map((image,idx)=>{
+        return(
+          <LessonImage {...props} key={idx} img={image}/>
+        );
+      })
+        :<div>Loading</div>
+      }
+    </Row>
+  );
+};
 
-  }
-
-  render() {
-    return (
-      <Row className="container-fluid">
-        {this.state.data.map((image,idx)=>{
-          return(
-            <LessonImage {...this.props} key={idx} img={image}/>
-          );
-        })}
-      </Row>
-    );
-  }
-}
 
 export default LessonsScreen;
+
+

@@ -36,7 +36,7 @@ class DefaultHeader extends Component {
           full={{ src: logo, width: 30, height: 30, alt: "FOE UOR" }}
           minimized={{ src: logo, width: 30, height: 30, alt: "FOE UOR" }}
         />
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
+        {/*<AppSidebarToggler className="d-md-down-none" display="lg" />*/}
 
         <Nav className="d-md-down-none" navbar>
           {/* <NavItem className="px-3">

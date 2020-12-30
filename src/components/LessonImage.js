@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import Button from "reactstrap/es/Button";
 import LessonPopUp from "./LessonPopUp";
-import {LESSON_PAGE} from "../urls";
+import {connect} from "react-redux";
+import {setCurrentLesson} from "../store/action/lessonPage";
+import {setCurrentMethod} from "../store/action/method";
+import {setCurrentCategory} from "../store/action/category";
 
 class LessonImage extends Component {
 
@@ -21,23 +24,22 @@ class LessonImage extends Component {
   }
 
   render() {
-
     const { img } = this.props;
-    // const image = require(img.imagePath);
     const imgPre = img
       ? (
-        <img
-          className="lesson-image-card"
-          width="100%"
-          height="auto"
-          src={img.imagePath}
-          alt="Lesson"
-          style={{border: this.props.img.buttons !== [] ? 'border' : '1px solid black' }}
-        />
+        img.imagePath !==""?
+          (
+            <img
+              className="lesson-image-card"
+              width="100%"
+              height="auto"
+              src={img.imagePath}
+              alt="Lesson"
+              style={{border: this.props.img.buttons !== [] ? 'border' : '1px solid black' }}
+            />
+          ):""
       )
       : (<p>loading</p>);
-
-
 
     if (this.props.img.title){
       this.title_dev = <div className="lesson-title">{this.props.img.title}</div>
@@ -46,14 +48,20 @@ class LessonImage extends Component {
       this.title_dev = "";
     }
     if (this.props.img.buttons){
-      this.button_dev = <div>
+      this.button_dev = <div className="row lesson-button-row">
         {this.props.img.buttons.map((button,idx) => {
           return(
-            <div>
+            <div className="col"  key={idx}>
               <Button
+                className="btn btn-default lesson-button"
                 onClick={
-                  button.lessonPageId !== ""
-                    ? () => this.props.history.push(LESSON_PAGE)
+                  button.lessonpageId !== "" && button.lessonpageId !== null && button.lessonpageId !== undefined
+                    ? () => {
+                    // console.log(button);
+                      this.props.setCurrentLesson(button.lessonpageId)
+                      // this.props.history.pop();
+                      // this.props.history.push(LESSON_PAGE)
+                    }
                     : () =>  this.toggle()
                 }
                 // onClick={this.toggle}
@@ -61,13 +69,13 @@ class LessonImage extends Component {
               <LessonPopUp
                 isOpen={this.state.modal}
                 toggle={this.toggle}
-                // onClick={this.toggle}
-                onClick={
-                  button.lessonPageId != ""
-                  ? () => this.props.history.push(LESSON_PAGE)
-                  :  this.toggle
-                }
-                image={button.url}
+                onClick={this.toggle}
+                // onClick={
+                //   button.lessonPageId !== ""
+                //   ? () => this.props.history.push(LESSON_PAGE)
+                //   :  this.toggle
+                // }
+                image={button.imagePath}
                 title={button.title}
               />
             </div>
@@ -83,15 +91,6 @@ class LessonImage extends Component {
         {this.title_dev}
         <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
           {imgPre}
-          {/*<img*/}
-          {/*  className="lesson-image-card"*/}
-          {/*  width="100%"*/}
-          {/*  height="auto"*/}
-          {/*  src={require(`${img.imagePath}`)}*/}
-          {/*  alt="Lesson"*/}
-          {/*  style={{border: this.props.img.buttons !== [] ? 'border' : '1px solid black' }}*/}
-          {/*/>*/}
-          <br/>
           {this.button_dev}
         </div>
       </div>
@@ -99,4 +98,10 @@ class LessonImage extends Component {
   }
 }
 
-export default LessonImage;
+// export default LessonImage;
+
+const mapStateToProps = (state) => {
+  return {...state};
+};
+
+export default connect(mapStateToProps, { setCurrentLesson,setCurrentMethod,setCurrentCategory })(LessonImage);

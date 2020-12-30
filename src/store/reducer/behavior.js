@@ -4,7 +4,7 @@ const initialState = {
   isLoading: false,
   messages: [],
   isError: false,
-  errorMsg: ""
+  errorMsg: "",
 };
 
 export default (state = initialState, action) => {

@@ -1,0 +1,2 @@
+export const ULTIMATE = "ULTIMATE";
+export const SERVICEABILITY = "SERVICEABILITY";
