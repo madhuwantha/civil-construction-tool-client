@@ -13,7 +13,6 @@ import {removeCalculation, setCurrentCalculation} from "../store/action/calculat
 function CodeSelect(props){
   const method = useSelector(state => state.method.currentMethod)
   const [redirect, redirectUrl] = useSelector(state => [state.calculationPage.redirect, state.calculationPage.redirectUrl])
-  let currentLimitState  = useSelector(state => state.limitState.currentLimitState)
   const dispatch = useDispatch();
 
 
