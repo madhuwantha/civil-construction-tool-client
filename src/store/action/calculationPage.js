@@ -6,11 +6,8 @@ export const SET_CURRENT_CALCULATION = "SET_CURRENT_CALCULATION";
 export const ADD_CALCULATION = "ADD_CALCULATION";
 export const REMOVE_CALCULATION = "REMOVE_CALCULATION";
 
-// TODO : add redirect (url)
-// TODO :remove redirect
-
 export const setCurrentCalculation = (calculationPage) => {
-  if (calculationPage !== undefined) {
+  if (calculationPage === undefined) {
     let limitState = store.getState().limitState.currentLimitState
     let category = store.getState().category.currentCategory
     let method = store.getState().method.currentMethod
@@ -20,15 +17,15 @@ export const setCurrentCalculation = (calculationPage) => {
       try {
         dispatch(isLoading(true));
         let calculation_ = []
-        calculation_ = calculation.filter(cal =>
+        calculation_ = await calculation.filter(cal =>
           cal.limitState === limitState &&
           cal.category === category &&
           cal.method === method &&
           cal.code === code
         )
         dispatch(isLoading(false));
-        // dispatch(success("Calculation page Loaded successfully"))
         dispatch(addCalculation(calculation_[0].calUrl))
+        dispatch(success("Calculation page Loaded successfully"))
         dispatch({
           type: SET_CURRENT_CALCULATION,
           data: calculation_[0].calUrl,
@@ -40,7 +37,9 @@ export const setCurrentCalculation = (calculationPage) => {
     }
 
   } else {
-    return {}
+    return {
+      type:"set"
+    }
   }
 
 }
