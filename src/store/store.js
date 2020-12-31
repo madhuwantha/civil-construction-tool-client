@@ -10,7 +10,6 @@ import methodReducer from "./reducer/method";
 import codeReducer from "./reducer/code";
 import categoryReducer from "./reducer/category";
 import limitStateReducer from "./reducer/designLimitState";
-import calculationPageReducer from "./reducer/calculationPage";
 
 const rootReducer = combineReducers({
   department: departmentReducer,
@@ -20,8 +19,7 @@ const rootReducer = combineReducers({
   method: methodReducer,
   code: codeReducer,
   category: categoryReducer,
-  limitState:limitStateReducer,
-  calculationPage:calculationPageReducer
+  limitState:limitStateReducer
 
 });
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

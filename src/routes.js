@@ -5,7 +5,7 @@ import {
   LIST_SCREEN_PAGE,
   SERVICEABILITY_CONTENT_URL,
   MAIN_SELECTION_THREE,
-  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL, CODE_SELECTION, CALCULATION_SERVICEABILITY_CW_BSI
+  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL, CODE_SELECTION
 } from "./urls";
 
 
@@ -17,7 +17,6 @@ import CalculationScreen from "./screens/CalculationScreen";
 import ListScreen from "./screens/ListScreen";
 import CompareScreen from "./screens/CompareScreen";
 import CodeSelect from "./screens/CodeSelection";
-import ServiceabilityCWBSI from "./screens/calculation/ServiceabilityCWBSI";
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
 const Cards = React.lazy(() => import("./views/Base/Cards"));
@@ -80,7 +79,6 @@ const routes = [
   {path: LIST_SCREEN_PAGE, name: "List of lesson", component: ListScreen},
   {path: COMPARE_PAGE, name: "Compare page", component: CompareScreen},
   {path: CODE_SELECTION, name: "Compare page", component: CodeSelect},
-  {path: CALCULATION_SERVICEABILITY_CW_BSI, name: "Compare page", component: ServiceabilityCWBSI},
 
   {path: "/", exact: true, name: "Home"},
   {path: "/dashboard", name: "Dashboard", component: CustomDashboard},
