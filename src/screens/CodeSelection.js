@@ -22,7 +22,7 @@ function CodeSelect(props){
       dispatch(removeCalculation())
     }
     console.log(redirect+"redirect")
-  },[redirect]);
+  },[redirect,dispatch,props.history]);
 
 
   return(
