@@ -27,7 +27,8 @@ export const setCurrentCalculation = (calculationPage) => {
           cal.code === code
         )
         dispatch(isLoading(false));
-        dispatch(success("Calculation page Loaded successfully"))
+        // dispatch(success("Calculation page Loaded successfully"))
+        dispatch(addCalculation(calculation_[0].calUrl))
         dispatch({
           type: SET_CURRENT_CALCULATION,
           data: calculation_[0].calUrl,
@@ -39,6 +40,7 @@ export const setCurrentCalculation = (calculationPage) => {
     }
 
   } else {
+    return {}
   }
 
 }
