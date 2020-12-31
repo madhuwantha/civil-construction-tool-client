@@ -63,7 +63,7 @@ class Base extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state);
+  console.log(state);
   return { ...state };
 };
 
