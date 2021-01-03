@@ -4,10 +4,11 @@ import {useForm} from "react-hook-form";
 const ServiceabilityCWBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
-  const onSubmit = data => {
+  const [answer, setAnswer] = useState(0);
+  const onSubmit = async data  => {
     console.log(data);
-    let ans = calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
-    console.log(ans);
+    let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
+    setAnswer(ans)
     console.log(Ec + "Ec," + Acr + "Acr," + alphaAs + "alphaAs," + x + "x," + Fs + "Fs," + ephsOne + "ephsOne," + d + "d," + ephsM + "ephsM")
     setIsSubmit(true)
   }
@@ -158,7 +159,7 @@ const ServiceabilityCWBSI = (props) => {
             {errors.corner && <span>This field is required</span>}
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10"
-                    id="strength-concrete">Corner to the reinforcement (mm)</span>
+                    id="strength-concrete">Cover to the reinforcement (mm)</span>
               <div className="input-group-append col-md-2">
                 <input name="corner" type="text" className="form-control" aria-describedby="corner"
                        ref={register({required: true})}/>
@@ -196,7 +197,7 @@ const ServiceabilityCWBSI = (props) => {
               <div className="input-group mb-3">
                 <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
                 <div className="input-group-append col-md-2">
-                  <input name="" value="100" type="text" className="form-control" aria-describedby="strength-concrete"
+                  <input name="" value={answer} type="text" className="form-control" aria-describedby="strength-concrete"
                          disabled={true}/>
                 </div>
               </div>
