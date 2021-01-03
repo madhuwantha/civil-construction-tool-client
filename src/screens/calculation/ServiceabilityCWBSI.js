@@ -6,7 +6,7 @@ const ServiceabilityCWBSI = (props) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const onSubmit = data => {
     console.log(data);
-    let ans = calcWMax(parseFloat(data["corner"]), 20, 70, parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), 50, parseFloat(data["phi"]))
+    let ans = calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
     console.log(ans);
     console.log(Ec + "Ec," + Acr + "Acr," + alphaAs + "alphaAs," + x + "x," + Fs + "Fs," + ephsOne + "ephsOne," + d + "d," + ephsM + "ephsM")
     setIsSubmit(true)
@@ -21,8 +21,8 @@ const ServiceabilityCWBSI = (props) => {
   let ephsOne = 0;
   let d = 0;
   let ephsM = 0;
-  const calcAcr = (corner, radius, height) => {
-    Acr = Math.sqrt(Math.pow(corner + radius, 2) + Math.pow(height, 2)) - radius;
+  const calcAcr = (corner, radius) => {
+    Acr = Math.sqrt(2) * (corner + radius) - radius;
     console.log(Acr)
   }
   const calcD = (h, corner, phi) => {
@@ -61,8 +61,8 @@ const ServiceabilityCWBSI = (props) => {
   }
 
   // step 5
-  const calcWMax = (corner, radius, height, Es, As, h, b, M, cMin, phi) => {
-    calcAcr(corner, radius, height)
+  const calcWMax = (corner, Es, As, h, b, M, cMin, phi) => {
+    calcAcr(corner, phi / 2)
     calcD(h, corner, phi)
     calcAlphaAs(Es, As)
     calcX(h, corner, b)
