@@ -185,7 +185,7 @@ const ServiceabilityCWBSI = (props) => {
         <div className="col-12 lesson-image-container">
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             <div className="col">
-              <input name="" className="btn btn-primary lesson-button" type="submit"/>
+              <input name="" value="Calculate" className="btn btn-primary lesson-button" type="submit"/>
             </div>
           </div>
         </div>
