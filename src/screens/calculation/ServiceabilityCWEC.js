@@ -36,21 +36,17 @@ const ServiceabilityCWEC = (props) => {
   const calcEcEff = (fck) => {
     let Ecm = parseFloat(tableValue[fck.toString()])
     EcEff = Ecm / (1 + phiInf)
-    console.log(EcEff)
   }
 
   const calcAlphaE = (Es) => {
     alphaE = Es / EcEff
-    console.log(alphaE)
   }
 
   const calcD = (h, c, phi, nBar) => {
     if (nBar < 3 || nBar === 3) {
       d = h - c - phi / 2
-      console.log(d)
     } else {
       d = h - (3 * c) / 2 - phi
-      console.log(d)
     }
   }
 
@@ -61,28 +57,23 @@ const ServiceabilityCWEC = (props) => {
     let xMin = (-alphaE * As - sqr) / b
     if (xPlus > 0 || xPlus === 0) {
       x = xPlus
-      console.log(x)
     } else if (xMin > 0 || xMin === 0) {
       x = xMin
-      console.log(x)
     } else x = 0;
   }
 
   // step 2
   const calcZ = () => {
     z = d - x / 3
-    console.log(z)
   }
 
   const calcSigma = (m, As) => {
     sigma = m * Math.pow(10, 2) / (z * As)
-    console.log(sigma)
   }
 
   // step 3
   const calcEphSM = (Es) => {
     ephSM = sigma / Es * Math.pow(10, 3)
-    console.log(ephSM)
   }
 
   const calcHCEff = (h) => {
@@ -90,23 +81,19 @@ const ServiceabilityCWEC = (props) => {
     let cond2 = (h - x) / 3
     let cond3 = h / 2
     hCEff = Math.min(cond1, cond2, cond3)
-    console.log(hCEff)
   }
 
   const calcACEff = (b) => {
     ACEff = b * hCEff
-    console.log(ACEff)
   }
 
   const calcRowPEff = (As) => {
     rowPEff = As / ACEff
-    console.log(rowPEff)
   }
 
   // step 4
   const calcSRMax = (phi, c) => {
     sRMax = (k3 * c) + (k1 * k2 * k4 * phi) / rowPEff
-    console.log(sRMax)
   }
 
   // step 5
