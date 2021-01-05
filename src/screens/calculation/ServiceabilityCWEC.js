@@ -6,9 +6,7 @@ const ServiceabilityCWEC = (props) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const onSubmit = async data => {
-    console.log(data);
-    let ans = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]), 930, 40, parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]));
-    console.log(ans)
+    let ans = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]), parseFloat(data["bar1"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["nBar1"]), parseFloat(data["c"]));
     setAnswer(ans)
     setIsSubmit(true)
   }
@@ -21,11 +19,11 @@ const ServiceabilityCWEC = (props) => {
   const k2 = 0.5
   const k3 = 3.4
   const k4 = 0.425
-  const phiInf = 2.8
+  const phiInf = 2.2
 
   let EcEff = 0
   let alphaE = 0
-  let cover = 0
+  let d = 0
   let x = 0
   let z = 0
   let sigma = 0
@@ -34,9 +32,8 @@ const ServiceabilityCWEC = (props) => {
   let ACEff = 0
   let rowPEff = 0
   let sRMax = 0
-  let wk = 0
 
-  const calcEcEff = (fck, phiInf) => {
+  const calcEcEff = (fck) => {
     let Ecm = parseFloat(tableValue[fck.toString()])
     EcEff = Ecm / (1 + phiInf)
   }
@@ -45,12 +42,16 @@ const ServiceabilityCWEC = (props) => {
     alphaE = Es / EcEff
   }
 
-  const calcCover = (h, d, phi) => {
-    cover = (h - d) - phi / 2
+  const calcD = (h, c, phi, nBar) => {
+    if (nBar < 3 || nBar === 3) {
+      d = h - c - phi / 2
+    } else {
+      d = h - (3 * c) / 2 - phi
+    }
   }
 
   // step 1
-  const calcX = (As, b, d) => {
+  const calcX = (As, b) => {
     let sqr = Math.sqrt(Math.pow(alphaE, 2) + (2 * b * alphaE * As * d))
     let xPlus = (-alphaE * As + sqr) / b
     let xMin = (-alphaE * As - sqr) / b
@@ -62,12 +63,12 @@ const ServiceabilityCWEC = (props) => {
   }
 
   // step 2
-  const calcZ = (d, x) => {
+  const calcZ = () => {
     z = d - x / 3
   }
 
   const calcSigma = (m, As) => {
-    sigma = m / (z * As)
+    sigma = m * Math.pow(10, 2) / (z * As)
   }
 
   // step 3
@@ -75,7 +76,7 @@ const ServiceabilityCWEC = (props) => {
     ephSM = sigma / Es * Math.pow(10, 3)
   }
 
-  const calcHCEff = (h, d) => {
+  const calcHCEff = (h) => {
     let cond1 = 2.5 * (h - d)
     let cond2 = (h - x) / 3
     let cond3 = h / 2
@@ -91,25 +92,25 @@ const ServiceabilityCWEC = (props) => {
   }
 
   // step 4
-  const calcSRMax = (phi) => {
-    sRMax = (k3 * cover) + (k1 * k2 * k4 * phi) / rowPEff
+  const calcSRMax = (phi, c) => {
+    sRMax = (k3 * c) + (k1 * k2 * k4 * phi) / rowPEff
   }
 
   // step 5
-  const calcWk = (fck, Es, h, d, phi, As, b, m) => {
+  const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
     calcEcEff(fck)
     calcAlphaE(Es)
-    calcCover(h, d, phi)
-    calcX(As, b, d)
-    calcZ(d)
+    calcD(h, c, phi, nBar)
+    calcX(As, b)
+    calcZ()
     calcSigma(m, As)
     calcEphSM(Es)
-    calcHCEff(h, d)
+    calcHCEff(h)
     calcACEff(b)
     calcRowPEff(As)
-    calcSRMax(phi)
+    calcSRMax(phi, c)
 
-    return (sRMax * ephSM);
+    return (sRMax * ephSM * Math.pow(10, -3));
   }
 
   return (
@@ -203,12 +204,11 @@ const ServiceabilityCWEC = (props) => {
           <p>Details of the tension reinforcement bar (mm)</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             <div className="row">
-              {errors.bar1 && <span>This field is required</span>}
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">bar size-1 mm</span>
                 <div className="input-group-append col-md-5">
                   <input name="bar1" type="number" step="0.00001" className="form-control" aria-describedby="bar1"
-                         ref={register({required: true})}/>
+                         ref={register()}/>
                 </div>
               </div>
               {errors.nBar1 && <span>This field is required</span>}
@@ -216,26 +216,22 @@ const ServiceabilityCWEC = (props) => {
                 <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
                 <div className="input-group-append col-md-5">
                   <input name="nBar1" type="number" step="0.00001" className="form-control" aria-describedby="nBar1"
-                         ref={register({required: true})}/>
+                         ref={register()}/>
                 </div>
               </div>
             </div>
             {/*row*/}
             <div className="row">
-              {errors.bar2 && <span>This field is required</span>}
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">bar size-2 mm</span>
                 <div className="input-group-append col-md-5">
-                  <input name="bar2" type="number" step="0.00001" className="form-control" aria-describedby="bar2"
-                         ref={register({required: true})}/>
+                  <input name="bar2" type="number" step="0.00001" className="form-control" aria-describedby="bar2"/>
                 </div>
               </div>
-              {errors.nBar2 && <span>This field is required</span>}
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
                 <div className="input-group-append col-md-5">
-                  <input name="nBar2" type="number" step="0.00001" className="form-control" aria-describedby="nBar2"
-                         ref={register({required: true})}/>
+                  <input name="nBar2" type="number" step="0.00001" className="form-control" aria-describedby="nBar2"/>
                 </div>
               </div>
             </div>
