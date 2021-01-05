@@ -4,11 +4,8 @@ import {Row} from "reactstrap";
 import * as lesson from '../data/lesson/lesson'
 import { useSelector } from 'react-redux';
 
-
-
 const  LessonsScreen = (props) => {
   let [data,setData] = useState([]);
-
   /**
    * The  variable name for getting correct
    * JSON object for a lesson from the "../data/lesson/lesson"
@@ -17,12 +14,13 @@ const  LessonsScreen = (props) => {
    */
   const path = useSelector(state => state.lessonPage.currentLesson)
 
+
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   },[data])
 
   useEffect( ()=> {
-    console.log(path);
+    // console.log(path);
     if (path !== null && path !== ""){
       setData([]);
 

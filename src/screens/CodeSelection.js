@@ -12,6 +12,15 @@ import {CALCULATION} from "../constance/method";
 function CodeSelect(props){
   const method = useSelector(state => state.method.currentMethod)
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (redirect){
+      props.history.push(redirectUrl)
+      dispatch(removeCalculation())
+    }
+  },[redirect,dispatch,props.history]);
+
   return(
     <Row className="justify-content-center">
       <MainImageButton image={require('../assets/img/serviceability/code_selection/BS.jpeg')}
