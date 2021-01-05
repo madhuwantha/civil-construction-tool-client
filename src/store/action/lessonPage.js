@@ -1,10 +1,14 @@
+
+import React, {useState, useEffect} from "react";
 import {error, isLoading, success} from './behavior'
 import store from '../store';
 import {lessons} from '../../constance/dataFiles'
+import { useHistory } from 'react-router-dom'
 export const SET_CURRENT_LESSON  = "SET_CURRENT_LESSON";
 export const SET_CHANGE_FALSE  = "SET_CHANGE_FALSE";
 export const SET_CHANGE_TRUE  = "SET_CHANGE_TRUE";
 
+let locStorage = []
 
 export const changeToFalse = () => {
   return {
@@ -41,6 +45,8 @@ export const setCurrentLesson = (lesson) => {
           lesson.code === code
         )
         dispatch(isLoading(false));
+        locStorage.push(lesson_[0].lessonPage)
+        await localStorage.setItem('pages', JSON.stringify(locStorage));
         dispatch(success("Lesson is Loaded successfully"))
         dispatch({
           type: SET_CURRENT_LESSON,
@@ -52,6 +58,8 @@ export const setCurrentLesson = (lesson) => {
       }
     }
   }else {
+    locStorage.push(lesson)
+    localStorage.setItem('pages', JSON.stringify(locStorage));
     return(
       {
         type: SET_CURRENT_LESSON,

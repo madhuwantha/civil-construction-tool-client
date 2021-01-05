@@ -21,7 +21,6 @@ function CodeSelect(props){
       props.history.push(redirectUrl)
       dispatch(removeCalculation())
     }
-    console.log(redirect+"redirect")
   },[redirect,dispatch,props.history]);
 
 

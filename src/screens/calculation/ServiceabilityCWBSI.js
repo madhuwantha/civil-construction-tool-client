@@ -6,7 +6,7 @@ const ServiceabilityCWBSI = (props) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const onSubmit = async data  => {
-    console.log(data);
+    // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
     setAnswer(ans)
     console.log(Ec + "Ec," + Acr + "Acr," + alphaAs + "alphaAs," + x + "x," + Fs + "Fs," + ephsOne + "ephsOne," + d + "d," + ephsM + "ephsM")
@@ -75,7 +75,7 @@ const ServiceabilityCWBSI = (props) => {
 
   return (
     <div className="container col-8 card">
-      <p>CRACK Width Calculation to BS8110</p>
+      <p>Crack Width Calculation to BS8110</p>
       <form action="#" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-12 lesson-image-container">
           <p>At first we can consider about the Material Properties</p>

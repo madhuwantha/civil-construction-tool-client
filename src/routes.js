@@ -5,7 +5,12 @@ import {
   LIST_SCREEN_PAGE,
   SERVICEABILITY_CONTENT_URL,
   MAIN_SELECTION_THREE,
-  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL, CODE_SELECTION, CALCULATION_SERVICEABILITY_CW_BSI
+  ULTIMATE_URL,
+  COMPARE_PAGE,
+  SERVICEABILITY_CODE_APPROACHES_URL,
+  CODE_SELECTION,
+  CALCULATION_SERVICEABILITY_CW_BSI,
+  CALCULATION_SERVICEABILITY_CW_EC
 } from "./urls";
 
 
@@ -18,6 +23,7 @@ import ListScreen from "./screens/ListScreen";
 import CompareScreen from "./screens/CompareScreen";
 import CodeSelect from "./screens/CodeSelection";
 import ServiceabilityCWBSI from "./screens/calculation/ServiceabilityCWBSI";
+import ServiceabilityCWEC from "./screens/calculation/ServiceabilityCWEC";
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
 const Cards = React.lazy(() => import("./views/Base/Cards"));
@@ -79,8 +85,9 @@ const routes = [
   {path: CALCULATION_PAGE, name: "Calculation", component: CalculationScreen},
   {path: LIST_SCREEN_PAGE, name: "List of lesson", component: ListScreen},
   {path: COMPARE_PAGE, name: "Compare page", component: CompareScreen},
-  {path: CODE_SELECTION, name: "Compare page", component: CodeSelect},
-  {path: CALCULATION_SERVICEABILITY_CW_BSI, name: "Compare page", component: ServiceabilityCWBSI},
+  {path: CODE_SELECTION, name: "Code Selection", component: CodeSelect},
+  {path: CALCULATION_SERVICEABILITY_CW_BSI, name: "Crack Width Calculation-BSI", component: ServiceabilityCWBSI},
+  {path: CALCULATION_SERVICEABILITY_CW_EC, name: "Crack Width Calculation-EC", component: ServiceabilityCWEC},
 
   {path: "/", exact: true, name: "Home"},
   {path: "/dashboard", name: "Dashboard", component: CustomDashboard},
