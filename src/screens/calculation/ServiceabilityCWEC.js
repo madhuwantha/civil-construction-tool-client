@@ -21,6 +21,7 @@ const ServiceabilityCWEC = (props) => {
   const k4 = 0.425
   const phiInf = 2.2
 
+  let Ecm = 0
   let EcEff = 0
   let alphaE = 0
   let d = 0
@@ -33,8 +34,17 @@ const ServiceabilityCWEC = (props) => {
   let rowPEff = 0
   let sRMax = 0
 
-  const calcEcEff = (fck) => {
-    let Ecm = parseFloat(tableValue[fck.toString()])
+  const calcEcm = (fck) => {
+    Ecm = (7.6 * Math.pow(10, -10) * Math.pow(fck, 6)) -
+      (2.1 * Math.pow(10, -7) * Math.pow(fck, 5)) +
+      (2.1 * Math.pow(10, -5) * Math.pow(fck, 4)) -
+      (0.00097 * Math.pow(x, 3)) +
+      (0.018 * Math.pow(fck, 2)) +
+      (0.26 * fck) +
+      23
+  }
+
+  const calcEcEff = () => {
     EcEff = Ecm / (1 + phiInf)
   }
 
@@ -52,7 +62,7 @@ const ServiceabilityCWEC = (props) => {
 
   // step 1
   const calcX = (As, b) => {
-    let sqr = Math.sqrt(Math.pow(alphaE, 2) + (2 * b * alphaE * As * d))
+    let sqr = Math.sqrt(Math.pow(alphaE * As, 2) + (2 * b * alphaE * As * d))
     let xPlus = (-alphaE * As + sqr) / b
     let xMin = (-alphaE * As - sqr) / b
     if (xPlus > 0 || xPlus === 0) {
@@ -68,7 +78,7 @@ const ServiceabilityCWEC = (props) => {
   }
 
   const calcSigma = (m, As) => {
-    sigma = m * Math.pow(10, 2) / (z * As)
+    sigma = m * Math.pow(10, 6) / (z * As)
   }
 
   // step 3
@@ -98,7 +108,8 @@ const ServiceabilityCWEC = (props) => {
 
   // step 5
   const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
-    calcEcEff(fck)
+    calcEcm(fck)
+    calcEcEff()
     calcAlphaE(Es)
     calcD(h, c, phi, nBar)
     calcX(As, b)
@@ -211,7 +222,6 @@ const ServiceabilityCWEC = (props) => {
                          ref={register()}/>
                 </div>
               </div>
-              {errors.nBar1 && <span>This field is required</span>}
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
                 <div className="input-group-append col-md-5">

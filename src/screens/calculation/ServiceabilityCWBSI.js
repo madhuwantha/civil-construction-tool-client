@@ -84,7 +84,7 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="fcn" type="text" className="form-control" aria-describedby="fcn"
+                <input name="fcn" type="number" step="0.00001" className="form-control" aria-describedby="fcn"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -92,7 +92,7 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Tensile strength of reinforcement (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="fy" type="text" className="form-control" aria-describedby="fy"
+                <input name="fy" type="number" step="0.00001" className="form-control" aria-describedby="fy"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -100,7 +100,7 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="es" type="text" className="form-control" aria-describedby="es"
+                <input name="es" type="number" step="0.00001" className="form-control" aria-describedby="es"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -114,26 +114,64 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Tensile reinforcement area of your beam (mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="as" type="text" className="form-control" aria-describedby="as"
+                <input name="as" type="number" step="0.00001" className="form-control" aria-describedby="as"
                        ref={register({required: true})}/>
               </div>
             </div>
-            {errors.ast && <span>This field is required</span>}
-            <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Compression reinforcement area of your beam (mm<sup>2</sup>)</span>
-              <div className="input-group-append col-md-2">
-                <input name="ast" type="text" className="form-control" aria-describedby="ast"
-                       ref={register({required: true})}/>
+            {/*{errors.ast && <span>This field is required</span>}*/}
+            {/*<div className="input-group mb-3">*/}
+              {/*<span className="input-group-text col-md-10" id="strength-concrete">Compression reinforcement area of your beam (mm<sup>2</sup>)</span>*/}
+              {/*<div className="input-group-append col-md-2">*/}
+                {/*<input name="ast" type="number" step="0.00001" className="form-control" aria-describedby="ast"*/}
+                       {/*ref={register({required: true})}/>*/}
+              {/*</div>*/}
+            {/*</div>*/}
+            {/*{errors.phi && <span>This field is required</span>}*/}
+            {/*<div className="input-group mb-3">*/}
+              {/*<span className="input-group-text col-md-10" id="strength-concrete">Diameter of the tension reinforcement bar (mm)</span>*/}
+              {/*<div className="input-group-append col-md-2">*/}
+                {/*<input name="phi" type="number" step="0.00001" className="form-control" aria-describedby="phi"*/}
+                       {/*ref={register({required: true})}/>*/}
+              {/*</div>*/}
+            {/*</div>*/}
+          </div>
+        </div>
+
+        <div className="col-12 lesson-image-container">
+          <p>Details of the tension reinforcement bar (mm)</p>
+          <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
+            <div className="row">
+              <div className="input-group mb-3 col">
+                <span className="input-group-text col-md-7" id="strength-concrete">bar size-1 mm</span>
+                <div className="input-group-append col-md-5">
+                  <input name="phi" type="number" step="0.00001" className="form-control" aria-describedby="bar1"
+                         ref={register()}/>
+                </div>
+              </div>
+              <div className="input-group mb-3 col">
+                <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
+                <div className="input-group-append col-md-5">
+                  <input name="nBar1" type="number" step="0.00001" className="form-control" aria-describedby="nBar1"
+                         ref={register()}/>
+                </div>
               </div>
             </div>
-            {errors.phi && <span>This field is required</span>}
-            <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Diameter of the tension reinforcement bar (mm)</span>
-              <div className="input-group-append col-md-2">
-                <input name="phi" type="text" className="form-control" aria-describedby="phi"
-                       ref={register({required: true})}/>
+            {/*row*/}
+            <div className="row">
+              <div className="input-group mb-3 col">
+                <span className="input-group-text col-md-7" id="strength-concrete">bar size-2 mm</span>
+                <div className="input-group-append col-md-5">
+                  <input name="bar2" type="number" step="0.00001" className="form-control" aria-describedby="bar2"/>
+                </div>
+              </div>
+              <div className="input-group mb-3 col">
+                <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
+                <div className="input-group-append col-md-5">
+                  <input name="nBar2" type="number" step="0.00001" className="form-control" aria-describedby="nBar2"/>
+                </div>
               </div>
             </div>
+            {/*row*/}
           </div>
         </div>
 
@@ -144,7 +182,7 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Width of section (mm)</span>
               <div className="input-group-append col-md-2">
-                <input name="b" type="text" className="form-control" aria-describedby="b"
+                <input name="b" type="number" step="0.00001" className="form-control" aria-describedby="b"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -152,7 +190,7 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Depth of section (mm)</span>
               <div className="input-group-append col-md-2">
-                <input name="h" type="text" className="form-control" aria-describedby="h"
+                <input name="h" type="number" step="0.00001" className="form-control" aria-describedby="h"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -161,7 +199,7 @@ const ServiceabilityCWBSI = (props) => {
               <span className="input-group-text col-md-10"
                     id="strength-concrete">Cover to the reinforcement (mm)</span>
               <div className="input-group-append col-md-2">
-                <input name="corner" type="text" className="form-control" aria-describedby="corner"
+                <input name="corner" type="number" step="0.00001" className="form-control" aria-describedby="corner"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -175,7 +213,7 @@ const ServiceabilityCWBSI = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Moment at which crack width is stored (kNm)</span>
               <div className="input-group-append col-md-2">
-                <input name="m" type="text" className="form-control" aria-describedby="m"
+                <input name="m" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -197,7 +235,7 @@ const ServiceabilityCWBSI = (props) => {
               <div className="input-group mb-3">
                 <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
                 <div className="input-group-append col-md-2">
-                  <input name="" value={answer} type="text" className="form-control" aria-describedby="strength-concrete"
+                  <input name="" value={answer} type="number" step="0.00001" className="form-control" aria-describedby="strength-concrete"
                          disabled={true}/>
                 </div>
               </div>
