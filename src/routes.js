@@ -5,9 +5,9 @@ import {
   LIST_SCREEN_PAGE,
   SERVICEABILITY_CONTENT_URL,
   MAIN_SELECTION_THREE,
-   ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL, CODE_SELECTION,
+  ULTIMATE_URL, COMPARE_PAGE, SERVICEABILITY_CODE_APPROACHES_URL, CODE_SELECTION,
   CALCULATION_SERVICEABILITY_CW_BSI,
-  CALCULATION_SERVICEABILITY_CW_EC
+  CALCULATION_SERVICEABILITY_CW_EC, CALCULATION_SERVICEABILITY_DF_BSI
 } from "./urls";
 
 
@@ -22,6 +22,7 @@ import CodeSelect from "./screens/CodeSelection";
 
 import ServiceabilityCWBSI from "./screens/calculation/ServiceabilityCWBSI";
 import ServiceabilityCWEC from "./screens/calculation/ServiceabilityCWEC";
+import ServiceabilityDFBSI from "./screens/calculation/ServiceabilityDFBSI";
 
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
@@ -87,6 +88,7 @@ const routes = [
   {path: CODE_SELECTION, name: "Code Selection", component: CodeSelect},
   {path: CALCULATION_SERVICEABILITY_CW_BSI, name: "Crack Width Calculation-BSI", component: ServiceabilityCWBSI},
   {path: CALCULATION_SERVICEABILITY_CW_EC, name: "Crack Width Calculation-EC", component: ServiceabilityCWEC},
+  {path: CALCULATION_SERVICEABILITY_DF_BSI, name: "Deflection Calculation-BSI", component: ServiceabilityDFBSI},
   {path: CODE_SELECTION, name: "Compare page", component: CodeSelect},
 
 
