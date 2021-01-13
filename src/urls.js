@@ -12,4 +12,5 @@ export const CODE_SELECTION = "/select-code"
 export const CALCULATION_SERVICEABILITY_CW_BSI = "/serviceability-crack-width-bsi-calculation"
 export const CALCULATION_SERVICEABILITY_CW_EC = "/serviceability-crack-width-ec-calculation"
 export const CALCULATION_SERVICEABILITY_DF_BSI = "/serviceability-deflection-bsi-calculation"
+export const CALCULATION_SERVICEABILITY_DF_EC = "/serviceability-deflection-ec-calculation"
 

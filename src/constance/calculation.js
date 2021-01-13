@@ -1,7 +1,7 @@
 import {
   CALCULATION_SERVICEABILITY_CW_BSI,
   CALCULATION_SERVICEABILITY_CW_EC,
-  CALCULATION_SERVICEABILITY_DF_BSI
+  CALCULATION_SERVICEABILITY_DF_BSI, CALCULATION_SERVICEABILITY_DF_EC
 } from "../urls";
 import {SERVICEABILITY} from "./designLimitState";
 import {CALCULATION} from "./method";
@@ -31,6 +31,13 @@ export const calculation = [
     method: CALCULATION,
     code: BSI,
     calUrl : CALCULATION_SERVICEABILITY_DF_BSI
+  },
+  {
+    limitState: SERVICEABILITY,
+    category: DEFLECTION,
+    method: CALCULATION,
+    code: EC,
+    calUrl : CALCULATION_SERVICEABILITY_DF_EC
   }
 
 ];
