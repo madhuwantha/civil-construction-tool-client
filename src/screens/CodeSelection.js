@@ -1,4 +1,4 @@
-import  React from 'react';
+import  React, {useEffect} from 'react';
 import MainImageButton from "../components/MainImageButton";
 import {LESSON_PAGE,} from "../urls";
 import {Row} from "reactstrap";
@@ -7,10 +7,12 @@ import {setCurrentCode} from "../store/action/code";
 import {BSI, EC} from "../constance/code";
 import {setCurrentLesson} from "../store/action/lessonPage";
 import {CALCULATION} from "../constance/method";
+import {removeCalculation, setCurrentCalculation} from "../store/action/calculationPage";
 
 
 function CodeSelect(props){
   const method = useSelector(state => state.method.currentMethod)
+  const [redirect, redirectUrl] = useSelector(state => [state.calculationPage.redirect, state.calculationPage.redirectUrl])
   const dispatch = useDispatch();
 
 
@@ -27,7 +29,7 @@ function CodeSelect(props){
                        click={() =>{
                          dispatch(setCurrentCode(BSI));
                          if (method === CALCULATION){
-
+                           dispatch(setCurrentCalculation());
                          }else {
                            dispatch(setCurrentLesson());
                            props.history.push(LESSON_PAGE)
@@ -38,7 +40,7 @@ function CodeSelect(props){
                        click={() =>{
                          dispatch(setCurrentCode(EC));
                          if (method === CALCULATION){
-
+                           dispatch(setCurrentCalculation());
                          }else {
                            dispatch(setCurrentLesson());
                            props.history.push(LESSON_PAGE)

@@ -1,58 +1,58 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 
-//TODO Check the answer
-
-const ServiceabilityCWEC = (props) => {
+const ServiceabilityDFEC = (props) => {
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
-    let ans = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]), parseFloat(data["bar1"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["nBar1"]), parseFloat(data["c"]));
+    let ans = await calcDef(parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["M"]), parseFloat(data["l"]), parseFloat(data["nBar1"]))
     setAnswer(ans)
     setIsSubmit(true)
+    console.log(parseFloat(data["Es"])+'  '+parseFloat(data["As"])+'  '+parseFloat(data["b"])+'   '+parseFloat(data["h"])+'  '+ parseFloat(data["c"])+'   '+parseFloat(data["bar1"])+'   '+parseFloat(data["M"])+'  '+ parseFloat(data["l"])+'  '+parseFloat(data["nBar1"]))
+    // console.log(' EcEff' + EcEff + 'alphaAs' + alphaAs + 'Iuc' + Iuc + 'Icr' + Icr + 'x' + x + 'd' + d + 'gammaUC' + gammaUC + 'gammaCR' + gammaCR + 'mcr' + mcr + 'sy' + sy + 'gamma' + gamma)
   }
-  const tableValue = {
-    "12": "27", "16": "29", "20": "30", "25": "31", "30": "33", "35": "34", "40": "35", "45": "36", "50": "37",
-    "55": "38", "60": "39", "70": "41", "80": "42", "90": "44"
-  }
-
-  const k1 = 0.8
-  const k2 = 0.5
-  const k3 = 3.4
-  const k4 = 0.425
-  const phiInf = 2.2
-
-  // let Ecm = 0
-  let EcEff = 0
-  let alphaE = 0
-  let d = 0
-  let x = 0
-  let z = 0
-  let sigma = 0
-  let ephSM = 0
-  let hCEff = 0
-  let ACEff = 0
-  let rowPEff = 0
-  let sRMax = 0
 
   const calcEcm = (fck) => {
-    setEcm((7.6 * Math.pow(10, -10) * Math.pow(fck, 6)) -
-      (2.1 * Math.pow(10, -7) * Math.pow(fck, 5)) +
-      (2.1 * Math.pow(10, -5) * Math.pow(fck, 4)) -
-      (0.00097 * Math.pow(x, 3)) +
+    setEcm(
+      (7.6 * Math.pow(10, -10) * Math.pow(fck, 6)) -
+      (2.1 * Math.pow(10, -6) * Math.pow(fck, 4)) -
+      (0.00097 * Math.pow(fck, 3)) +
       (0.018 * Math.pow(fck, 2)) +
-      (0.26 * fck) +
-      23)
+      0.26 * fck +
+      23
+    )
   }
+
+  // fck, fy, Es, As, bar1, nBar1, b, h, c, l, M,
+  const beta = 0.5
+  const fctm = 2.6
+  const k = 0.104
+  const phi_inf = 2.8
+
+  let EcEff = 0
+  let alphaAs = 0
+  let Iuc = 0
+  let Icr = 0
+  let x = 0
+  let d = 0
+  let gammaUC = 0
+  let gammaCR = 0
+  let mcr = 0
+  let sy = 0
+  let gamma = 0
 
   const calcEcEff = () => {
-    EcEff = Ecm / (1 + phiInf)
+    EcEff = Ecm / (1 + phi_inf)
   }
 
-  const calcAlphaE = (Es) => {
-    alphaE = Es / EcEff
+  const calcAlphaAs = (Es, As) => {
+    alphaAs = (Es * As) / EcEff
+  }
+
+  const calcIuc = (b, h) => {
+    Iuc = (b * Math.pow(h, 3)) / 12
   }
 
   const calcD = (h, c, phi, nBar) => {
@@ -63,73 +63,62 @@ const ServiceabilityCWEC = (props) => {
     }
   }
 
-  // step 1
-  const calcX = (As, b) => {
-    let sqr = Math.sqrt(Math.pow(alphaE * As, 2) + (2 * b * alphaE * As * d))
-    let xPlus = (-alphaE * As + sqr) / b
-    let xMin = (-alphaE * As - sqr) / b
-    if (xPlus > 0 || xPlus === 0) {
-      x = xPlus
-    } else if (xMin > 0 || xMin === 0) {
-      x = xMin
-    } else x = 0;
+  //step 1
+
+  const calcGammaUC = (M) => {
+    gammaUC = M / (EcEff * Iuc)
   }
 
-  // step 2
-  const calcZ = () => {
-    z = d - x / 3
+  //step 2
+
+  const calcX = (b) => {
+    let sqr = Math.sqrt(Math.pow(alphaAs, 2) + 2 * b * alphaAs * d)
+    x = (-alphaAs + sqr) / b
   }
 
-  const calcSigma = (m, As) => {
-    sigma = m * Math.pow(10, 6) / (z * As)
+  const calcIcr = (b) => {
+    Icr = (b * Math.pow(x, 3)) / 3
   }
 
-  // step 3
-  const calcEphSM = (Es) => {
-    ephSM = sigma / Es * Math.pow(10, 3)
+  const calcGammaCR = (M) => {
+    gammaCR = M / (EcEff * Icr)
   }
 
-  const calcHCEff = (h) => {
-    let cond1 = 2.5 * (h - d)
-    let cond2 = (h - x) / 3
-    let cond3 = h / 2
-    hCEff = Math.min(cond1, cond2, cond3)
+  //step 3
+  const calcMcr = (b, h) => {
+    mcr = fctm * (b * Math.pow(h, 2) / 6)
   }
 
-  const calcACEff = (b) => {
-    ACEff = b * hCEff
+  const calcSy = (M) => {
+    sy = 1 - beta * Math.pow((mcr / M), 2)
   }
 
-  const calcRowPEff = (As) => {
-    rowPEff = As / ACEff
+  const calcGamma = () => {
+    gamma = (sy * gammaCR) + (1 - sy) * gammaUC
   }
 
-  // step 4
-  const calcSRMax = (phi, c) => {
-    sRMax = (k3 * c) + (k1 * k2 * k4 * phi) / rowPEff
-  }
-
-  // step 5
-  const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
+  //step 4
+  const calcDef = (Es, As, b, h, c, phi, M, l, nBar) => {
     calcEcEff()
-    calcAlphaE(Es)
+    calcAlphaAs(Es, As)
+    calcIuc(b, h)
     calcD(h, c, phi, nBar)
-    calcX(As, b)
-    calcZ()
-    calcSigma(m, As)
-    calcEphSM(Es)
-    calcHCEff(h)
-    calcACEff(b)
-    calcRowPEff(As)
-    calcSRMax(phi, c)
-
-    return (sRMax * ephSM * Math.pow(10, -3));
+    calcGammaUC(M)
+    calcX(b)
+    calcIcr(b)
+    calcGammaCR(M)
+    calcMcr(b, h)
+    calcSy(M)
+    calcGamma()
+    return k * Math.pow(l, 2) * gamma * Math.pow(10, 6)
   }
+
 
   return (
     <div className="container col-9 card">
-      <p>Crack Width Calculation to EURO CODE</p>
+      <p>Deflection Calculation to Euro Code</p>
       <form action="#" onSubmit={handleSubmit(onSubmit)}>
+
         <div className="col-12 lesson-image-container">
           <p>At first we can consider about the Material Properties</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
@@ -137,7 +126,7 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="fck" type="number" step="0.00001" className="form-control" aria-describedby="fck"
+                <input name="fck" type="number" step="0.0001" className="form-control" aria-describedby="fck"
                        ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
               </div>
             </div>
@@ -145,52 +134,16 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="ecm" value={Ecm} type="number" step="0.00001" className="form-control" aria-describedby="ecm" disabled={true}/>
+                <input name="ecm" value={Ecm} type="number" step="0.0001" className="form-control"
+                       aria-describedby="ecm" disabled={true}/>
               </div>
             </div>
-            {/*<table className="table">*/}
-            {/*  <tbody>*/}
-            {/*  <tr>*/}
-            {/*    <th>f<sub>ck</sub></th>*/}
-            {/*    <td>12</td>*/}
-            {/*    <td>16</td>*/}
-            {/*    <td>20</td>*/}
-            {/*    <td>25</td>*/}
-            {/*    <td>30</td>*/}
-            {/*    <td>35</td>*/}
-            {/*    <td>40</td>*/}
-            {/*    <td>45</td>*/}
-            {/*    <td>50</td>*/}
-            {/*    <td>55</td>*/}
-            {/*    <td>60</td>*/}
-            {/*    <td>70</td>*/}
-            {/*    <td>80</td>*/}
-            {/*    <td>90</td>*/}
-            {/*  </tr>*/}
-            {/*  <tr>*/}
-            {/*    <th>E<sub>cm</sub></th>*/}
-            {/*    <td>27</td>*/}
-            {/*    <td>29</td>*/}
-            {/*    <td>30</td>*/}
-            {/*    <td>31</td>*/}
-            {/*    <td>33</td>*/}
-            {/*    <td>34</td>*/}
-            {/*    <td>35</td>*/}
-            {/*    <td>36</td>*/}
-            {/*    <td>37</td>*/}
-            {/*    <td>38</td>*/}
-            {/*    <td>39</td>*/}
-            {/*    <td>41</td>*/}
-            {/*    <td>42</td>*/}
-            {/*    <td>44</td>*/}
-            {/*  </tr>*/}
-            {/*  </tbody>*/}
-            {/*</table>*/}
+
             {errors.fy && <span>This field is required</span>}
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Tensile strength of reinforcement (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="fy" type="number" step="0.00001" className="form-control" aria-describedby="fy"
+                <input name="fy" type="number" step="0.0001" className="form-control" aria-describedby="fy"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -198,7 +151,7 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="Es" type="number" step="0.00001" className="form-control" aria-describedby="Es"
+                <input name="Es" type="number" step="0.0001" className="form-control" aria-describedby="Es"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -212,7 +165,7 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Tensile reinforcement area of your beam (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="As" type="number" step="0.00001" className="form-control" aria-describedby="As"
+                <input name="As" type="number" step="0.0001" className="form-control" aria-describedby="As"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -226,14 +179,14 @@ const ServiceabilityCWEC = (props) => {
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">bar size-1 mm</span>
                 <div className="input-group-append col-md-5">
-                  <input name="bar1" type="number" step="0.00001" className="form-control" aria-describedby="bar1"
+                  <input name="bar1" type="number" step="0.0001" className="form-control" aria-describedby="bar1"
                          ref={register()}/>
                 </div>
               </div>
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
                 <div className="input-group-append col-md-5">
-                  <input name="nBar1" type="number" step="0.00001" className="form-control" aria-describedby="nBar1"
+                  <input name="nBar1" type="number" step="0.0001" className="form-control" aria-describedby="nBar1"
                          ref={register()}/>
                 </div>
               </div>
@@ -243,13 +196,13 @@ const ServiceabilityCWEC = (props) => {
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">bar size-2 mm</span>
                 <div className="input-group-append col-md-5">
-                  <input name="bar2" type="number" step="0.00001" className="form-control" aria-describedby="bar2"/>
+                  <input name="bar2" type="number" step="0.0001" className="form-control" aria-describedby="bar2"/>
                 </div>
               </div>
               <div className="input-group mb-3 col">
                 <span className="input-group-text col-md-7" id="strength-concrete">No. of bars</span>
                 <div className="input-group-append col-md-5">
-                  <input name="nBar2" type="number" step="0.00001" className="form-control" aria-describedby="nBar2"/>
+                  <input name="nBar2" type="number" step="0.0001" className="form-control" aria-describedby="nBar2"/>
                 </div>
               </div>
             </div>
@@ -264,7 +217,7 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Width of selection (mm)</span>
               <div className="input-group-append col-md-2">
-                <input name="b" type="number" step="0.00001" className="form-control" aria-describedby="b"
+                <input name="b" type="number" step="0.0001" className="form-control" aria-describedby="b"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -272,7 +225,7 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Depth of selection (mm)</span>
               <div className="input-group-append col-md-2">
-                <input name="h" type="number" step="0.00001" className="form-control" aria-describedby="h"
+                <input name="h" type="number" step="0.0001" className="form-control" aria-describedby="h"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -280,7 +233,15 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Cover of the reinforcement (mm)</span>
               <div className="input-group-append col-md-2">
-                <input name="c" type="number" step="0.00001" className="form-control" aria-describedby="c"
+                <input name="c" type="number" step="0.0001" className="form-control" aria-describedby="c"
+                       ref={register({required: true})}/>
+              </div>
+            </div>
+            {errors.l && <span>This field is required</span>}
+            <div className="input-group mb-3">
+              <span className="input-group-text col-md-10" id="strength-concrete">Length of the beam (mm)</span>
+              <div className="input-group-append col-md-2">
+                <input name="l" type="number" step="0.0001" className="form-control" aria-describedby="l"
                        ref={register({required: true})}/>
               </div>
             </div>
@@ -292,14 +253,15 @@ const ServiceabilityCWEC = (props) => {
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.M && <span>This field is required</span>}
             <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Moment at which crack width is stored (kNm)</span>
+              <span className="input-group-text col-md-10" id="strength-concrete">Moment of the section (kNm)</span>
               <div className="input-group-append col-md-2">
-                <input name="M" type="number" step="0.00001" className="form-control" aria-describedby="M"
+                <input name="M" type="number" step="0.0001" className="form-control" aria-describedby="M"
                        ref={register({required: true})}/>
               </div>
             </div>
           </div>
         </div>
+
 
         <div className="col-12 lesson-image-container">
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
@@ -316,7 +278,7 @@ const ServiceabilityCWEC = (props) => {
               <div className="input-group mb-3">
                 <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
                 <div className="input-group-append col-md-2">
-                  <input name="" value={answer} type="number" step="0.00001" className="form-control"
+                  <input name="" value={answer} type="number" step="0.0001" className="form-control"
                          aria-describedby="strength-concrete"
                          disabled={true}/>
                 </div>
@@ -328,7 +290,7 @@ const ServiceabilityCWEC = (props) => {
       </form>
     </div>
   );
+
 }
 
-export default ServiceabilityCWEC;
-
+export default ServiceabilityDFEC
