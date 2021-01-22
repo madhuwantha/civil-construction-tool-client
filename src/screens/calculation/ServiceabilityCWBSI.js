@@ -5,11 +5,10 @@ const ServiceabilityCWBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
-  const onSubmit = async data  => {
+  const onSubmit = async data => {
     // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
     setAnswer(ans)
-    console.log(Ec + "Ec," + Acr + "Acr," + alphaAs + "alphaAs," + x + "x," + Fs + "Fs," + ephsOne + "ephsOne," + d + "d," + ephsM + "ephsM")
     setIsSubmit(true)
   }
 
@@ -70,6 +69,9 @@ const ServiceabilityCWBSI = (props) => {
     calcFs(M, h, corner, b, Es, As)
     calcEphsOne(h, corner, Es)
     calcEphM(b, h, Es, As)
+
+    console.log("Ec = " + Ec + "Acr = " + Acr + " alphaAs = " + alphaAs + " x = " + x + " Fs = " + Fs + " ephsOne = " + ephsOne + " d = " + d + " ephsM = " + ephsM)
+
     return (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - cMin) / (h - x)));
   }
 
@@ -120,19 +122,19 @@ const ServiceabilityCWBSI = (props) => {
             </div>
             {/*{errors.ast && <span>This field is required</span>}*/}
             {/*<div className="input-group mb-3">*/}
-              {/*<span className="input-group-text col-md-10" id="strength-concrete">Compression reinforcement area of your beam (mm<sup>2</sup>)</span>*/}
-              {/*<div className="input-group-append col-md-2">*/}
-                {/*<input name="ast" type="number" step="0.00001" className="form-control" aria-describedby="ast"*/}
-                       {/*ref={register({required: true})}/>*/}
-              {/*</div>*/}
+            {/*<span className="input-group-text col-md-10" id="strength-concrete">Compression reinforcement area of your beam (mm<sup>2</sup>)</span>*/}
+            {/*<div className="input-group-append col-md-2">*/}
+            {/*<input name="ast" type="number" step="0.00001" className="form-control" aria-describedby="ast"*/}
+            {/*ref={register({required: true})}/>*/}
+            {/*</div>*/}
             {/*</div>*/}
             {/*{errors.phi && <span>This field is required</span>}*/}
             {/*<div className="input-group mb-3">*/}
-              {/*<span className="input-group-text col-md-10" id="strength-concrete">Diameter of the tension reinforcement bar (mm)</span>*/}
-              {/*<div className="input-group-append col-md-2">*/}
-                {/*<input name="phi" type="number" step="0.00001" className="form-control" aria-describedby="phi"*/}
-                       {/*ref={register({required: true})}/>*/}
-              {/*</div>*/}
+            {/*<span className="input-group-text col-md-10" id="strength-concrete">Diameter of the tension reinforcement bar (mm)</span>*/}
+            {/*<div className="input-group-append col-md-2">*/}
+            {/*<input name="phi" type="number" step="0.00001" className="form-control" aria-describedby="phi"*/}
+            {/*ref={register({required: true})}/>*/}
+            {/*</div>*/}
             {/*</div>*/}
           </div>
         </div>
@@ -235,7 +237,8 @@ const ServiceabilityCWBSI = (props) => {
               <div className="input-group mb-3">
                 <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
                 <div className="input-group-append col-md-2">
-                  <input name="" value={answer} type="number" step="0.00001" className="form-control" aria-describedby="strength-concrete"
+                  <input name="" value={answer} type="number" step="0.00001" className="form-control"
+                         aria-describedby="strength-concrete"
                          disabled={true}/>
                 </div>
               </div>

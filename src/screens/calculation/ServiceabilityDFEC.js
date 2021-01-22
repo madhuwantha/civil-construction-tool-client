@@ -10,8 +10,7 @@ const ServiceabilityDFEC = (props) => {
     let ans = await calcDef(parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["M"]), parseFloat(data["l"]), parseFloat(data["nBar1"]))
     setAnswer(ans)
     setIsSubmit(true)
-    console.log(parseFloat(data["Es"])+'  '+parseFloat(data["As"])+'  '+parseFloat(data["b"])+'   '+parseFloat(data["h"])+'  '+ parseFloat(data["c"])+'   '+parseFloat(data["bar1"])+'   '+parseFloat(data["M"])+'  '+ parseFloat(data["l"])+'  '+parseFloat(data["nBar1"]))
-    // console.log(' EcEff' + EcEff + 'alphaAs' + alphaAs + 'Iuc' + Iuc + 'Icr' + Icr + 'x' + x + 'd' + d + 'gammaUC' + gammaUC + 'gammaCR' + gammaCR + 'mcr' + mcr + 'sy' + sy + 'gamma' + gamma)
+    console.log(parseFloat(data["Es"]) + '  ' + parseFloat(data["As"]) + '  ' + parseFloat(data["b"]) + '   ' + parseFloat(data["h"]) + '  ' + parseFloat(data["c"]) + '   ' + parseFloat(data["bar1"]) + '   ' + parseFloat(data["M"]) + '  ' + parseFloat(data["l"]) + '  ' + parseFloat(data["nBar1"]))
   }
 
   const calcEcm = (fck) => {
@@ -110,6 +109,7 @@ const ServiceabilityDFEC = (props) => {
     calcMcr(b, h)
     calcSy(M)
     calcGamma()
+    console.log('EcEff = ' + EcEff + ' alphaAs = ' + alphaAs + ' Iuc = ' + Iuc + ' d =' + d + ' gammaUC' + gammaUC + ' x = ' + x + ' Icr = ' + Icr + ' gammaCR =' + gammaCR + ' mcr =' + mcr + ' sy = ' + sy + ' gamma = ' + gamma)
     return k * Math.pow(l, 2) * gamma * Math.pow(10, 6)
   }
 

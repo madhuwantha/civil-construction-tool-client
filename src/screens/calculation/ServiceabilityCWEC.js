@@ -123,6 +123,8 @@ const ServiceabilityCWEC = (props) => {
     calcRowPEff(As)
     calcSRMax(phi, c)
 
+    console.log('EcEff = ' + EcEff + ' alphaE = ' + alphaE + ' d =' + d + ' x = ' + x + ' z = ' + z + ' sigma = ' + sigma + ' ephSM = ' + ephSM + ' hCEff = ' + hCEff + ' ACEff = ' + ACEff + ' rowPEff = ' + rowPEff + ' sRMax = ' + sRMax)
+
     return (sRMax * ephSM * Math.pow(10, -3));
   }
 
@@ -145,7 +147,8 @@ const ServiceabilityCWEC = (props) => {
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="ecm" value={Ecm} type="number" step="0.00001" className="form-control" aria-describedby="ecm" disabled={true}/>
+                <input name="ecm" value={Ecm} type="number" step="0.00001" className="form-control"
+                       aria-describedby="ecm" disabled={true}/>
               </div>
             </div>
             {/*<table className="table">*/}

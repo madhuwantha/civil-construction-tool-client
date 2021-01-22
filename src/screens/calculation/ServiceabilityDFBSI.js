@@ -7,7 +7,7 @@ const ServiceabilityDFBSI = (props) => {
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
-    let ans = await calcA(parseFloat(data["h"]),parseFloat(data["c"]),parseFloat(data["bar1"]),parseFloat(data["nBar"]),parseFloat(data["Es"]),parseFloat(data["As"]),parseFloat(data["b"]),parseFloat(data["M"]),parseFloat(data["l"]))
+    let ans = await calcA(parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["nBar"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
     setAnswer(ans)
     setIsSubmit(true)
   }
@@ -81,6 +81,8 @@ const ServiceabilityDFBSI = (props) => {
     calcX(b)
     calcFs(M, As)
     calcGamma(Es)
+
+    console.log('d = ' + d + ' alphaEAs = ' + alphaEAs + ' I = ' + I + ' gammaB = ' + gammaB + ' x = ' + x + ' fs = ' + fs + ' gamma = ' + gamma)
 
     return k * Math.pow(l, 2) * gamma
   }
