@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import {calcEcmBSI, calcA} from "./CalculationsBSI";
 
 const ServiceabilityDFBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -12,82 +13,6 @@ const ServiceabilityDFBSI = (props) => {
     setIsSubmit(true)
   }
 
-  // fck, fy, Es, As, bar1, nBar1, b, h, c, l, M,
-
-  const k = 0.104
-
-  let alphaEAs = 0
-  let I = 0
-  let gammaB = 0
-  let x = 0
-  let d = 0
-  let gamma = 0
-  let fs = 0
-
-  const calcEcm = (fck) => {
-    setEcm(
-      (Math.pow(10, -8) * Math.pow(fck, 5)) -
-      (3.2 * Math.pow(10, -6) * Math.pow(fck, 4)) +
-      (0.00038 * Math.pow(fck, 3)) -
-      (0.022 * Math.pow(fck, 2)) +
-      (0.82 * fck) +
-      19
-    )
-  }
-
-  const calcD = (h, c, phi, nBar) => {
-    if (nBar < 3 || nBar === 3) {
-      d = h - c - phi / 2
-    } else {
-      d = h - (3 * c) / 2 - phi
-    }
-  }
-
-  const calcAlphaEAs = (Es, As) => {
-    console.log(Es + '--' + As)
-    alphaEAs = (Es * As) / Ecm
-    console.log(alphaEAs)
-  }
-
-  //step 2
-  const calcI = (b, h) => {
-    I = (b * Math.pow(h, 3)) / 12
-  }
-
-  const calcGammaB = (M) => {
-    gammaB = (M * Math.pow(10, 3)) / (Ecm * I)
-  }
-
-  //step 3
-  const calcX = (b) => {
-    let sqr = Math.sqrt(Math.pow(alphaEAs, 2) + 2 * b * alphaEAs * d)
-    x = (-alphaEAs + sqr) / b
-  }
-
-  //step 4
-  const calcFs = (M, As) => {
-    fs = (M * Math.pow(10, 6)) / ((d - (x / 3)) * As)
-  }
-
-  // step 5
-  const calcGamma = (Es) => {
-    gamma = fs / ((d - x) * Es * Math.pow(10, 3))
-  }
-
-  //step 6
-  const calcA = (h, c, bar, nBar, Es, As, b, M, l) => {
-    calcD(h, c, bar, nBar)
-    calcAlphaEAs(Es, As)
-    calcI(b, h)
-    calcGammaB(M)
-    calcX(b)
-    calcFs(M, As)
-    calcGamma(Es)
-
-    console.log('d = ' + d + ' alphaEAs = ' + alphaEAs + ' I = ' + I + ' gammaB = ' + gammaB + ' x = ' + x + ' fs = ' + fs + ' gamma = ' + gamma)
-
-    return k * Math.pow(l, 2) * gamma
-  }
 
   return (
     <div className="container col-9 card">
@@ -101,7 +26,7 @@ const ServiceabilityDFBSI = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="fck" type="number" step="0.0001" className="form-control" aria-describedby="fck"
-                       ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
+                       ref={register({required: true})} onChange={(e) => setEcm(calcEcmBSI(e.target.value))}/>
               </div>
             </div>
             <p>Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>

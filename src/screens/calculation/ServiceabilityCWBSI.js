@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import {calcEcmBSI, calcWMax} from "./CalculationsBSI";
 
 const ServiceabilityCWBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -11,81 +12,6 @@ const ServiceabilityCWBSI = (props) => {
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
     setAnswer(ans)
     setIsSubmit(true)
-  }
-
-  // Initializations
-  // const Ec = 31;
-  let Acr = 0;
-  let alphaAs = 0;
-  let x = 0;
-  let Fs = 0;
-  let ephsOne = 0;
-  let d = 0;
-  let ephsM = 0;
-
-  const calcEcm = (fck) => {
-    setEcm(
-      (Math.pow(10, -8) * Math.pow(fck, 5)) -
-      (3.2 * Math.pow(10, -6) * Math.pow(fck, 4)) +
-      (0.00038 * Math.pow(fck, 3)) -
-      (0.022 * Math.pow(fck, 2)) +
-      (0.82 * fck) +
-      19
-    )
-  }
-
-  const calcAcr = (corner, radius) => {
-    Acr = Math.sqrt(2) * (corner + radius) - radius;
-    console.log(Acr)
-  }
-  const calcD = (h, corner, phi) => {
-    d = h - corner - (phi / 2);
-  }
-
-  const calcAlphaAs = (Es, As) => {
-    alphaAs = (Es * As) / Ecm;
-  }
-
-  // step 1
-  const calcX = (h, corner, b) => {
-    let sqr = Math.sqrt(Math.pow(alphaAs, 2) + (2 * b * alphaAs * d))
-    let xPlus = (-alphaAs + sqr) / b
-    let xMin = (-alphaAs - sqr) / b
-    if (xPlus > 0 || xPlus === 0) {
-      x = xPlus
-    } else if (xMin > 0 || xMin === 0) {
-      x = xMin
-    } else x = 0;
-  }
-
-  // step 2
-  const calcFs = (M, h, corner, b, Es, As) => {
-    Fs = M * Math.pow(10, 6) / ((d - x / 3) * As);
-  }
-
-  // step 3
-  const calcEphsOne = (h, corner, Es) => {
-    ephsOne = ((h - x) * Fs) / ((d - x) * Es);
-  }
-
-  // step 4
-  const calcEphM = (b, h, Es, As) => {
-    ephsM = ephsOne - ((b * Math.pow((h - x), 2)) / (3 * Es * As * (d - x)));
-  }
-
-  // step 5
-  const calcWMax = (corner, Es, As, h, b, M, cMin, phi) => {
-    calcAcr(corner, phi / 2)
-    calcD(h, corner, phi)
-    calcAlphaAs(Es, As)
-    calcX(h, corner, b)
-    calcFs(M, h, corner, b, Es, As)
-    calcEphsOne(h, corner, Es)
-    calcEphM(b, h, Es, As)
-
-    console.log("Ecm = " + Ecm + "Acr = " + Acr + " alphaAs = " + alphaAs + " x = " + x + " Fs = " + Fs + " ephsOne = " + ephsOne + " d = " + d + " ephsM = " + ephsM)
-
-    return (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - cMin) / (h - x)));
   }
 
   return (
@@ -100,7 +26,7 @@ const ServiceabilityCWBSI = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="fcn" type="number" step="0.00001" className="form-control" aria-describedby="fcn"
-                       ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
+                       ref={register({required: true})} onChange={(e) => setEcm(calcEcmBSI(e.target.value))}/>
               </div>
             </div>
             <p> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
