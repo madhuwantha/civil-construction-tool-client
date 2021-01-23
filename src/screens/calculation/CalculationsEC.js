@@ -30,6 +30,11 @@ let mcr = 0
 let sy = 0
 let gamma = 0
 
+/**
+ * For both crack width & deflection
+ * @param fck
+ * @returns {number}
+ */
 export const calcEcmEC = (fck) => {
   EcmEC = 7.6 * Math.pow(10, -10) * Math.pow(fck, 6) -
     2.1 * Math.pow(10, -7) * Math.pow(fck, 5) +
@@ -42,22 +47,47 @@ export const calcEcmEC = (fck) => {
   return EcmEC;
 }
 
+/**
+ * For both crack width & deflection
+ * @param phiInf
+ */
 const calcEcEff = (phiInf) => {
   EcEff = EcmEC / (1 + phiInf)
 }
 
+/**
+ * For crack width
+ * @param Es
+ */
 const calcAlphaE = (Es) => {
   alphaE = Es / EcEff
 }
 
+/**
+ * For deflection
+ * @param Es
+ * @param As
+ */
 const calcAlphaAs = (Es, As) => {
   alphaAs = (Es * As) / EcEff
 }
 
+/**
+ * For deflection
+ * @param b
+ * @param h
+ */
 const calcIuc = (b, h) => {
   Iuc = (b * Math.pow(h, 3)) / 12
 }
 
+/**
+ * For both crack width & deflection
+ * @param h
+ * @param c
+ * @param phi
+ * @param nBar
+ */
 const calcD = (h, c, phi, nBar) => {
   if (nBar < 3 || nBar === 3) {
     d = h - c - phi / 2
@@ -66,10 +96,19 @@ const calcD = (h, c, phi, nBar) => {
   }
 }
 
+/**
+ * For deflection
+ * @param M
+ */
 const calcGammaUC = (M) => {
   gammaUC = M * Math.pow(10, 3) / (EcEff * Iuc)
 }
 
+/**
+ * For crack width
+ * @param As
+ * @param b
+ */
 const calcXCW = (As, b) => {
   let sqr = Math.sqrt(Math.pow(alphaE * As, 2) + (2 * b * alphaE * As * d))
   let xPlus = (-alphaE * As + sqr) / b
@@ -81,19 +120,35 @@ const calcXCW = (As, b) => {
   } else xCW = 0;
 }
 
+/**
+ * For deflection
+ * @param b
+ */
 const calcXDF = (b) => {
   let sqr = Math.sqrt(Math.pow(alphaAs, 2) + 2 * b * alphaAs * d)
   xDF = (-alphaAs + sqr) / b
 }
 
+/**
+ * For deflection
+ * @param b
+ */
 const calcIcr = (b) => {
   Icr = ((b * Math.pow(xDF, 3)) / 3) + alphaAs * Math.pow((d - xDF), 2)
 }
 
+/**
+ * For deflection
+ * @param M
+ */
 const calcGammaCR = (M) => {
   gammaCR = M * Math.pow(10, 3) / (EcEff * Icr)
 }
 
+/**
+ * For deflection
+ * @param fck
+ */
 const calcFctm = (fck) => {
   fctm = -1.3 * Math.pow(10, -10) * Math.pow(fck, 6) +
     4.1 * Math.pow(10, -8) * Math.pow(fck, 5) -
@@ -104,30 +159,57 @@ const calcFctm = (fck) => {
     0.034
 }
 
+/**
+ * For deflection
+ * @param b
+ * @param h
+ */
 const calcMcr = (b, h) => {
   mcr = fctm * (b * Math.pow(h, 2) / 6)
 }
 
+/**
+ * For deflection
+ * @param M
+ */
 const calcSy = (M) => {
   sy = 1 - (beta * Math.pow((mcr * Math.pow(10, -6) / M), 2))
 }
 
+/**
+ * For deflection
+ */
 const calcGamma = () => {
   gamma = (sy * gammaCR) + (1 - sy) * gammaUC
 }
 
+/**
+ * For crack width
+ */
 const calcZ = () => {
   z = d - xCW / 3
 }
-
+/**
+ * For crack width
+ * @param m
+ * @param As
+ */
 const calcSigma = (m, As) => {
   sigma = m * Math.pow(10, 6) / (z * As)
 }
 
+/**
+ * For crack width
+ * @param Es
+ */
 const calcEphSM = (Es) => {
   ephSM = sigma / (Es * 1000)
 }
 
+/**
+ * For crack width
+ * @param h
+ */
 const calcHCEff = (h) => {
   let cond1 = 2.5 * (h - d)
   let cond2 = (h - xCW) / 3
@@ -135,19 +217,44 @@ const calcHCEff = (h) => {
   hCEff = Math.min(cond1, cond2, cond3)
 }
 
+/**
+ * For crack width
+ * @param b
+ */
 const calcACEff = (b) => {
   ACEff = b * hCEff
 }
 
+/**
+ * For crack width
+ * @param As
+ */
 const calcRowPEff = (As) => {
   rowPEff = As / ACEff
 }
 
+/**
+ * For crack width
+ * @param phi
+ * @param c
+ */
 const calcSRMax = (phi, c) => {
   sRMax = (k3 * c) + (k1 * k2 * k4 * phi) / rowPEff
 }
 
-//CWEC
+/**
+ * Final answer of crack width
+ * @param fck
+ * @param Es
+ * @param h
+ * @param phi
+ * @param As
+ * @param b
+ * @param m
+ * @param nBar
+ * @param c
+ * @returns {number}
+ */
 export const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
   calcEcEff(phiInfCW)
   calcAlphaE(Es)
@@ -164,7 +271,20 @@ export const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
   return (sRMax * ephSM);
 }
 
-//DFEC
+/**
+ * Final answer of deflection
+ * @param fck
+ * @param Es
+ * @param As
+ * @param b
+ * @param h
+ * @param c
+ * @param phi
+ * @param M
+ * @param l
+ * @param nBar
+ * @returns {number}
+ */
 export const calcDef = (fck, Es, As, b, h, c, phi, M, l, nBar) => {
   calcEcEff(phiInfDF)
   calcAlphaAs(Es, As)
