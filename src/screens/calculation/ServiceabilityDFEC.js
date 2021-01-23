@@ -7,29 +7,28 @@ const ServiceabilityDFEC = (props) => {
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
-    let ans = await calcDef(parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["M"]), parseFloat(data["l"]), parseFloat(data["nBar1"]))
+    let ans = await calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["M"]), parseFloat(data["l"]), parseFloat(data["nBar1"]))
     setAnswer(ans)
     setIsSubmit(true)
     console.log(parseFloat(data["Es"]) + '  ' + parseFloat(data["As"]) + '  ' + parseFloat(data["b"]) + '   ' + parseFloat(data["h"]) + '  ' + parseFloat(data["c"]) + '   ' + parseFloat(data["bar1"]) + '   ' + parseFloat(data["M"]) + '  ' + parseFloat(data["l"]) + '  ' + parseFloat(data["nBar1"]))
   }
 
   const calcEcm = (fck) => {
-    setEcm(
-      (7.6 * Math.pow(10, -10) * Math.pow(fck, 6)) -
-      (2.1 * Math.pow(10, -6) * Math.pow(fck, 4)) -
-      (0.00097 * Math.pow(fck, 3)) +
-      (0.018 * Math.pow(fck, 2)) +
+    setEcm(7.6 * Math.pow(10, -10) * Math.pow(fck, 6) -
+      2.1 * Math.pow(10, -7) * Math.pow(fck, 5) +
+      2.1 * Math.pow(10, -5) * Math.pow(fck, 4) -
+      0.00097 * Math.pow(fck, 3) +
+      0.018 * Math.pow(fck, 2) +
       0.26 * fck +
-      23
-    )
+      23)
   }
 
   // fck, fy, Es, As, bar1, nBar1, b, h, c, l, M,
   const beta = 0.5
-  const fctm = 2.6
   const k = 0.104
   const phi_inf = 2.8
 
+  let fctm = 0
   let EcEff = 0
   let alphaAs = 0
   let Iuc = 0
@@ -65,7 +64,7 @@ const ServiceabilityDFEC = (props) => {
   //step 1
 
   const calcGammaUC = (M) => {
-    gammaUC = M / (EcEff * Iuc)
+    gammaUC = M * Math.pow(10, 3) / (EcEff * Iuc)
   }
 
   //step 2
@@ -76,20 +75,34 @@ const ServiceabilityDFEC = (props) => {
   }
 
   const calcIcr = (b) => {
-    Icr = (b * Math.pow(x, 3)) / 3
+    Icr = ((b * Math.pow(x, 3)) / 3) + alphaAs * Math.pow((d - x), 2)
   }
 
   const calcGammaCR = (M) => {
-    gammaCR = M / (EcEff * Icr)
+    gammaCR = M * Math.pow(10, 3) / (EcEff * Icr)
+  }
+
+  const calcFctm = (fck) => {
+    fctm = -1.3 * Math.pow(10, -10) * Math.pow(fck, 6) +
+      4.1 * Math.pow(10, -8) * Math.pow(fck, 5) -
+      5 * Math.pow(10, -6) * Math.pow(fck, 4) +
+      0.00029 * Math.pow(fck, 3) -
+      0.0089 * Math.pow(fck, 2) +
+      0.21 * fck -
+      0.034
+
+    console.log(fck)
+    console.log(fctm)
   }
 
   //step 3
   const calcMcr = (b, h) => {
+
     mcr = fctm * (b * Math.pow(h, 2) / 6)
   }
 
   const calcSy = (M) => {
-    sy = 1 - beta * Math.pow((mcr / M), 2)
+    sy = 1 - (beta * Math.pow((mcr * Math.pow(10, -6) / M), 2))
   }
 
   const calcGamma = () => {
@@ -97,7 +110,7 @@ const ServiceabilityDFEC = (props) => {
   }
 
   //step 4
-  const calcDef = (Es, As, b, h, c, phi, M, l, nBar) => {
+  const calcDef = (fck, Es, As, b, h, c, phi, M, l, nBar) => {
     calcEcEff()
     calcAlphaAs(Es, As)
     calcIuc(b, h)
@@ -106,11 +119,12 @@ const ServiceabilityDFEC = (props) => {
     calcX(b)
     calcIcr(b)
     calcGammaCR(M)
+    calcFctm(fck)
     calcMcr(b, h)
     calcSy(M)
     calcGamma()
     console.log('EcEff = ' + EcEff + ' alphaAs = ' + alphaAs + ' Iuc = ' + Iuc + ' d =' + d + ' gammaUC' + gammaUC + ' x = ' + x + ' Icr = ' + Icr + ' gammaCR =' + gammaCR + ' mcr =' + mcr + ' sy = ' + sy + ' gamma = ' + gamma)
-    return k * Math.pow(l, 2) * gamma * Math.pow(10, 6)
+    return k * Math.pow(l, 2) * gamma
   }
 
 
@@ -130,7 +144,7 @@ const ServiceabilityDFEC = (props) => {
                        ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
               </div>
             </div>
-            <p>Auto identify -> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+            <p> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">

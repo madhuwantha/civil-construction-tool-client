@@ -38,12 +38,13 @@ const ServiceabilityCWEC = (props) => {
   let sRMax = 0
 
   const calcEcm = (fck) => {
-    setEcm((7.6 * Math.pow(10, -10) * Math.pow(fck, 6)) -
-      (2.1 * Math.pow(10, -7) * Math.pow(fck, 5)) +
-      (2.1 * Math.pow(10, -5) * Math.pow(fck, 4)) -
-      (0.00097 * Math.pow(x, 3)) +
-      (0.018 * Math.pow(fck, 2)) +
-      (0.26 * fck) +
+    console.log(fck)
+    setEcm(7.6 * Math.pow(10, -10) * Math.pow(fck, 6) -
+      2.1 * Math.pow(10, -7) * Math.pow(fck, 5) +
+      2.1 * Math.pow(10, -5) * Math.pow(fck, 4) -
+      0.00097 * Math.pow(fck, 3) +
+      0.018 * Math.pow(fck, 2) +
+      0.26 * fck +
       23)
   }
 
@@ -86,7 +87,7 @@ const ServiceabilityCWEC = (props) => {
 
   // step 3
   const calcEphSM = (Es) => {
-    ephSM = sigma / Es * Math.pow(10, 3)
+    ephSM = sigma /( Es *1000)
   }
 
   const calcHCEff = (h) => {
@@ -125,7 +126,7 @@ const ServiceabilityCWEC = (props) => {
 
     console.log('EcEff = ' + EcEff + ' alphaE = ' + alphaE + ' d =' + d + ' x = ' + x + ' z = ' + z + ' sigma = ' + sigma + ' ephSM = ' + ephSM + ' hCEff = ' + hCEff + ' ACEff = ' + ACEff + ' rowPEff = ' + rowPEff + ' sRMax = ' + sRMax)
 
-    return (sRMax * ephSM * Math.pow(10, -3));
+    return (sRMax * ephSM);
   }
 
   return (
@@ -143,7 +144,7 @@ const ServiceabilityCWEC = (props) => {
                        ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
               </div>
             </div>
-            <p>Auto identify -> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+            <p>Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
@@ -202,7 +203,7 @@ const ServiceabilityCWEC = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="Es" type="number" step="0.00001" className="form-control" aria-describedby="Es"
-                       ref={register({required: true})}/>
+                       ref={register({required: true})} />
               </div>
             </div>
           </div>

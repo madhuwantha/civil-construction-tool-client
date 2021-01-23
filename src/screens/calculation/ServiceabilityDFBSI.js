@@ -44,7 +44,9 @@ const ServiceabilityDFBSI = (props) => {
   }
 
   const calcAlphaEAs = (Es, As) => {
+    console.log(Es + '--' + As)
     alphaEAs = (Es * As) / Ecm
+    console.log(alphaEAs)
   }
 
   //step 2
@@ -64,7 +66,7 @@ const ServiceabilityDFBSI = (props) => {
 
   //step 4
   const calcFs = (M, As) => {
-    fs = (M * Math.pow(10, 6)) / (d - (x / 3)) * As
+    fs = (M * Math.pow(10, 6)) / ((d - (x / 3)) * As)
   }
 
   // step 5
@@ -102,7 +104,7 @@ const ServiceabilityDFBSI = (props) => {
                        ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
               </div>
             </div>
-            <p>Auto identify -> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+            <p>Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">

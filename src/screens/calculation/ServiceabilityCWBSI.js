@@ -5,6 +5,7 @@ const ServiceabilityCWBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
+  const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
     // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["corner"]), parseFloat(data["phi"]))
@@ -13,7 +14,7 @@ const ServiceabilityCWBSI = (props) => {
   }
 
   // Initializations
-  const Ec = 31;
+  // const Ec = 31;
   let Acr = 0;
   let alphaAs = 0;
   let x = 0;
@@ -21,6 +22,18 @@ const ServiceabilityCWBSI = (props) => {
   let ephsOne = 0;
   let d = 0;
   let ephsM = 0;
+
+  const calcEcm = (fck) => {
+    setEcm(
+      (Math.pow(10, -8) * Math.pow(fck, 5)) -
+      (3.2 * Math.pow(10, -6) * Math.pow(fck, 4)) +
+      (0.00038 * Math.pow(fck, 3)) -
+      (0.022 * Math.pow(fck, 2)) +
+      (0.82 * fck) +
+      19
+    )
+  }
+
   const calcAcr = (corner, radius) => {
     Acr = Math.sqrt(2) * (corner + radius) - radius;
     console.log(Acr)
@@ -30,7 +43,7 @@ const ServiceabilityCWBSI = (props) => {
   }
 
   const calcAlphaAs = (Es, As) => {
-    alphaAs = (Es * As) / Ec;
+    alphaAs = (Es * As) / Ecm;
   }
 
   // step 1
@@ -70,7 +83,7 @@ const ServiceabilityCWBSI = (props) => {
     calcEphsOne(h, corner, Es)
     calcEphM(b, h, Es, As)
 
-    console.log("Ec = " + Ec + "Acr = " + Acr + " alphaAs = " + alphaAs + " x = " + x + " Fs = " + Fs + " ephsOne = " + ephsOne + " d = " + d + " ephsM = " + ephsM)
+    console.log("Ecm = " + Ecm + "Acr = " + Acr + " alphaAs = " + alphaAs + " x = " + x + " Fs = " + Fs + " ephsOne = " + ephsOne + " d = " + d + " ephsM = " + ephsM)
 
     return (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - cMin) / (h - x)));
   }
@@ -87,7 +100,15 @@ const ServiceabilityCWBSI = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="fcn" type="number" step="0.00001" className="form-control" aria-describedby="fcn"
-                       ref={register({required: true})}/>
+                       ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
+              </div>
+            </div>
+            <p> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+            <div className="input-group mb-3">
+              <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
+              <div className="input-group-append col-md-2">
+                <input name="ecm" value={Ecm} type="number" step="0.0001" className="form-control"
+                       aria-describedby="ecm" disabled={true}/>
               </div>
             </div>
             {errors.fy && <span>This field is required</span>}
