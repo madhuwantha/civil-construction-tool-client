@@ -180,7 +180,7 @@ const calcGamma = (Es) => {
  * @param phi
  * @returns {number}
  */
-export const calcWMax = (corner, Es, As, h, b, M, cMin, phi) => {
+export const calcWMax = (corner, Es, As, h, b, M, phi) => {
   calcAcr(corner, phi / 2)
   calcDCW(h, corner, phi)
   calcAlphaAs(Es, As)
@@ -189,7 +189,7 @@ export const calcWMax = (corner, Es, As, h, b, M, cMin, phi) => {
   calcEphsOne(h, corner, Es)
   calcEphM(b, h, Es, As)
 
-  return (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - cMin) / (h - xCW)));
+  return (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - corner) / (h - xCW)));
 }
 
 /**

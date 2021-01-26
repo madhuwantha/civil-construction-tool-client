@@ -1,16 +1,26 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
-// import {calcEcmEC, calcWk} from "./CalculationsEC";
+import {calcEcmEC, calcDef, calcWk} from "./calculation/CalculationsEC";
+import {calcEcmBSI, calcA, calcWMax} from "./calculation/CalculationsBSI";
 
 const ServiceabilityCWEC = (props) => {
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [EcmBSI, setEcmBSI] = useState(0);
+  const [EcmEC, setEcmEC] = useState(0);
   const onSubmit = async data => {
-    ansCBSI = 0
-    ansDBSI = 0
-    ansCEC = 0
-    ansCEC = 0
+    ansCBSI = calcWMax(parseFloat(data["c"]), parseFloat(data["Es"]), parseFloat(data["AsT"]),
+      parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data['bar1T']))
+    ansDBSI = calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1C"]), parseFloat(data["nBar1C"]))
+    ansCEC = calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]),
+      parseFloat(data["bar1T"]),  parseFloat(data["AsT"]),parseFloat(data["b"]),   parseFloat(data["M"]), parseFloat(data["nBar1T"]),parseFloat(data["c"]) )
+    ansDEC = 0
     setIsSubmit(true)
+  }
+
+  const onChange = (val) => {
+    setEcmBSI(calcEcmBSI(val))
+    setEcmEC(calcEcmEC(val))
   }
 
   let ansCBSI;
@@ -29,7 +39,7 @@ const ServiceabilityCWEC = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="fck" type="number" step="0.00001" className="form-control" aria-describedby="fck"
-                       ref={register({required: true})} onChange={(e) =>e.target.value}/>
+                       ref={register({required: true})} onChange={(e) =>onChange(e.target.value)}/>
               </div>
             </div>
 
