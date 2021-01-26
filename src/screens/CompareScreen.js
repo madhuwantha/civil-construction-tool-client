@@ -8,13 +8,24 @@ const ServiceabilityCWEC = (props) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [EcmBSI, setEcmBSI] = useState(0);
   const [EcmEC, setEcmEC] = useState(0);
+  const [ansCBSI, setAnsCBSI] = useState(0);
+  const [ansDBSI, setAnsDBSI] = useState(0);
+  const [ansCEC, setAnsCEC] = useState(0);
+  const [ansDEC, setAnsDEC] = useState(0);
+
   const onSubmit = async data => {
-    ansCBSI = calcWMax(parseFloat(data["c"]), parseFloat(data["Es"]), parseFloat(data["AsT"]),
+    let ansCBSI = calcWMax(parseFloat(data["c"]), parseFloat(data["Es"]), parseFloat(data["AsT"]),
       parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data['bar1T']))
-    ansDBSI = calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1C"]), parseFloat(data["nBar1C"]))
-    ansCEC = calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]),
+    let ansDBSI = calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1C"]), parseFloat(data["nBar1C"]),
+      parseFloat(data["Es"]), parseFloat(data["AsC"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
+    let ansCEC = calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]),
       parseFloat(data["bar1T"]),  parseFloat(data["AsT"]),parseFloat(data["b"]),   parseFloat(data["M"]), parseFloat(data["nBar1T"]),parseFloat(data["c"]) )
-    ansDEC = 0
+    let ansDEC = calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["AsC"]), parseFloat(data["b"]), parseFloat(data["h"]),
+      parseFloat(data["c"]), parseFloat(data["bar1C"]), parseFloat(data["M"]), parseFloat(data["l"]), [parseFloat(data["nBar1C"])])
+    setAnsCBSI(ansCBSI);
+    setAnsDBSI(ansDBSI);
+    setAnsCEC(ansCEC);
+    setAnsDEC(ansDEC);
     setIsSubmit(true)
   }
 
@@ -23,10 +34,6 @@ const ServiceabilityCWEC = (props) => {
     setEcmEC(calcEcmEC(val))
   }
 
-  let ansCBSI;
-  let ansDBSI;
-  let ansCEC;
-  let ansDEC;
   return (
     <div className="container col-9 card">
       <p>Compare Crack Width & Deflection </p>
@@ -101,8 +108,8 @@ const ServiceabilityCWEC = (props) => {
               {/*row*/}
               {errors.AsT && <span>This field is required</span>}
               <div className="input-group mb-3">
-                <span className="input-group-text col-md-10" id="strength-concrete">Tensile reinforcement area of your beam (N/mm<sup>2</sup>)</span>
-                <div className="input-group-append col-md-2">
+                <span className="input-group-text col-md-9" id="strength-concrete">Tensile reinforcement area of your beam (N/mm<sup>2</sup>)</span>
+                <div className="input-group-append col-md-3">
                   <input name="AsT" type="number" step="0.00001" className="form-control" aria-describedby="AsT"
                          ref={register({required: true})}/>
                 </div>
@@ -144,8 +151,8 @@ const ServiceabilityCWEC = (props) => {
               {/*row*/}
               {errors.AsC && <span>This field is required</span>}
               <div className="input-group mb-3">
-                <span className="input-group-text col-md-10" id="strength-concrete">Compression reinforcement area of your beam (N/mm<sup>2</sup>)</span>
-                <div className="input-group-append col-md-2">
+                <span className="input-group-text col-md-9" id="strength-concrete">Compression reinforcement area of your beam (N/mm<sup>2</sup>)</span>
+                <div className="input-group-append col-md-3">
                   <input name="AsC" type="number" step="0.00001" className="form-control" aria-describedby="AsC"
                          ref={register({required: true})}/>
                 </div>
