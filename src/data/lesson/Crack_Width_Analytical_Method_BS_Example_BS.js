@@ -30,17 +30,17 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
+          "question":"bgfnjkn jknk njk njk nkbnjk",
           "answer":"0.00124",
           "unit":""
         },
         {
-          "question":"",
+          "question":"bfgbgf   hjbi biu uih ui bhuibuib",
           "answer":"0.00112",
           "unit":""
         },
         {
-          "question":"",
+          "question":"nhuibh uib uib ui uih ui hui nhui ui",
           "answer":"0.24",
           "unit":"mm"
         }
