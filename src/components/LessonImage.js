@@ -87,7 +87,9 @@ class LessonImage extends Component {
                   button.lessonpageId !== "" && button.lessonpageId !== null && button.lessonpageId !== undefined
                     ? () => {
                       // console.log(button);
-                      this.props.setCurrentLesson(button.lessonpageId)
+                      // button.isCalc ? {
+                      //   this.props.history.push(button.url)
+                      // } : this.props.setCurrentLesson(button.lessonpageId)
                       // this.props.history.pop();
                       // this.props.history.push(LESSON_PAGE)
                     }

@@ -8,7 +8,7 @@ const ServiceabilityDFBSI = (props) => {
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
-    let ans = await calcA(parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["nBar"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
+    let ans = await calcA(parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["nBar1"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
     setAnswer(ans)
     setIsSubmit(true)
   }

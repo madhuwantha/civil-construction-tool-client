@@ -9,7 +9,7 @@ const ServiceabilityCWBSI = (props) => {
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
     // console.log(data);
-    let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["phi"]))
+    let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["phi"]), parseFloat(data["nBar1"]))
     setAnswer(ans)
     setIsSubmit(true)
   }

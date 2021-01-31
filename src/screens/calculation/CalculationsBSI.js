@@ -7,8 +7,7 @@ let xDF = 0;
 let FsCW = 0;
 let FsDF = 0;
 let ephsOne = 0;
-let dCW = 0;
-let dDF = 0;
+let d = 0;
 let ephsM = 0;
 let EcmBSI = 0;
 let I = 0;
@@ -42,27 +41,17 @@ const calcAcr = (corner, radius) => {
 }
 
 /**
- * For crack width
- * @param h
- * @param corner
- * @param phi
- */
-const calcDCW = (h, corner, phi) => {
-  dCW = h - corner - (phi / 2);
-}
-
-/**
  * For deflection
  * @param h
  * @param c
  * @param phi
  * @param nBar
  */
-const calcDDF = (h, c, phi, nBar) => {
+const calcD = (h, c, phi, nBar) => {
   if (nBar < 3 || nBar === 3) {
-    dDF = h - c - phi / 2
+    d = h - c - phi / 2
   } else {
-    dDF = h - (3 * c) / 2 - phi
+    d = h - (3 * c) / 2 - phi
   }
 }
 
@@ -80,7 +69,7 @@ const calcAlphaAs = (Es, As) => {
  * @param b
  */
 const calcXCW = (b) => {
-  let sqr = Math.sqrt(Math.pow(alphaAs, 2) + (2 * b * alphaAs * dCW))
+  let sqr = Math.sqrt(Math.pow(alphaAs, 2) + (2 * b * alphaAs * d))
   let xPlus = (-alphaAs + sqr) / b
   let xMin = (-alphaAs - sqr) / b
   if (xPlus > 0 || xPlus === 0) {
@@ -95,7 +84,7 @@ const calcXCW = (b) => {
  * @param b
  */
 const calcXDF = (b) => {
-  let sqr = Math.sqrt(Math.pow(alphaAs, 2) + 2 * b * alphaAs * dDF)
+  let sqr = Math.sqrt(Math.pow(alphaAs, 2) + 2 * b * alphaAs * d)
   xDF = (-alphaAs + sqr) / b
 }
 
@@ -110,7 +99,7 @@ const calcXDF = (b) => {
  * @param As
  */
 const calcFsCW = (M, h, corner, b, Es, As) => {
-  FsCW = M * Math.pow(10, 6) / ((dCW - xCW / 3) * As);
+  FsCW = M * Math.pow(10, 6) / ((d - xCW / 3) * As);
 }
 
 /**
@@ -119,7 +108,7 @@ const calcFsCW = (M, h, corner, b, Es, As) => {
  * @param As
  */
 const calcFsDF = (M, As) => {
-  FsDF = (M * Math.pow(10, 6)) / ((dDF - (xDF / 3)) * As)
+  FsDF = (M * Math.pow(10, 6)) / ((d - (xDF / 3)) * As)
 }
 
 /**
@@ -129,7 +118,7 @@ const calcFsDF = (M, As) => {
  * @param Es
  */
 const calcEphsOne = (h, corner, Es) => {
-  ephsOne = ((h - xCW) * FsCW) / ((dCW - xCW) * Es);
+  ephsOne = ((h - xCW) * FsCW) / ((d - xCW) * Es);
 }
 
 /**
@@ -140,7 +129,7 @@ const calcEphsOne = (h, corner, Es) => {
  * @param As
  */
 const calcEphM = (b, h, Es, As) => {
-  ephsM = ephsOne - ((b * Math.pow((h - xCW), 2)) / (3 * Es * As * (dCW - xCW)));
+  ephsM = ephsOne - ((b * Math.pow((h - xCW), 2)) / (3 * Es * As * (d - xCW)));
 }
 
 /**
@@ -165,7 +154,7 @@ const calcGammaB = (M) => {
  * @param Es
  */
 const calcGamma = (Es) => {
-  gamma = FsDF / ((dDF - xDF) * Es * Math.pow(10, 3))
+  gamma = FsDF / ((d - xDF) * Es * Math.pow(10, 3))
 }
 
 /**
@@ -176,13 +165,13 @@ const calcGamma = (Es) => {
  * @param h
  * @param b
  * @param M
- * @param cMin
  * @param phi
+ * @param nBar
  * @returns {number}
  */
-export const calcWMax = (corner, Es, As, h, b, M, phi) => {
+export const calcWMax = (corner, Es, As, h, b, M, phi, nBar) => {
   calcAcr(corner, phi / 2)
-  calcDCW(h, corner, phi)
+  calcD(h, corner, phi, nBar)
   calcAlphaAs(Es, As)
   calcXCW(b)
   calcFsCW(M, h, corner, b, Es, As)
@@ -206,7 +195,7 @@ export const calcWMax = (corner, Es, As, h, b, M, phi) => {
  * @returns {number}
  */
 export const calcA = (h, c, bar, nBar, Es, As, b, M, l) => {
-  calcDDF(h, c, bar, nBar)
+  calcD(h, c, bar, nBar)
   calcAlphaAs(Es, As)
   calcI(b, h)
   calcGammaB(M)

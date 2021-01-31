@@ -1,3 +1,5 @@
+import {DEFLECTION_SIMPLIFIED_CALCULATION} from "../../urls";
+
 export default {
   "pageTitle": "",
   "images": [
@@ -30,6 +32,8 @@ export default {
           "lessonpageId":"Calculation",
           "name": "Calculation",
           "imagePath": [],
+          "isCalc": true,
+          "url" : DEFLECTION_SIMPLIFIED_CALCULATION,
           "title": "Span/Depth Ratio to BS8110"
         }
       ]
