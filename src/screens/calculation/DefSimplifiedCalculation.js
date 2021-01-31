@@ -38,7 +38,8 @@ const DefSimplifiedCalculation = (props) => {
 
         <div className="col-12 lesson-image-container">
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
-            <table>
+            <table align={"center"} className="table table-striped">
+              <tbody>
               <tr>
                 <td>Rectangular Cantilever Beam</td>
                 <td>1</td>
@@ -63,7 +64,7 @@ const DefSimplifiedCalculation = (props) => {
                 <td>Flanged Continuous Beam</td>
                 <td>6</td>
               </tr>
-
+              </tbody>
             </table>
           </div>
         </div>

@@ -86,6 +86,13 @@ class LessonImage extends Component {
                 onClick={
                   button.lessonpageId !== "" && button.lessonpageId !== null && button.lessonpageId !== undefined
                     ? () => {
+                      if (button.isCalc)
+                        this.props.history.push(button.url)
+                      else
+                        this.props.setCurrentLesson(button.lessonpageId)
+                      // button.isCalc ? () => {
+                      //   this.props.history.push(button.url)
+                      // } : () => this.props.setCurrentLesson(button.lessonpageId)
                       // console.log(button);
                       // button.isCalc ? {
                       //   this.props.history.push(button.url)
