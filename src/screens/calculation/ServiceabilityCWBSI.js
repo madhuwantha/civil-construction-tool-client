@@ -15,48 +15,60 @@ const ServiceabilityCWBSI = (props) => {
   }
 
   return (
-    <div className="container col-8 card">
-      <p>Crack Width Calculation to BS8110</p>
-      <form action="#" onSubmit={handleSubmit(onSubmit)}>
-        <div className="col-12 lesson-image-container">
-          <p>At first we can consider about the Material Properties</p>
-          <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
-            {errors.fcn && <span>This field is required</span>}
-            <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
-              <div className="input-group-append col-md-2">
-                <input name="fcn" type="number" step="0.00001" className="form-control" aria-describedby="fcn"
-                       ref={register({required: true})} onChange={(e) => setEcm(calcEcmBSI(e.target.value))}/>
+    <div className="container col-12 card justify-content-center">
+      <div className="row justify-content-center">
+        <div className="col-8 justify-content-center">
+          <p>Crack Width Calculation to BS8110</p>
+        </div>
+      </div>
+      <form action="#" className="col-12" onSubmit={handleSubmit(onSubmit)}>
+        <div className="row justify-content-center">
+          <div className="col-8 lesson-image-container justify-content-center" >
+            <p>At first we can consider about the Material Properties</p>
+            <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
+              {errors.fcn && <span>This field is required</span>}
+              <div className="input-group mb-3">
+                <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
+                <div className="input-group-append col-md-2">
+                  <input name="fcn" type="number" step="0.00001" className="form-control" aria-describedby="fcn"
+                         ref={register({required: true})} onChange={(e) => setEcm(calcEcmBSI(e.target.value))}/>
+                </div>
+              </div>
+              <p> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+              <div className="input-group mb-3">
+                <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
+                <div className="input-group-append col-md-2">
+                  <input name="ecm" value={Ecm} type="number" step="0.0001" className="form-control"
+                         aria-describedby="ecm" disabled={true}/>
+                </div>
+              </div>
+              {errors.fy && <span>This field is required</span>}
+              <div className="input-group mb-3">
+                <span className="input-group-text col-md-10" id="strength-concrete">Tensile strength of reinforcement (N/mm<sup>2</sup>)</span>
+                <div className="input-group-append col-md-2">
+                  <input name="fy" type="number" step="0.00001" className="form-control" aria-describedby="fy"
+                         ref={register({required: true})}/>
+                </div>
+              </div>
+              {errors.es && <span>This field is required</span>}
+              <div className="input-group mb-3">
+                <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
+                <div className="input-group-append col-md-2">
+                  <input name="es" type="number" step="0.00001" className="form-control" aria-describedby="es"
+                         ref={register({required: true})}/>
+                </div>
               </div>
             </div>
-            <p> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
-            <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
-              <div className="input-group-append col-md-2">
-                <input name="ecm" value={Ecm} type="number" step="0.0001" className="form-control"
-                       aria-describedby="ecm" disabled={true}/>
-              </div>
-            </div>
-            {errors.fy && <span>This field is required</span>}
-            <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Tensile strength of reinforcement (N/mm<sup>2</sup>)</span>
-              <div className="input-group-append col-md-2">
-                <input name="fy" type="number" step="0.00001" className="form-control" aria-describedby="fy"
-                       ref={register({required: true})}/>
-              </div>
-            </div>
-            {errors.es && <span>This field is required</span>}
-            <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
-              <div className="input-group-append col-md-2">
-                <input name="es" type="number" step="0.00001" className="form-control" aria-describedby="es"
-                       ref={register({required: true})}/>
-              </div>
+          </div>
+          <div className="col-4">
+            <div className="text-center">
+              <img src={require('../../assets/img/serviceability/content/deflection_calclator.jpg')} className="rounded" alt="..." />
             </div>
           </div>
         </div>
 
-        <div className="col-12 lesson-image-container">
+        <div className="row justify-content-center">
+          <div className="col-8 lesson-image-container">
           <p>Then move to the reinforcement area</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.as && <span>This field is required</span>}
@@ -85,8 +97,10 @@ const ServiceabilityCWBSI = (props) => {
             {/*</div>*/}
           </div>
         </div>
+        </div>
 
-        <div className="col-12 lesson-image-container">
+        <div className="row justify-content-center">
+          <div className="col-8 lesson-image-container">
           <p>Details of the tension reinforcement bar (mm)</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             <div className="row">
@@ -123,8 +137,10 @@ const ServiceabilityCWBSI = (props) => {
             {/*row*/}
           </div>
         </div>
+        </div>
 
-        <div className="col-12 lesson-image-container">
+        <div className="row justify-content-center">
+          <div className="col-8 lesson-image-container">
           <p>Now details of the section</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.b && <span>This field is required</span>}
@@ -154,8 +170,10 @@ const ServiceabilityCWBSI = (props) => {
             </div>
           </div>
         </div>
+        </div>
 
-        <div className="col-12 lesson-image-container">
+        <div className="row justify-content-center">
+          <div className="col-8 lesson-image-container">
           <p>Finally moment effect</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.m && <span>This field is required</span>}
@@ -168,25 +186,29 @@ const ServiceabilityCWBSI = (props) => {
             </div>
           </div>
         </div>
+        </div>
 
-        <div className="col-12 lesson-image-container">
-          <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
-            <div className="col">
-              <input name="" value="Calculate" className="btn btn-primary lesson-button" type="submit"/>
+        <div className="row justify-content-center">
+          <div className="col-8 lesson-image-container">
+            <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
+              <div className="col">
+                <input name="" value="Calculate" className="btn btn-primary lesson-button" type="submit"/>
+              </div>
             </div>
           </div>
         </div>
-
         {isSubmit
-          ? <div className="col-12 lesson-image-container">
-            <p>Final Answer</p>
-            <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
-              <div className="input-group mb-3">
-                <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
-                <div className="input-group-append col-md-2">
-                  <input name="" value={answer} type="number" step="0.00001" className="form-control"
-                         aria-describedby="strength-concrete"
-                         disabled={true}/>
+          ? <div className="row justify-content-center">
+            <div className="col-8 lesson-image-container">
+              <p>Final Answer</p>
+              <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
+                <div className="input-group mb-3">
+                  <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
+                  <div className="input-group-append col-md-2">
+                    <input name="" value={answer} type="number" step="0.00001" className="form-control"
+                           aria-describedby="strength-concrete"
+                           disabled={true}/>
+                  </div>
                 </div>
               </div>
             </div>

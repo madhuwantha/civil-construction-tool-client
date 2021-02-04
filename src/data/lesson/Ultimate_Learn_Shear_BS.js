@@ -17,9 +17,9 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
-          "answer":"",
-          "unit":""
+          "question":"Maximum allowable shear force in beam",
+          "answer":"326.7",
+          "unit":"kN"
         }
       ]
     },
@@ -29,9 +29,9 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
-          "answer":"",
-          "unit":""
+          "question":"shear capacity of the section",
+          "answer":"50.59",
+          "unit":"kN"
         }
       ]
     },
@@ -46,9 +46,9 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
-          "answer":"",
-          "unit":""
+          "question":"Recommended maximum spacing",
+          "answer":"0.75",
+          "unit":"d"
         }
       ]
     },

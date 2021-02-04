@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setCurrentLesson} from "../store/action/lessonPage";
 import {setCurrentMethod} from "../store/action/method";
 import {setCurrentCategory} from "../store/action/category";
+import {LessonQuestion} from "./LessonQuestion";
 
 class LessonImage extends Component {
 
@@ -51,23 +52,8 @@ class LessonImage extends Component {
       this.inputs_devs =
         <div className="row lesson-button-row input-container">
           {this.props.img.inputs.map((input_, index) => {
-            let correct  = false;
-            let filed  = false;
-
             return (
-              <div key={index} className="input-group mb-3">
-                <span className="input-group-text col-md-10" >{input_.question}</span>
-                <div className="input-group-append col-md-2">
-                  <input style={{backgroundColor: filed && !correct ? 'red' : ''}} name="fy"  onMouseLeave={event => {
-                    let ans = event.target.value;
-                    filed = true
-                    if (ans === input_.answer){
-                      correct = false
-                    }
-                  }} type="number" className="form-control" aria-describedby="fy" />
-                  <input name="fy" disabled type="number" step="0.0001" className="form-control" aria-describedby="fy" />
-                </div>
-              </div>
+              <LessonQuestion key={index} question={input_.question} unit={input_.unit} answer={input_.answer}/>
             )
           })}
         </div>
