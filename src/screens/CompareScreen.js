@@ -16,16 +16,16 @@ const ServiceabilityCWEC = (props) => {
   const onSubmit = async data => {
     let ansCBSI = calcWMax(parseFloat(data["c"]), parseFloat(data["Es"]), parseFloat(data["AsT"]),
       parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data['bar1T']))
-    let ansDBSI = calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1C"]), parseFloat(data["nBar1C"]),
-      parseFloat(data["Es"]), parseFloat(data["AsC"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
+    let ansDBSI = calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1T"]), parseFloat(data["nBar1T"]),
+      parseFloat(data["Es"]), parseFloat(data["AsT"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
     let ansCEC = calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]),
       parseFloat(data["bar1T"]),  parseFloat(data["AsT"]),parseFloat(data["b"]),   parseFloat(data["M"]), parseFloat(data["nBar1T"]),parseFloat(data["c"]) )
-    let ansDEC = calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["AsC"]), parseFloat(data["b"]), parseFloat(data["h"]),
-      parseFloat(data["c"]), parseFloat(data["bar1C"]), parseFloat(data["M"]), parseFloat(data["l"]), [parseFloat(data["nBar1C"])])
-    setAnsCBSI(ansCBSI);
-    setAnsDBSI(ansDBSI);
-    setAnsCEC(ansCEC);
-    setAnsDEC(ansDEC);
+    let ansDEC = calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["AsT"]), parseFloat(data["b"]), parseFloat(data["h"]),
+      parseFloat(data["c"]), parseFloat(data["bar1T"]), parseFloat(data["M"]), parseFloat(data["l"]), [parseFloat(data["nBar1T"])])
+    setAnsCBSI(parseFloat(ansCBSI.toFixed(4)));
+    setAnsDBSI(parseFloat(ansDBSI.toFixed(4)));
+    setAnsCEC(parseFloat(ansCEC.toFixed(4)));
+    setAnsDEC(parseFloat(ansDEC.toFixed(4)));
     setIsSubmit(true)
   }
 

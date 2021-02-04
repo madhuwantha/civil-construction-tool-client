@@ -9,7 +9,7 @@ const ServiceabilityDFEC = (props) => {
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
     let ans = await calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["M"]), parseFloat(data["l"]), parseFloat(data["nBar1"]))
-    setAnswer(ans)
+    setAnswer(parseFloat(ans.toFixed(4)))
     setIsSubmit(true)
     console.log(parseFloat(data["Es"]) + '  ' + parseFloat(data["As"]) + '  ' + parseFloat(data["b"]) + '   ' + parseFloat(data["h"]) + '  ' + parseFloat(data["c"]) + '   ' + parseFloat(data["bar1"]) + '   ' + parseFloat(data["M"]) + '  ' + parseFloat(data["l"]) + '  ' + parseFloat(data["nBar1"]))
   }
@@ -176,7 +176,7 @@ const ServiceabilityDFEC = (props) => {
             <p>Final Answer</p>
             <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
               <div className="input-group mb-3">
-                <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
+                <span className="input-group-text col-md-10" id="strength-concrete">Deflection (mm)</span>
                 <div className="input-group-append col-md-2">
                   <input name="" value={answer} type="number" step="0.0001" className="form-control"
                          aria-describedby="strength-concrete"

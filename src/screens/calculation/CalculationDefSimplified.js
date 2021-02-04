@@ -51,7 +51,7 @@ const calcF1 = (M, b, d) => {
   }
 }
 const calcF2 = (asDash, b, d) => {
-  f2 = (1 + ((100 * asDash) / (b * d))) / (3 + ((100 * asDash) / (b * d)))
+  f2 = 1 +((((100 * asDash) / (b * d))) / (3 + ((100 * asDash) / (b * d))))
   if (f2 > 1.5) {
     f2 = 1.5
   }
@@ -72,6 +72,8 @@ export const calcAllow = async (no, M, b, d, asDash, fy, as, fcu, dDash) => {
   calcFs(fy, as)
   calcF1(M, b, d)
   calcF2(asDash, b, d)
+
+  console.log("k -> " + k + "z -> "+z + "x ->" + x + "asLess ->" + asReq + "asDAsh ->" + asDashReq + "Fs -> " + fs + "F1 -> "+ f1 +"F2 ->" +f2+ "no-> " + no )
   return no * f1 * f2
 }
 

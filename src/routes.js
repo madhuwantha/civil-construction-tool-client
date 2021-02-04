@@ -13,7 +13,8 @@ import {
   CALCULATION_SERVICEABILITY_CW_EC,
   CALCULATION_SERVICEABILITY_DF_BSI,
   CALCULATION_SERVICEABILITY_DF_EC,
-  DEFLECTION_SIMPLIFIED_CALCULATION
+  DEFLECTION_SIMPLIFIED_CALCULATION,
+  CALCULATION_ULTIMATE_SHARING
 } from "./urls";
 
 
@@ -31,6 +32,7 @@ import ServiceabilityCWEC from "./screens/calculation/ServiceabilityCWEC";
 import ServiceabilityDFBSI from "./screens/calculation/ServiceabilityDFBSI";
 import ServiceabilityDFEC from "./screens/calculation/ServiceabilityDFEC";
 import DefSimplifiedCalculation from "./screens/calculation/DefSimplifiedCalculation";
+import UltimateShear from "./screens/calculation/UltimateShear";
 
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
@@ -100,6 +102,7 @@ const routes = [
   {path: CALCULATION_SERVICEABILITY_DF_EC, name: "Deflection Calculation-EC", component: ServiceabilityDFEC},
   {path: CODE_SELECTION, name: "Compare page", component: CodeSelect},
   {path: DEFLECTION_SIMPLIFIED_CALCULATION, name: "Deflection Simplified Calculation", component: DefSimplifiedCalculation},
+  {path: CALCULATION_ULTIMATE_SHARING, name: "Shear Capacity and Shear Reinforcement", component: UltimateShear},
 
 
   {path: "/", exact: true, name: "Home"},
