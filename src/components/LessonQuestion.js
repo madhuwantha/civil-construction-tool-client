@@ -11,20 +11,30 @@ export const LessonQuestion = (props) => {
 
   return (
     <div className="input-group mb-3">
-      <div dangerouslySetInnerHTML={createMarkup(props.question )} className="input-group-text col-md-7" ></div>
+      <div dangerouslySetInnerHTML={createMarkup(props.question)} className="input-group-text col-md-7"></div>
       <div className="input-group-append col-md-5">
-        <input  style={{ borderColor: color }} name="fy"  onBlur={event => {
+        <input style={{borderColor: color}} name="fy" onBlur={event => {
           let ans = event.target.value;
-         setIsFilled(true);
-         if (parseFloat(ans) === parseFloat(props.answer)){
-           setColor('green');
-         }else {
-           setColor('red')
-         }
-        }} type="number" className="form-control" aria-describedby="fy" />
-        <span dangerouslySetInnerHTML={createMarkup(props.unit )} className="p-2"></span>
-        <input value={isFilled ? props.answer + " " + props.unit: ''} name="fy" disabled type="text" className="form-control" aria-describedby="fy" />
-        <span dangerouslySetInnerHTML={createMarkup(props.unit )} className="p-2"></span>
+          setIsFilled(true);
+          if (parseFloat(ans) === parseFloat(props.answer)) {
+            setColor('green');
+          } else if (props.unit !== "") {
+            let range = props.unit.split(" ");
+            if (range.length === 2) {
+              if (parseFloat(ans) >= parseFloat(range[0]) && parseFloat(ans) <= parseFloat(range[1])) {
+                setColor('green');
+              } else {
+                setColor('red')
+              }
+            }
+          } else {
+            setColor('red')
+          }
+        }} type="number" className="form-control" aria-describedby="fy"/>
+        <span dangerouslySetInnerHTML={createMarkup(props.unit)} className="p-2"></span>
+        <input value={isFilled ? props.answer + " " + props.unit : ''} name="fy" disabled type="text"
+               className="form-control" aria-describedby="fy"/>
+        <span dangerouslySetInnerHTML={createMarkup(props.unit)} className="p-2"></span>
       </div>
     </div>
   )
