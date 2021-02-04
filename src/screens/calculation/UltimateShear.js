@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import {calcShearCapacity, calcSpacing} from "./CalculationUltimateShear";
 
 const UltimateShear = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -11,9 +12,10 @@ const UltimateShear = (props) => {
   const [answer22, setAnswer22] = useState(0);
   const [answer23, setAnswer23] = useState(0);
   const onSubmit = async data => {
-    let ans11 = 0;
-    let ans12 = 0;
-    let ans13 = 0;
+    let ans11 = await calcShearCapacity(parseFloat(data["v"]), parseFloat(data["b"]), parseFloat(data["d"]));
+    let ans12 = await calcSpacing(parseFloat(data["fyv"]), parseFloat(data["b"]),
+      parseFloat(data["sc"]), parseFloat(data["vc"]), parseFloat(data["fcu"]),parseFloat(data["d"]),parseFloat(data["v"]))
+    let ans13 = 150;
     let ans21 = 0;
     let ans22 = 0;
     let ans23 = 0;
@@ -161,15 +163,15 @@ const UltimateShear = (props) => {
             <tbody>
             <tr>
               <th scope="row">BS</th>
-              <td>answer11</td>
-              <td>answer12</td>
-              <td>answer13</td>
+              <td>{answer11}</td>
+              <td>{answer12}</td>
+              <td>{answer13}</td>
             </tr>
             <tr>
               <th scope="row">EC</th>
-              <td>answer21</td>
-              <td>answer22</td>
-              <td>answer23</td>
+              <td>{answer21}</td>
+              <td>{answer22}</td>
+              <td>{answer23}</td>
             </tr>
             </tbody>
           </table>

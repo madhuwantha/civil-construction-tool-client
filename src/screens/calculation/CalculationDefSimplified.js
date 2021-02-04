@@ -11,10 +11,22 @@ let fs = 0
 let f1 = 0
 let f2 = 0
 
+/**
+ * For k
+ * @param M
+ * @param b
+ * @param d
+ * @param fcu
+ */
 const calcK = (M, b, d, fcu) => {
   k = (M * Math.pow(10, 6)) / (b * Math.pow(d, 2) * fcu)
 }
 
+/**
+ * For z
+ * @param d
+ * @param k
+ */
 const calcZ = (d, k) => {
   let sqr = Math.sqrt((0.25 - k / 0.9))
   z = d * (0.5 + sqr)
@@ -24,32 +36,74 @@ const calcZ = (d, k) => {
   }
 }
 
+/**
+ * For x
+ * @param d
+ */
 const calcX = (d) => {
   x = (d - z) / 0.45
 }
 
+/**
+ * For required As
+ * @param M
+ * @param fy
+ */
 const calcAsLess = (M, fy) => {
   asReq = M * Math.pow(10, 6) / (0.95 * fy * z)
 }
 
+/**
+ * For as dash
+ * @param fcu
+ * @param b
+ * @param d
+ * @param fy
+ * @param dDash
+ */
 const calcAsDash = (fcu, b, d, fy, dDash) => {
   asDashReq = ((k - kDash) * fcu * b * Math.pow(d, 2)) / (0.95 * fy * (d - dDash))
 }
 
+/**
+ * For As required
+ * @param fcu
+ * @param b
+ * @param d
+ * @param fy
+ */
 const calcAsGreater = (fcu, b, d, fy) => {
   asReq = ((kDash * fcu * b * Math.pow(d, 2)) / (0.95 * fy * z)) + asDashReq
 }
 
+/**
+ * For Fs
+ * @param fy
+ * @param as
+ */
 const calcFs = (fy, as) => {
   fs = (2 * fy * asReq) / (3 * as)
 }
 
+/**
+ * For F1
+ * @param M
+ * @param b
+ * @param d
+ */
 const calcF1 = (M, b, d) => {
   f1 = 0.55 + (477 - fs) / (120 * (0.9 + (M * Math.pow(10, 6)) / (b * Math.pow(d, 2))))
   if (f1 > 2) {
     f1 = 2
   }
 }
+
+/**
+ * For F2
+ * @param asDash
+ * @param b
+ * @param d
+ */
 const calcF2 = (asDash, b, d) => {
   f2 = 1 +((((100 * asDash) / (b * d))) / (3 + ((100 * asDash) / (b * d))))
   if (f2 > 1.5) {
@@ -57,6 +111,19 @@ const calcF2 = (asDash, b, d) => {
   }
 }
 
+/**
+ * For Allowable value
+ * @param no
+ * @param M
+ * @param b
+ * @param d
+ * @param asDash
+ * @param fy
+ * @param as
+ * @param fcu
+ * @param dDash
+ * @returns {Promise<number>}
+ */
 export const calcAllow = async (no, M, b, d, asDash, fy, as, fcu, dDash) => {
   await calcK(M, b, d, fcu)
   if (k < kDash || k === kDash) {
@@ -77,6 +144,12 @@ export const calcAllow = async (no, M, b, d, asDash, fy, as, fcu, dDash) => {
   return no * f1 * f2
 }
 
+/**
+ * For true values
+ * @param L
+ * @param d
+ * @returns {number}
+ */
 export const calcTrue = (L, d) => {
   return L / d;
 }
