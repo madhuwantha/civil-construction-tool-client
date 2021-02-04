@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import MainImageButton from "../components/MainImageButton";
 import {Row} from "reactstrap";
-import {CODE_SELECTION, LESSON_PAGE} from "../urls";
+import {CALCULATION_ULTIMATE_SHARING, CODE_SELECTION, LESSON_PAGE} from "../urls";
 
 import { connect } from "react-redux";
 import {setCurrentLesson} from '../store/action/lessonPage';
@@ -45,7 +45,7 @@ class MainSelectionScreen_I5 extends Component {
             click={() => {
             this.props.setCurrentMethod(CALCULATION);
             this.props.setCurrentCategory(SHEAR);
-            // this.props.history.push(LIST_SCREEN_PAGE)
+            this.props.history.push(CALCULATION_ULTIMATE_SHARING)
           }} class="col-md-3"/>
           <MainImageButton
             image={require('../assets/img/ultimate/content/flexural_reinforcement_calculator.jpeg')}
