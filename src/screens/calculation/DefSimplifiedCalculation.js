@@ -10,12 +10,12 @@ const DefSimplifiedCalculation = (props) => {
 
   const onSubmit = async data => {
     let basicRation = [7, 20, 26, 5.6, 16, 20.8]
-    let provBasicRation = basicRation[parseInt(data["no"])]
+    let provBasicRation = basicRation[parseInt(data["no"]) -1 ]
     let allowable = await calcAllow(provBasicRation, parseFloat(data["M"]), parseFloat(data["b"]), parseFloat(data["d"]),
       parseFloat(data["asDash"]), parseFloat(data["fy"]), parseFloat(data["as"]), parseFloat(data["fcu"]), parseFloat(data["dDash"]))
     let actual = await calcTrue(parseFloat(data["L"]), parseFloat(data["d"]))
-    setAnswer(allowable)
-    setActual(actual)
+    setAnswer(parseFloat(allowable.toFixed(4)))
+    setActual(parseFloat(actual.toFixed(4)))
     setIsSubmit(true)
   }
 
