@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
-
-//TODO Check the answer
+import {calcEcmEC, calcWk} from "./CalculationsEC";
 
 const ServiceabilityCWEC = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -10,120 +9,12 @@ const ServiceabilityCWEC = (props) => {
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
     let ans = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]), parseFloat(data["bar1"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["nBar1"]), parseFloat(data["c"]));
-    setAnswer(ans)
+    setAnswer(parseFloat(ans.toFixed(4)))
     setIsSubmit(true)
   }
   const tableValue = {
     "12": "27", "16": "29", "20": "30", "25": "31", "30": "33", "35": "34", "40": "35", "45": "36", "50": "37",
     "55": "38", "60": "39", "70": "41", "80": "42", "90": "44"
-  }
-
-  const k1 = 0.8
-  const k2 = 0.5
-  const k3 = 3.4
-  const k4 = 0.425
-  const phiInf = 2.2
-
-  // let Ecm = 0
-  let EcEff = 0
-  let alphaE = 0
-  let d = 0
-  let x = 0
-  let z = 0
-  let sigma = 0
-  let ephSM = 0
-  let hCEff = 0
-  let ACEff = 0
-  let rowPEff = 0
-  let sRMax = 0
-
-  const calcEcm = (fck) => {
-    setEcm((7.6 * Math.pow(10, -10) * Math.pow(fck, 6)) -
-      (2.1 * Math.pow(10, -7) * Math.pow(fck, 5)) +
-      (2.1 * Math.pow(10, -5) * Math.pow(fck, 4)) -
-      (0.00097 * Math.pow(x, 3)) +
-      (0.018 * Math.pow(fck, 2)) +
-      (0.26 * fck) +
-      23)
-  }
-
-  const calcEcEff = () => {
-    EcEff = Ecm / (1 + phiInf)
-  }
-
-  const calcAlphaE = (Es) => {
-    alphaE = Es / EcEff
-  }
-
-  const calcD = (h, c, phi, nBar) => {
-    if (nBar < 3 || nBar === 3) {
-      d = h - c - phi / 2
-    } else {
-      d = h - (3 * c) / 2 - phi
-    }
-  }
-
-  // step 1
-  const calcX = (As, b) => {
-    let sqr = Math.sqrt(Math.pow(alphaE * As, 2) + (2 * b * alphaE * As * d))
-    let xPlus = (-alphaE * As + sqr) / b
-    let xMin = (-alphaE * As - sqr) / b
-    if (xPlus > 0 || xPlus === 0) {
-      x = xPlus
-    } else if (xMin > 0 || xMin === 0) {
-      x = xMin
-    } else x = 0;
-  }
-
-  // step 2
-  const calcZ = () => {
-    z = d - x / 3
-  }
-
-  const calcSigma = (m, As) => {
-    sigma = m * Math.pow(10, 6) / (z * As)
-  }
-
-  // step 3
-  const calcEphSM = (Es) => {
-    ephSM = sigma / Es * Math.pow(10, 3)
-  }
-
-  const calcHCEff = (h) => {
-    let cond1 = 2.5 * (h - d)
-    let cond2 = (h - x) / 3
-    let cond3 = h / 2
-    hCEff = Math.min(cond1, cond2, cond3)
-  }
-
-  const calcACEff = (b) => {
-    ACEff = b * hCEff
-  }
-
-  const calcRowPEff = (As) => {
-    rowPEff = As / ACEff
-  }
-
-  // step 4
-  const calcSRMax = (phi, c) => {
-    sRMax = (k3 * c) + (k1 * k2 * k4 * phi) / rowPEff
-  }
-
-  // step 5
-  const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
-    calcEcEff()
-    calcAlphaE(Es)
-    calcD(h, c, phi, nBar)
-    calcX(As, b)
-    calcZ()
-    calcSigma(m, As)
-    calcEphSM(Es)
-    calcHCEff(h)
-    calcACEff(b)
-    calcRowPEff(As)
-    calcSRMax(phi, c)
-
-    return (sRMax * ephSM * Math.pow(10, -3));
   }
 
   return (
@@ -138,14 +29,15 @@ const ServiceabilityCWEC = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="fck" type="number" step="0.00001" className="form-control" aria-describedby="fck"
-                       ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
+                       ref={register({required: true})} onChange={(e) => setEcm(calcEcmEC(e.target.value))}/>
               </div>
             </div>
-            <p>Auto identify -> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+            <p>Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
-                <input name="ecm" value={Ecm} type="number" step="0.00001" className="form-control" aria-describedby="ecm" disabled={true}/>
+                <input name="ecm" value={Ecm} type="number" step="0.00001" className="form-control"
+                       aria-describedby="ecm" disabled={true}/>
               </div>
             </div>
             {/*<table className="table">*/}
@@ -199,7 +91,7 @@ const ServiceabilityCWEC = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="Es" type="number" step="0.00001" className="form-control" aria-describedby="Es"
-                       ref={register({required: true})}/>
+                       ref={register({required: true})} />
               </div>
             </div>
           </div>
@@ -314,7 +206,7 @@ const ServiceabilityCWEC = (props) => {
             <p>Final Answer</p>
             <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
               <div className="input-group mb-3">
-                <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
+                <span className="input-group-text col-md-10" id="strength-concrete">Crack Width (mm)</span>
                 <div className="input-group-append col-md-2">
                   <input name="" value={answer} type="number" step="0.00001" className="form-control"
                          aria-describedby="strength-concrete"

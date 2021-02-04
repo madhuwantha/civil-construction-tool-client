@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import {calcEcmBSI, calcA} from "./CalculationsBSI";
 
 const ServiceabilityDFBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -7,83 +8,11 @@ const ServiceabilityDFBSI = (props) => {
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
   const onSubmit = async data => {
-    let ans = await calcA(parseFloat(data["h"]),parseFloat(data["c"]),parseFloat(data["bar1"]),parseFloat(data["nBar"]),parseFloat(data["Es"]),parseFloat(data["As"]),parseFloat(data["b"]),parseFloat(data["M"]),parseFloat(data["l"]))
-    setAnswer(ans)
+    let ans = await calcA(parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["nBar1"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
+    setAnswer(parseFloat(ans.toFixed(4)))
     setIsSubmit(true)
   }
 
-  // fck, fy, Es, As, bar1, nBar1, b, h, c, l, M,
-
-  const k = 0.104
-
-  let alphaEAs = 0
-  let I = 0
-  let gammaB = 0
-  let x = 0
-  let d = 0
-  let gamma = 0
-  let fs = 0
-
-  const calcEcm = (fck) => {
-    setEcm(
-      (Math.pow(10, -8) * Math.pow(fck, 5)) -
-      (3.2 * Math.pow(10, -6) * Math.pow(fck, 4)) +
-      (0.00038 * Math.pow(fck, 3)) -
-      (0.022 * Math.pow(fck, 2)) +
-      (0.82 * fck) +
-      19
-    )
-  }
-
-  const calcD = (h, c, phi, nBar) => {
-    if (nBar < 3 || nBar === 3) {
-      d = h - c - phi / 2
-    } else {
-      d = h - (3 * c) / 2 - phi
-    }
-  }
-
-  const calcAlphaEAs = (Es, As) => {
-    alphaEAs = (Es * As) / Ecm
-  }
-
-  //step 2
-  const calcI = (b, h) => {
-    I = (b * Math.pow(h, 3)) / 12
-  }
-
-  const calcGammaB = (M) => {
-    gammaB = (M * Math.pow(10, 3)) / (Ecm * I)
-  }
-
-  //step 3
-  const calcX = (b) => {
-    let sqr = Math.sqrt(Math.pow(alphaEAs, 2) + 2 * b * alphaEAs * d)
-    x = (-alphaEAs + sqr) / b
-  }
-
-  //step 4
-  const calcFs = (M, As) => {
-    fs = (M * Math.pow(10, 6)) / (d - (x / 3)) * As
-  }
-
-  // step 5
-  const calcGamma = (Es) => {
-    gamma = fs / ((d - x) * Es * Math.pow(10, 3))
-  }
-
-  //step 6
-  const calcA = (h, c, bar, nBar, Es, As, b, M, l) => {
-    calcD(h, c, bar, nBar)
-    calcAlphaEAs(Es, As)
-    calcI(b, h)
-    calcGammaB(M)
-    calcX(b)
-    calcFs(M, As)
-    calcGamma(Es)
-
-    return k * Math.pow(l, 2) * gamma
-  }
 
   return (
     <div className="container col-9 card">
@@ -97,10 +26,10 @@ const ServiceabilityDFBSI = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Strength of concrete (N/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="fck" type="number" step="0.0001" className="form-control" aria-describedby="fck"
-                       ref={register({required: true})} onChange={(e) => calcEcm(e.target.value)}/>
+                       ref={register({required: true})} onChange={(e) => setEcm(calcEcmBSI(e.target.value))}/>
               </div>
             </div>
-            <p>Auto identify -> Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
+            <p>Short-term modulus of the concrete- E<sub>cm</sub>(kN/mm<sup>2</sup>)</p>
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Short-term modulus of the concrete (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
@@ -245,7 +174,7 @@ const ServiceabilityDFBSI = (props) => {
             <p>Final Answer</p>
             <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
               <div className="input-group mb-3">
-                <span className="input-group-text col-md-10" id="strength-concrete">Answer</span>
+                <span className="input-group-text col-md-10" id="strength-concrete">Deflection (mm)</span>
                 <div className="input-group-append col-md-2">
                   <input name="" value={answer} type="number" step="0.0001" className="form-control"
                          aria-describedby="strength-concrete"

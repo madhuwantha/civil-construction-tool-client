@@ -5,7 +5,7 @@ class LessonPopUp extends Component {
   render() {
     return (
       <Modal className="custom-modal" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader toggle={this.props.toggle}>{this.props.title} </ModalHeader>
+        {/*<ModalHeader toggle={this.props.toggle}>{this.props.title} </ModalHeader>*/}
         {this.props.image.map((image, idx) => {
           return (
             <div key={idx}>

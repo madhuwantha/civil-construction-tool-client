@@ -19,8 +19,9 @@ export default {
       "inputs":[
         {
           "question":"fs",
-          "answer":"216",
-          "unit":"N/mm2"
+          "answer":"206.15",
+          "range":"206.1 206.2",
+          "unit":"N/mm <sup>2</sup>"
         }
       ]
     },
@@ -30,18 +31,21 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
-          "answer":"0.00124",
+          "question":"ε <sub>1</sub>",
+          "answer":"0.00114",
+          "range":"0.00110 0.00118",
           "unit":""
         },
         {
-          "question":"",
-          "answer":"0.00112",
+          "question":"ε <sub>m</sub>",
+          "answer":"0.001",
+          "range":"0.0009 0.0011",
           "unit":""
         },
         {
-          "question":"",
-          "answer":"0.24",
+          "question":"w <sub>max</sub>",
+          "answer":"0.2193",
+          "range":"0.218 0.22",
           "unit":"mm"
         }
       ]

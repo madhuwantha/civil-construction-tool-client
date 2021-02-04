@@ -64,11 +64,11 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
-          <Suspense fallback={this.loadingAppAside()}>
-            <DefaultHeader onLogout={(e) => this.signOut(e)} />
-          </Suspense>
-        </AppHeader>
+        {/*<AppHeader fixed>*/}
+        {/*  <Suspense fallback={this.loadingAppAside()}>*/}
+        {/*    <DefaultHeader onLogout={(e) => this.signOut(e)} />*/}
+        {/*  </Suspense>*/}
+        {/*</AppHeader>*/}
         <div className="app-body">
           {/*<AppSidebar fixed display="lg">*/}
           {/*  <AppSidebarHeader />*/}
