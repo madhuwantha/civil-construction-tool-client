@@ -23,9 +23,9 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
-          "answer":"",
-          "unit":""
+          "question":"find the lower lever arm in terms of d",
+          "answer":"0.75",
+          "unit":"d"
         }
       ]
     },

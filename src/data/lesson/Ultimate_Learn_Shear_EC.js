@@ -14,9 +14,9 @@ export default {
       "buttons": [],
       "inputs": [
         {
-          "question":"",
-          "answer":"",
-          "unit":""
+          "question":"shear capacity of beam",
+          "answer":"47.7",
+          "unit":"kN"
         }
       ]
     },
@@ -26,9 +26,9 @@ export default {
       "buttons": [],
       "inputs":[
         {
-          "question":"",
-          "answer":"",
-          "unit":""
+          "question":"Minimum shear reinforcement requirement",
+          "answer":"32.1",
+          "unit":"kN"
         }
       ]
     },
@@ -49,11 +49,11 @@ export default {
       "imagePath": require("../../assets/img/lesson/Ultimate_Learn_Shear_EC/images/3.png"),
       "buttons": [],
       "inputs":[
-        // {
-        //   "question":"",
-        //   "answer":"",
-        //   "unit":""
-        // }
+        {
+          "question":"strut angle",
+          "answer":"22",
+          "unit":"degrees"
+        }
       ]
     },
     {
