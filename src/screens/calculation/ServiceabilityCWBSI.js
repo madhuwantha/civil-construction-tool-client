@@ -160,7 +160,7 @@ const ServiceabilityCWBSI = (props) => {
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.m && <span>This field is required</span>}
             <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Moment at which crack width is stored (kNm)</span>
+              <span className="input-group-text col-md-10" id="strength-concrete">Moment at which crack width is sorted (kNm)</span>
               <div className="input-group-append col-md-2">
                 <input name="m" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>

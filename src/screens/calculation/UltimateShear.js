@@ -14,7 +14,7 @@ const UltimateShear = (props) => {
   const onSubmit = async data => {
     let ans11 = await calcShearCapacity(parseFloat(data["v"]), parseFloat(data["b"]), parseFloat(data["d"]));
     let ans12 = await calcSpacing(parseFloat(data["fyv"]), parseFloat(data["b"]),
-      parseFloat(data["sc"]), parseFloat(data["vc"]), parseFloat(data["fcu"]),parseFloat(data["d"]),parseFloat(data["v"]))
+      parseFloat(data["sc"]), parseFloat(data["fcu"]),parseFloat(data["d"]),parseFloat(data["As"]), parseFloat(data["v"]))
     let ans13 = 150;
     let ans21 = 0;
     let ans22 = 0;
@@ -79,17 +79,17 @@ const UltimateShear = (props) => {
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.v && <span>This field is required</span>}
             <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">D. Shear Force (kN)</span>
+              <span className="input-group-text col-md-10" id="strength-concrete"> Shear Force (kN)</span>
               <div className="input-group-append col-md-2">
                 <input name="v" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>
               </div>
             </div>
-            {errors.M && <span>This field is required</span>}
+            {errors.l && <span>This field is required</span>}
             <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Moment (kNm)</span>
+              <span className="input-group-text col-md-10" id="strength-concrete">Span (kNm)</span>
               <div className="input-group-append col-md-2">
-                <input name="M" type="number" step="0.00001" className="form-control" aria-describedby="m"
+                <input name="l" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>
               </div>
             </div>
