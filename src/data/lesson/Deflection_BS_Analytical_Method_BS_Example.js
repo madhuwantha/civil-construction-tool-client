@@ -46,13 +46,13 @@ export default {
           "question": "f_s",
           "answer": "205.86",
           "rang": "205.8 205.9",
-          "unit": "N/mm^2"
+          "unit": "N/mm<sup>2</sup>"
         },
         {
           "question": "1/r",
           "answer": "0.00000256",
           "rang": "0.0000025 0.0000026",
-          "unit": "/mm"
+          "unit": "mm<sup>-1</sup>"
         },
         {
           "question": "a",
