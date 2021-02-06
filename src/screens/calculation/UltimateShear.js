@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
-import {calcShearCapacity, calcSpacing} from "./CalculationUltimateShear";
+import {calcShearCapacity, calcSpacing} from "./CalculationUSBSI";
+import {calcFinal, calcVDesign} from "./CalculationUSEC";
 
 const UltimateShear = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -16,15 +17,16 @@ const UltimateShear = (props) => {
     let ans12 = await calcSpacing(parseFloat(data["fyv"]), parseFloat(data["b"]),
       parseFloat(data["sc"]), parseFloat(data["fcu"]),parseFloat(data["d"]),parseFloat(data["As"]), parseFloat(data["v"]))
     let ans13 = 150;
-    let ans21 = 0;
-    let ans22 = 0;
-    let ans23 = 0;
-    setAnswer11(ans11)
-    setAnswer12(ans12)
-    setAnswer13(ans13)
-    setAnswer21(ans21)
-    setAnswer22(ans22)
-    setAnswer23(ans23)
+    let ans21 = await calcVDesign(parseFloat(data["v"]), parseFloat(data["l"]), parseFloat(data["d"]));
+    let ans22 = await calcFinal(parseFloat(data["v"]), parseFloat(data["l"]), parseFloat(data["b"]), parseFloat(data["d"]),
+      parseFloat(data["fck"]), parseFloat(data["As"]), parseFloat(data["fy"]));
+    let ans23 = 150;
+    setAnswer11(parseFloat(ans11.toFixed(4)))
+    setAnswer12(parseFloat(ans12.toFixed(4)))
+    setAnswer13(parseFloat(ans13.toFixed(4)))
+    setAnswer21(parseFloat(ans21.toFixed(4)))
+    setAnswer22(parseFloat(ans22.toFixed(4)))
+    setAnswer23(parseFloat(ans23.toFixed(4)))
     setIsSubmit(true)
   }
 

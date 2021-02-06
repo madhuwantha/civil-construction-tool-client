@@ -1,4 +1,4 @@
-// b, d, fck, fcu, v, M, fy, fyv, As, Asv
+// b, d, fck, fcu, v, l, fy, fyv, As, Asv
 const gammaM = 1.25
 const link = 10
 
