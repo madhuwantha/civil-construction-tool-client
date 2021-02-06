@@ -14,14 +14,18 @@ const ServiceabilityCWEC = (props) => {
   const [ansDEC, setAnsDEC] = useState(0);
 
   const onSubmit = async data => {
-    let ansCBSI = calcWMax(parseFloat(data["c"]), parseFloat(data["Es"]), parseFloat(data["AsT"]),
+    let ansCBSI = await calcWMax(parseFloat(data["c"]), parseFloat(data["Es"]), parseFloat(data["AsT"]),
       parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data['bar1T']))
-    let ansDBSI = calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1T"]), parseFloat(data["nBar1T"]),
+
+    let ansDBSI = await calcA( parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1T"]), parseFloat(data["nBar1T"]),
       parseFloat(data["Es"]), parseFloat(data["AsT"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
-    let ansCEC = calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]),
+
+    let ansCEC = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]),
       parseFloat(data["bar1T"]),  parseFloat(data["AsT"]),parseFloat(data["b"]),   parseFloat(data["M"]), parseFloat(data["nBar1T"]),parseFloat(data["c"]) )
-    let ansDEC = calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["AsT"]), parseFloat(data["b"]), parseFloat(data["h"]),
+
+    let ansDEC = await calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["AsT"]), parseFloat(data["b"]), parseFloat(data["h"]),
       parseFloat(data["c"]), parseFloat(data["bar1T"]), parseFloat(data["M"]), parseFloat(data["l"]), [parseFloat(data["nBar1T"])])
+
     setAnsCBSI(parseFloat(ansCBSI.toFixed(4)));
     setAnsDBSI(parseFloat(ansDBSI.toFixed(4)));
     setAnsCEC(parseFloat(ansCEC.toFixed(4)));
@@ -224,9 +228,14 @@ const ServiceabilityCWEC = (props) => {
         {isSubmit
           ?
           <table className={"table"}>
-            <th> </th>
-            <th>Crack Width (mm)</th>
-            <th>Deflection (mm)</th>
+            <thead>
+              <tr>
+                <th> </th>
+                <th>Crack Width (mm)</th>
+                <th>Deflection (mm)</th>
+              </tr>
+            </thead>
+            <tbody>
             <tr>
               <th>BS8110</th>
               <td>{ansCBSI}</td>
@@ -237,6 +246,7 @@ const ServiceabilityCWEC = (props) => {
               <td>{ansCEC}</td>
               <td>{ansDEC}</td>
             </tr>
+            </tbody>
           </table>
           : <></>
         }

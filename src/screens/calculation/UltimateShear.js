@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
-import {calcShearCapacity, calcSpacing} from "./CalculationUltimateShear";
+import {calcShearCapacity, calcSpacing} from "./CalculationUSBSI";
+import {calcFinal, calcVDesign} from "./CalculationUSEC";
 
 const UltimateShear = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -14,17 +15,18 @@ const UltimateShear = (props) => {
   const onSubmit = async data => {
     let ans11 = await calcShearCapacity(parseFloat(data["v"]), parseFloat(data["b"]), parseFloat(data["d"]));
     let ans12 = await calcSpacing(parseFloat(data["fyv"]), parseFloat(data["b"]),
-      parseFloat(data["sc"]), parseFloat(data["vc"]), parseFloat(data["fcu"]),parseFloat(data["d"]),parseFloat(data["v"]))
+      parseFloat(data["sc"]), parseFloat(data["fcu"]),parseFloat(data["d"]),parseFloat(data["As"]), parseFloat(data["v"]))
     let ans13 = 150;
-    let ans21 = 0;
-    let ans22 = 0;
-    let ans23 = 0;
-    setAnswer11(ans11)
-    setAnswer12(ans12)
-    setAnswer13(ans13)
-    setAnswer21(ans21)
-    setAnswer22(ans22)
-    setAnswer23(ans23)
+    let ans21 = await calcVDesign(parseFloat(data["v"]), parseFloat(data["l"]), parseFloat(data["d"]));
+    let ans22 = await calcFinal(parseFloat(data["v"]), parseFloat(data["l"]), parseFloat(data["b"]), parseFloat(data["d"]),
+      parseFloat(data["fck"]), parseFloat(data["As"]), parseFloat(data["fy"]));
+    let ans23 = 150;
+    setAnswer11(parseFloat(ans11.toFixed(4)))
+    setAnswer12(parseFloat(ans12.toFixed(4)))
+    setAnswer13(parseFloat(ans13.toFixed(4)))
+    setAnswer21(parseFloat(ans21.toFixed(4)))
+    setAnswer22(parseFloat(ans22.toFixed(4)))
+    setAnswer23(parseFloat(ans23.toFixed(4)))
     setIsSubmit(true)
   }
 
@@ -79,17 +81,17 @@ const UltimateShear = (props) => {
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
             {errors.v && <span>This field is required</span>}
             <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">D. Shear Force (kN)</span>
+              <span className="input-group-text col-md-10" id="strength-concrete"> Shear Force (kN)</span>
               <div className="input-group-append col-md-2">
                 <input name="v" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>
               </div>
             </div>
-            {errors.M && <span>This field is required</span>}
+            {errors.l && <span>This field is required</span>}
             <div className="input-group mb-3">
-              <span className="input-group-text col-md-10" id="strength-concrete">Moment (kNm)</span>
+              <span className="input-group-text col-md-10" id="strength-concrete">Span (kNm)</span>
               <div className="input-group-append col-md-2">
-                <input name="M" type="number" step="0.00001" className="form-control" aria-describedby="m"
+                <input name="l" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>
               </div>
             </div>
