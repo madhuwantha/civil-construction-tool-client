@@ -53,7 +53,7 @@ class LessonImage extends Component {
         <div className="row lesson-button-row input-container">
           {this.props.img.inputs.map((input_, index) => {
             return (
-              <LessonQuestion key={index} question={input_.question} unit={input_.unit} answer={input_.answer}/>
+              <LessonQuestion key={index} range={input_.range} question={input_.question} unit={input_.unit} answer={input_.answer}/>
             )
           })}
         </div>

@@ -89,7 +89,7 @@ const calcIuc = (b, h) => {
  * @param nBar
  */
 const calcD = (h, c, phi, nBar) => {
-  if (nBar < 3 || nBar === 3) {
+  if (nBar <= 3) {
     d = h - c - phi / 2
   } else {
     d = h - (3 * c) / 2 - phi
@@ -298,5 +298,12 @@ export const calcDef = (fck, Es, As, b, h, c, phi, M, l, nBar) => {
   calcMcr(b, h)
   calcSy(M)
   calcGamma()
-  return k * Math.pow(l, 2) * gamma
+
+  console.log("EcEff = "+ EcEff + " alphaAs = "+alphaAs+" Iuc = "+Iuc+" D = "+d+
+    " gammauc = "+gammaUC+" x = "+xDF+" Icr = "+Icr+" gammaCr = "+gammaCR+" Fctm = "+fctm+
+  " Mcr = "+mcr+" sy = "+sy+" gama = "+gamma)
+  let ans = k * Math.pow(l, 2) * gamma
+  console.log(ans)
+
+  return ans
 }
