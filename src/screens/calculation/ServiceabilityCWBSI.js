@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {calcEcmBSI, calcWMax} from "./CalculationsBSI";
 import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import * as Deno from "fs";
-
+import {getPdf, savePdf} from "../../helpers/pdf";
 
 const ServiceabilityCWBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -12,18 +12,13 @@ const ServiceabilityCWBSI = (props) => {
   const [Ecm, setEcm] = useState(0);
   const [pdf, setPdf] = useState(null);
 
-  const viewer = useRef(null);
-
   const onSubmit = async data => {
     // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["phi"]), parseFloat(data["nBar1"]))
     setAnswer(parseFloat(ans.toFixed(4)))
     setIsSubmit(true)
 
-    const url = require('../../assets/pdf/crack_width_BS8110_work_sheet.pdf');
-    const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
-    const pdfDoc = await PDFDocument.load(existingPdfBytes);
-
+    const pdfDoc = await getPdf('crack_width_BS8110_work_sheet.pdf');
     const page = pdfDoc.getPage(0);
     page.drawText('This text was added with Deno!', {
       x: 40,
@@ -33,12 +28,7 @@ const ServiceabilityCWBSI = (props) => {
       rotate: degrees(-45),
     });
 
-    const pdfBytes = await pdfDoc.save();
-
-    let bytes = new Uint8Array(pdfBytes);
-    let blob = new Blob([bytes], { type: "application/pdf" });
-    const docUrl = URL.createObjectURL(blob);
-    setPdf(docUrl);
+    setPdf(await savePdf(pdfDoc));
 
   }
 
