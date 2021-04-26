@@ -8,11 +8,7 @@ const UltimateFlexFlange = (props) => {
   const [answer21, setAnswer21] = useState(0);
   const onSubmit = async data => {
     let ans11 = 0;
-    let ans12 = 0;
-    let ans13 = 0;
     let ans21 = 0;
-    let ans22 = 0;
-    let ans23 = 0;
     setAnswer11(parseFloat(ans11.toFixed(4)))
     setAnswer21(parseFloat(ans21?.toFixed(4)))
     setIsSubmit(true)
