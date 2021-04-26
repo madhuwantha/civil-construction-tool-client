@@ -13,7 +13,7 @@ const ServiceabilityDFEC = (props) => {
 
   const onSubmit = async data => {
     let ans = await calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["M"]), parseFloat(data["l"]), parseFloat(data["nBar1"]))
-    setAnswer(parseFloat(ans.toFixed(4)))
+    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)))
     setIsSubmit(true)
     console.log(parseFloat(data["Es"]) + '  ' + parseFloat(data["As"]) + '  ' + parseFloat(data["b"]) + '   ' + parseFloat(data["h"]) + '  ' + parseFloat(data["c"]) + '   ' + parseFloat(data["bar1"]) + '   ' + parseFloat(data["M"]) + '  ' + parseFloat(data["l"]) + '  ' + parseFloat(data["nBar1"]))
 

@@ -268,7 +268,33 @@ export const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
   calcRowPEff(As)
   calcSRMax(phi, c)
 
-  return (sRMax * ephSM);
+  let ans = (sRMax * ephSM);
+
+  return {
+    "mainAnswer": ans,
+    "subAnswers":[
+      {
+        "name": "x",
+        "value": xCW,
+      },
+      {
+        "name": "d",
+        "value": d,
+      },
+      {
+        "name": "sigma",
+        "value": sigma,
+      },
+      {
+        "name": "rowPEff",
+        "value": rowPEff,
+      },
+      {
+        "name": "sRMax",
+        "value": sRMax,
+      }
+    ]
+  };
 }
 
 /**
@@ -305,5 +331,25 @@ export const calcDef = (fck, Es, As, b, h, c, phi, M, l, nBar) => {
   let ans = k * Math.pow(l, 2) * gamma
   console.log(ans)
 
-  return ans
+  return {
+    "mainAnswer": ans,
+    "subAnswers": [
+      {
+        "name": "gammaUC",
+        "value": gammaUC
+      },
+      {
+        "name": "x",
+        "value": xDF
+      },
+      {
+        "name": "gammaCR",
+        "value": gammaCR
+      },
+      {
+        "name": "gamma",
+        "value": gamma
+      }
+    ]
+  }
 }

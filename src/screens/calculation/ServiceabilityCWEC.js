@@ -16,7 +16,7 @@ const ServiceabilityCWEC = (props) => {
 
   const onSubmit = async data => {
     let ans = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]), parseFloat(data["bar1"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["nBar1"]), parseFloat(data["c"]));
-    setAnswer(parseFloat(ans.toFixed(4)))
+    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)))
     setIsSubmit(true)
 
     const pdfDoc = await getPdf('crack_width_EC2_work_sheet.pdf');

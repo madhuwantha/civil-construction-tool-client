@@ -127,8 +127,8 @@ const calcF2 = (asDash, b, d) => {
 export const calcAllow = async (no, M, b, d, asDash, fy, as, fcu, dDash) => {
   await calcK(M, b, d, fcu)
   if (k < kDash || k === kDash) {
-    let z = calcZ(d, k)
-    let x = calcX(d)
+    calcZ(d, k)
+    calcX(d)
     calcAsLess(M, fy)
   } else {
     calcZ(d, kDash)
@@ -140,16 +140,7 @@ export const calcAllow = async (no, M, b, d, asDash, fy, as, fcu, dDash) => {
   calcF1(M, b, d)
   calcF2(asDash, b, d)
 
-  let ans = console.log("k -> " + k + "z -> "+z + "x ->" + x + "asLess ->" + asReq + "asDAsh ->" + asDashReq + "Fs -> " + fs + "F1 -> "+ f1 +"F2 ->" +f2+ "no-> " + no )
-  let answers = {
-    "main-ans": ans,
-    "sun-ans":[
-      {
-        "name":
-        "value":
-      }
-    ]
-  }
+  console.log("k -> " + k + "z -> "+z + "x ->" + x + "asLess ->" + asReq + "asDAsh ->" + asDashReq + "Fs -> " + fs + "F1 -> "+ f1 +"F2 ->" +f2+ "no-> " + no )
   return no * f1 * f2
 }
 

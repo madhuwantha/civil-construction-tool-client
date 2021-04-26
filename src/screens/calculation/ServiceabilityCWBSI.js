@@ -15,7 +15,7 @@ const ServiceabilityCWBSI = (props) => {
   const onSubmit = async data => {
     // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["phi"]), parseFloat(data["nBar1"]))
-    setAnswer(parseFloat(ans.toFixed(4)))
+    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)))
     setIsSubmit(true)
 
     const pdfDoc = await getPdf('crack_width_BS8110_work_sheet.pdf');

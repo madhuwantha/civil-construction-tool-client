@@ -167,7 +167,7 @@ const calcGamma = (Es) => {
  * @param M
  * @param phi
  * @param nBar
- * @returns {number}
+ * @returns {{"sub-answers": [{name: string, value: number}, {name: string, value: number}, {name: string, value: number}, {name: string, value: number}], "main-answer": number}}
  */
 export const calcWMax = (corner, Es, As, h, b, M, phi, nBar) => {
   calcAcr(corner, phi / 2)
@@ -178,7 +178,28 @@ export const calcWMax = (corner, Es, As, h, b, M, phi, nBar) => {
   calcEphsOne(h, corner, Es)
   calcEphM(b, h, Es, As)
 
-  return (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - corner) / (h - xCW)));
+  let ans = (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - corner) / (h - xCW)));
+  return {
+    "mainAnswer": ans,
+    "subAnswers": [
+      {
+        "name": "x",
+        "value": xCW
+      },
+      {
+        "name": "fs",
+        "value": FsCW
+      },
+      {
+        "name": "epsOne",
+        "value": ephsOne
+      },
+      {
+        "name": "epsM",
+        "value": ephsM
+      }
+    ]
+  };
 }
 
 /**
@@ -192,7 +213,7 @@ export const calcWMax = (corner, Es, As, h, b, M, phi, nBar) => {
  * @param b
  * @param M
  * @param l
- * @returns {number}
+ * @returns {{subAnswers: [{name: string, value: number}, {name: string, value: number}, {name: string, value: number}, {name: string, value: number}], mainAnswer: number}}
  */
 export const calcA = (h, c, bar, nBar, Es, As, b, M, l) => {
   calcD(h, c, bar, nBar)
@@ -203,5 +224,27 @@ export const calcA = (h, c, bar, nBar, Es, As, b, M, l) => {
   calcFsDF(M, As)
   calcGamma(Es)
 
-  return k * Math.pow(l, 2) * gamma
+  let ans = k * Math.pow(l, 2) * gamma;
+
+  return {
+    "mainAnswer": ans,
+    "subAnswers": [
+      {
+        "name": "gammaB",
+        "value": gammaB
+      },
+      {
+        "name": "x",
+        "value": xDF
+      },
+      {
+        "name": "fs",
+        "value": FsDF
+      },
+      {
+        "name": "gamma",
+        "value": gamma
+      }
+    ]
+  }
 }

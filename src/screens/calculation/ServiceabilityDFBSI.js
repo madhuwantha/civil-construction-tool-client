@@ -14,7 +14,7 @@ const ServiceabilityDFBSI = (props) => {
 
   const onSubmit = async data => {
     let ans = await calcA(parseFloat(data["h"]), parseFloat(data["c"]), parseFloat(data["bar1"]), parseFloat(data["nBar1"]), parseFloat(data["Es"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["l"]))
-    setAnswer(parseFloat(ans.toFixed(4)))
+    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)))
     setIsSubmit(true)
 
     const pdfDoc = await getPdf('deflection_BS8110_work_sheet.pdf');
