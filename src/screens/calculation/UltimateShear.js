@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcShearCapacity, calcSpacing} from "./CalculationUSBSI";
 import {calcFinal, calcVDesign} from "./CalculationUSEC";
+import {getPdf, savePdf} from "../../helpers/pdf";
+import {degrees, rgb} from "pdf-lib";
 
 const UltimateShear = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -12,6 +14,9 @@ const UltimateShear = (props) => {
   const [answer21, setAnswer21] = useState(0);
   const [answer22, setAnswer22] = useState(0);
   const [answer23, setAnswer23] = useState(0);
+  const [pdf, setPdf] = useState(null);
+
+
   const onSubmit = async data => {
     let ans11 = await calcShearCapacity(parseFloat(data["v"]), parseFloat(data["b"]), parseFloat(data["d"]));
     let ans12 = await calcSpacing(parseFloat(data["fyv"]), parseFloat(data["b"]),
@@ -28,6 +33,18 @@ const UltimateShear = (props) => {
     setAnswer22(typeof(ans22) === "string" ? ans22 :  parseFloat(ans22?.toFixed(4)))
     setAnswer23(parseFloat(ans23?.toFixed(4)))
     setIsSubmit(true)
+
+    const pdfDoc = await getPdf('shear_work_sheet.pdf');
+    const page = pdfDoc.getPage(0);
+    page.drawText('This text was added with Deno!', {
+      x: 40,
+      y: page.getHeight() / 2 + 250,
+      size: 50,
+      color: rgb(0.95, 0.1, 0.1),
+      rotate: degrees(-45),
+    });
+
+    setPdf(await savePdf(pdfDoc));
   }
 
   return(
@@ -180,6 +197,10 @@ const UltimateShear = (props) => {
           : <></>
         }
       </form>
+      {pdf !== null ?
+        <iframe className="pdf-viewer" title="test-frame" src={pdf}  type="application/pdf" />
+        : <></>
+      }
     </div>
   );
 }

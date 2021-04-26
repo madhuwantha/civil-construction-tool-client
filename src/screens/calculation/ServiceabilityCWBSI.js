@@ -1,17 +1,35 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcEcmBSI, calcWMax} from "./CalculationsBSI";
+import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import * as Deno from "fs";
+import {getPdf, savePdf} from "../../helpers/pdf";
 
 const ServiceabilityCWBSI = (props) => {
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
+  const [pdf, setPdf] = useState(null);
+
   const onSubmit = async data => {
     // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["phi"]), parseFloat(data["nBar1"]))
     setAnswer(parseFloat(ans.toFixed(4)))
     setIsSubmit(true)
+
+    const pdfDoc = await getPdf('crack_width_BS8110_work_sheet.pdf');
+    const page = pdfDoc.getPage(0);
+    page.drawText('This text was added with Deno!', {
+      x: 40,
+      y: page.getHeight() / 2 + 250,
+      size: 50,
+      color: rgb(0.95, 0.1, 0.1),
+      rotate: degrees(-45),
+    });
+
+    setPdf(await savePdf(pdfDoc));
+
   }
 
   return (
@@ -194,6 +212,10 @@ const ServiceabilityCWBSI = (props) => {
           : <></>
         }
       </form>
+      {pdf !== null ?
+        <iframe className="pdf-viewer" title="test-frame" src={pdf}  type="application/pdf" />
+        : <></>
+      }
     </div>
   )
 }
