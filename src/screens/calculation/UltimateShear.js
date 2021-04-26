@@ -23,10 +23,10 @@ const UltimateShear = (props) => {
     let ans23 = 150;
     setAnswer11(parseFloat(ans11.toFixed(4)))
     setAnswer12(parseFloat(ans12.toFixed(4)))
-    setAnswer13(parseFloat(ans13.toFixed(4)))
-    setAnswer21(parseFloat(ans21.toFixed(4)))
-    setAnswer22(parseFloat(ans22.toFixed(4)))
-    setAnswer23(parseFloat(ans23.toFixed(4)))
+    setAnswer13(parseFloat(ans13?.toFixed(4)))
+    setAnswer21(parseFloat(ans21?.toFixed(4)))
+    setAnswer22(typeof(ans22) === "string" ? ans22 :  parseFloat(ans22?.toFixed(4)))
+    setAnswer23(parseFloat(ans23?.toFixed(4)))
     setIsSubmit(true)
   }
 
