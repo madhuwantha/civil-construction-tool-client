@@ -1,16 +1,36 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcEcmEC, calcWk} from "./CalculationsEC";
+import {getPdf, savePdf} from "../../helpers/pdf";
+import {degrees, rgb} from "pdf-lib";
 
 const ServiceabilityCWEC = (props) => {
+
+
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
+  const [pdf, setPdf] = useState(null);
+
+
   const onSubmit = async data => {
     let ans = await calcWk(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["h"]), parseFloat(data["bar1"]), parseFloat(data["As"]), parseFloat(data["b"]), parseFloat(data["M"]), parseFloat(data["nBar1"]), parseFloat(data["c"]));
     setAnswer(parseFloat(ans.toFixed(4)))
     setIsSubmit(true)
+
+    const pdfDoc = await getPdf('crack_width_EC2_work_sheet.pdf');
+    const page = pdfDoc.getPage(0);
+    page.drawText('This text was added with Deno!', {
+      x: 40,
+      y: page.getHeight() / 2 + 250,
+      size: 50,
+      color: rgb(0.95, 0.1, 0.1),
+      rotate: degrees(-45),
+    });
+
+    setPdf(await savePdf(pdfDoc));
+
   }
   const tableValue = {
     "12": "27", "16": "29", "20": "30", "25": "31", "30": "33", "35": "34", "40": "35", "45": "36", "50": "37",
@@ -218,6 +238,10 @@ const ServiceabilityCWEC = (props) => {
           : <></>
         }
       </form>
+      {pdf !== null ?
+        <iframe className="pdf-viewer" title="test-frame" src={pdf}  type="application/pdf" />
+        : <></>
+      }
     </div>
   );
 }

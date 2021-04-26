@@ -14,3 +14,4 @@ export const savePdf = async (pdfDoc) => {
   let blob = new Blob([bytes], { type: "application/pdf" });
   return URL.createObjectURL(blob);
 }
+
