@@ -15,3 +15,5 @@ export const CALCULATION_SERVICEABILITY_DF_BSI = "/serviceability-deflection-bsi
 export const CALCULATION_SERVICEABILITY_DF_EC = "/serviceability-deflection-ec-calculation"
 export const DEFLECTION_SIMPLIFIED_CALCULATION = "/deflection-simplified-calculation"
 export const CALCULATION_ULTIMATE_SHARING = "/ultimate-sharing"
+export const CALCULATION_ULTIMATE_FLEX_RECT = "/ultimate-flex-rect-calculation"
+export const CALCULATION_ULTIMATE_FLEX_FLANGE = "/ultimate-flex-flange-calculation"
