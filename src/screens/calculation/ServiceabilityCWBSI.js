@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcEcmBSI, calcWMax} from "./CalculationsBSI";
 import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
@@ -13,23 +13,52 @@ const ServiceabilityCWBSI = (props) => {
   const [pdf, setPdf] = useState(null);
 
   const onSubmit = async data => {
-    // console.log(data);
     let ans = await calcWMax(parseFloat(data["corner"]), parseFloat(data["es"]), parseFloat(data["as"]), parseFloat(data["h"]), parseFloat(data["b"]), parseFloat(data["m"]), parseFloat(data["phi"]), parseFloat(data["nBar1"]))
-    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)))
+    let finalAns = parseFloat(ans["mainAnswer"].toFixed(4));
+    setAnswer(finalAns)
     setIsSubmit(true)
+
+    const subAnswers = ans["subAnswers"];
+
+    let x = subAnswers["x"]
+    let fs = subAnswers["fs"]
+    let epsOne = subAnswers["epsOne"];
+    let epsM = subAnswers["epsM"]
 
     const pdfDoc = await getPdf('crack_width_BS8110_work_sheet.pdf');
     const page = pdfDoc.getPage(0);
-    page.drawText('This text was added with Deno!', {
-      x: 40,
-      y: page.getHeight() / 2 + 250,
-      size: 50,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(-45),
-    });
-
+    page.drawText( x+" mm", {
+      x:60,
+      y:514,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+    page.drawText( fs+"", {
+      x:60,
+      y:379,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+    page.drawText( epsOne+"", {
+      x:60,
+      y:255,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+    page.drawText( epsM+"", {
+      x:65,
+      y:155,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+    page.drawText( finalAns+" mm", {
+      x:80,
+      y:54,
+      size: 12,
+      color: rgb(0,0,0)
+    })
     setPdf(await savePdf(pdfDoc));
-
+    setPdf(await savePdf(pdfDoc));
   }
 
   return (

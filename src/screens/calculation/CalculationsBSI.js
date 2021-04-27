@@ -181,24 +181,12 @@ export const calcWMax = (corner, Es, As, h, b, M, phi, nBar) => {
   let ans = (3 * Acr * ephsM * Math.pow(10, -3)) / (1 + 2 * ((Acr - corner) / (h - xCW)));
   return {
     "mainAnswer": ans,
-    "subAnswers": [
-      {
-        "name": "x",
-        "value": xCW
-      },
-      {
-        "name": "fs",
-        "value": FsCW
-      },
-      {
-        "name": "epsOne",
-        "value": ephsOne
-      },
-      {
-        "name": "epsM",
-        "value": ephsM
-      }
-    ]
+    "subAnswers": {
+      "x": xCW,
+      "fs": FsCW,
+      "epsOne": ephsOne,
+      "epsM": ephsM
+    }
   };
 }
 
