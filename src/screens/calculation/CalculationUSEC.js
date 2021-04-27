@@ -74,7 +74,10 @@ export const calcVDesign = (v, l, d) => {
   if (debug) {
     console.log("vDesign = " + vDesign)
   }
-  return vDesign
+  return {
+    "mainAnswer": vDesign,
+    "subAnswers": []
+  }
 }
 
 const calcK = (d) => {
@@ -145,6 +148,7 @@ const calcS = (fy, b, fck, v, d) => {
 }
 
 export const calcFinal = (v, l, b, d, fck, As, fy) => {
+  let ans;
   let decision = 0
   calcCond(b, d, fck)
   calcVRDConcrete(fck, b, d, As)
@@ -173,8 +177,41 @@ export const calcFinal = (v, l, b, d, fck, As, fy) => {
     if (s > (0.75 * d)) {
       s = 0.75 * d
     }
-    return s
+    ans = s
   } else {
-    return "Shear Reinforcement is not necessary"
+    ans = "Shear Reinforcement is not necessary"
+  }
+  return {
+    "mainAnswer": ans,
+    "subAnswers": [
+      {
+        "name": "",
+        "value": vrdMax
+      },
+      {
+        "name": "",
+        "value": theta
+      },
+      {
+        "name": "",
+        "value": vMin
+      },
+      {
+        "name": "s",
+        "value": s
+      },
+      {
+        "name": "0.75d",
+        "value": 0.75*d
+      },
+      {
+        "name": "cond",
+        "value": cond
+      },
+      {
+        "name": "Asw/s",
+        "value": Asw/s
+      }
+    ]
   }
 }

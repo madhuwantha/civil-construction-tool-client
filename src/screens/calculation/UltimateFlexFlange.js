@@ -1,21 +1,34 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import {getPdf, savePdf} from "../../helpers/pdf";
+import {degrees, rgb} from "pdf-lib";
 
 const UltimateFlexFlange = (props) => {
+
   const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer11, setAnswer11] = useState(0);
   const [answer21, setAnswer21] = useState(0);
+  const [pdf, setPdf] = useState(null);
+
   const onSubmit = async data => {
     let ans11 = 0;
-    let ans12 = 0;
-    let ans13 = 0;
     let ans21 = 0;
-    let ans22 = 0;
-    let ans23 = 0;
     setAnswer11(parseFloat(ans11.toFixed(4)))
     setAnswer21(parseFloat(ans21?.toFixed(4)))
     setIsSubmit(true)
+
+    // const pdfDoc = await getPdf('crack_width_EC2_work_sheet.pdf');
+    // const page = pdfDoc.getPage(0);
+    // page.drawText('This text was added with Deno!', {
+    //   x: 40,
+    //   y: page.getHeight() / 2 + 250,
+    //   size: 50,
+    //   color: rgb(0.95, 0.1, 0.1),
+    //   rotate: degrees(-45),
+    // });
+    //
+    // setPdf(await savePdf(pdfDoc));
   }
 
   return(
@@ -139,6 +152,10 @@ const UltimateFlexFlange = (props) => {
           : <></>
         }
       </form>
+      {pdf !== null ?
+        <iframe className="pdf-viewer" title="test-frame" src={pdf}  type="application/pdf" />
+        : <></>
+      }
     </div>
   );
 }

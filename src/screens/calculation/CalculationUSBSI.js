@@ -6,6 +6,7 @@ let vc = 0
 let sc = 0
 let sv = 0
 let Asv = 0
+let y = 0
 
 const calcVc = (As, b, v, d) => {
   let tempd = d
@@ -13,7 +14,7 @@ const calcVc = (As, b, v, d) => {
     tempd = 400
   }
 
-  let y = ((100 * As) / (b * d))
+  y = ((100 * As) / (b * d))
   let x = (400 / tempd)
   if (y >= 3) {
     y = 3
@@ -35,7 +36,10 @@ export const calcShearCapacity = (v, b, d) => {
   sc = (v * Math.pow(10, 3)) / (b * d)
   console.log("fv = " + v + " fb = " + b + " fd = " + d)
   console.log(sc)
-  return sc
+  return {
+    "mainAnswer": sc,
+    "subAnswers": []
+  }
 }
 
 const calcSpacingCond1 = (fyv, b) => {
@@ -70,5 +74,21 @@ export const calcSpacing = (fyv, b, sc, fcu, d, As, v) => {
   sv = sv - (sv % 25)
 
   console.log("vc = " + vc + " sc = " + sc + " sv = " + sv + " Asv = " + Asv)
-  return sv
+  return {
+    "mainAnswer": sv,
+    "subAnswers": [
+      {
+        "name": "y",
+        "value": y
+      },
+      {
+        "name": "vc",
+        "value": vc
+      },
+      {
+        "name": "sv",
+        "value": sv
+      }
+    ]
+  }
 }
