@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcEcmEC, calcWk} from "./CalculationsEC";
 import {getPdf, savePdf} from "../../helpers/pdf";
@@ -21,6 +21,7 @@ const ServiceabilityCWEC = (props) => {
 
     const pdfDoc = await getPdf('crack_width_EC2_work_sheet.pdf');
     const page = pdfDoc.getPage(0);
+
     page.drawText('This text was added with Deno!', {
       x: 40,
       y: page.getHeight() / 2 + 250,
@@ -32,6 +33,17 @@ const ServiceabilityCWEC = (props) => {
     setPdf(await savePdf(pdfDoc));
 
   }
+
+  useEffect(() => {
+    let subAnswer = {
+      "x": 10,
+      "d": 5,
+      "sigma": 15,
+      "rowPEff": 51,
+      "sRMax": 51
+    };
+
+  })
   const tableValue = {
     "12": "27", "16": "29", "20": "30", "25": "31", "30": "33", "35": "34", "40": "35", "45": "36", "50": "37",
     "55": "38", "60": "39", "70": "41", "80": "42", "90": "44"
@@ -111,7 +123,7 @@ const ServiceabilityCWEC = (props) => {
               <span className="input-group-text col-md-10" id="strength-concrete">Modulus of elasticity of the reinforcement (kN/mm<sup>2</sup>)</span>
               <div className="input-group-append col-md-2">
                 <input name="Es" type="number" step="0.00001" className="form-control" aria-describedby="Es"
-                       ref={register({required: true})} />
+                       ref={register({required: true})}/>
               </div>
             </div>
           </div>
@@ -239,7 +251,7 @@ const ServiceabilityCWEC = (props) => {
         }
       </form>
       {pdf !== null ?
-        <iframe className="pdf-viewer" title="test-frame" src={pdf}  type="application/pdf" />
+        <iframe className="pdf-viewer" title="test-frame" src={pdf} type="application/pdf"/>
         : <></>
       }
     </div>

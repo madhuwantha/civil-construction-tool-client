@@ -272,28 +272,13 @@ export const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
 
   return {
     "mainAnswer": ans,
-    "subAnswers":[
-      {
-        "name": "x",
-        "value": xCW,
-      },
-      {
-        "name": "d",
-        "value": d,
-      },
-      {
-        "name": "sigma",
-        "value": sigma,
-      },
-      {
-        "name": "rowPEff",
-        "value": rowPEff,
-      },
-      {
-        "name": "sRMax",
-        "value": sRMax,
-      }
-    ]
+    "subAnswer": {
+      "x": xCW,
+      "d": d,
+      "sigma": sigma,
+      "rowPEff": rowPEff,
+      "sRMax": sRMax
+    },
   };
 }
 
