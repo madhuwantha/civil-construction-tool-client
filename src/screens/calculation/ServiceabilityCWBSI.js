@@ -20,10 +20,10 @@ const ServiceabilityCWBSI = (props) => {
 
     const subAnswers = ans["subAnswers"];
 
-    let x = subAnswers["x"]
-    let fs = subAnswers["fs"]
-    let epsOne = subAnswers["epsOne"];
-    let epsM = subAnswers["epsM"]
+    let x = subAnswers["x"].toFixed(4)
+    let fs = subAnswers["fs"].toFixed(4)
+    let epsOne = subAnswers["epsOne"].toFixed(4);
+    let epsM = subAnswers["epsM"].toFixed(4)
 
     const pdfDoc = await getPdf('crack_width_BS8110_work_sheet.pdf');
     const page = pdfDoc.getPage(0);
