@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
+import {calcAnswer} from "./CalculationUFRBSI";
 
 const UltimateFlexRect = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -9,14 +10,16 @@ const UltimateFlexRect = (props) => {
   const [answer21, setAnswer21] = useState(0);
   const [answer22, setAnswer22] = useState(0);
   const onSubmit = async data => {
-    let ans11 = 0;
-    let ans12 = 0;
-    let ans21 = 0;
-    let ans22 = 0;
+    let ans = calcAnswer(parseFloat(data["M"]), parseFloat(data["b"]), parseFloat(data["d"]), parseFloat(data["fcu"]),
+      parseFloat(data["fyk"]), parseFloat(data["dDash"]))
+    let ans11 = 0;//As
+    let ans12 = 0;//AsDash
+    let ans21 = ans["mainAnswer"][0];
+    let ans22 = ans["mainAnswer"][1];
     setAnswer11(parseFloat(ans11.toFixed(4)))
     setAnswer12(parseFloat(ans12.toFixed(4)))
     setAnswer21(parseFloat(ans21?.toFixed(4)))
-    setAnswer22(ans22)
+    setAnswer22(parseFloat(ans22?.toFixed(4)))
     setIsSubmit(true)
   }
 
@@ -27,11 +30,11 @@ const UltimateFlexRect = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Input Panel</p>
           <div style={{"border": "1px solid black"}} className="col-12 lesson-image-container">
-            {errors.f && <span>This field is required</span>}
+            {errors.M && <span>This field is required</span>}
             <div className="input-group mb-3">
               <span className="input-group-text col-md-10" id="strength-concrete">Ultimate load moment (kNm)</span>
               <div className="input-group-append col-md-2">
-                <input name="f" type="number" step="0.00001" className="form-control" aria-describedby="m"
+                <input name="M" type="number" step="0.00001" className="form-control" aria-describedby="m"
                        ref={register({required: true})}/>
               </div>
             </div>
