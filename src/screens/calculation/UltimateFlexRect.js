@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcAnswer} from "./CalculationUFRBSI";
+import {calcAnswerEC} from "./CalculationUFREC";
 
 const UltimateFlexRect = (props) => {
   const {register, handleSubmit, errors} = useForm();
@@ -10,12 +11,14 @@ const UltimateFlexRect = (props) => {
   const [answer21, setAnswer21] = useState(0);
   const [answer22, setAnswer22] = useState(0);
   const onSubmit = async data => {
-    let ans = calcAnswer(parseFloat(data["M"]), parseFloat(data["b"]), parseFloat(data["d"]), parseFloat(data["fcu"]),
+    let ans1 = calcAnswerEC(parseFloat(data["M"]), parseFloat(data["b"]), parseFloat(data["d"]), parseFloat(data["fck"]),
       parseFloat(data["fyk"]), parseFloat(data["dDash"]))
-    let ans11 = 0;//As
-    let ans12 = 0;//AsDash
-    let ans21 = ans["mainAnswer"][0];
-    let ans22 = ans["mainAnswer"][1];
+    let ans2 = calcAnswer(parseFloat(data["M"]), parseFloat(data["b"]), parseFloat(data["d"]), parseFloat(data["fcu"]),
+      parseFloat(data["fyk"]), parseFloat(data["dDash"]))
+    let ans11 = ans1["mainAnswer"][0];//As
+    let ans12 = ans1["mainAnswer"][1]//AsDash
+    let ans21 = ans2["mainAnswer"][0];
+    let ans22 = ans2["mainAnswer"][1];
     setAnswer11(parseFloat(ans11.toFixed(4)))
     setAnswer12(parseFloat(ans12.toFixed(4)))
     setAnswer21(parseFloat(ans21?.toFixed(4)))
@@ -23,7 +26,7 @@ const UltimateFlexRect = (props) => {
     setIsSubmit(true)
   }
 
-  return(
+  return (
     <div className="container col-8 card">
       <p>Rectangular Beam</p>
       <form action="#" onSubmit={handleSubmit(onSubmit)}>
@@ -113,9 +116,9 @@ const UltimateFlexRect = (props) => {
               <table className="table table-bordered">
                 <thead>
                 <tr>
-                  <th scope="col" > </th>
-                  <th scope="col" >Tension</th>
-                  <th scope="col" >Compression</th>
+                  <th scope="col"/>
+                  <th scope="col">Tension</th>
+                  <th scope="col">Compression</th>
                 </tr>
                 </thead>
                 <tbody>
