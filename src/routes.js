@@ -14,7 +14,7 @@ import {
   CALCULATION_SERVICEABILITY_DF_BSI,
   CALCULATION_SERVICEABILITY_DF_EC,
   DEFLECTION_SIMPLIFIED_CALCULATION,
-  CALCULATION_ULTIMATE_SHARING, CALCULATION_ULTIMATE_FLEX_RECT, CALCULATION_ULTIMATE_FLEX_FLANGE
+  CALCULATION_ULTIMATE_SHARING, CALCULATION_ULTIMATE_FLEX_RECT, CALCULATION_ULTIMATE_FLEX_FLANGE, BEAM_SELECTION
 } from "./urls";
 
 
@@ -35,6 +35,7 @@ import DefSimplifiedCalculation from "./screens/calculation/DefSimplifiedCalcula
 import UltimateShear from "./screens/calculation/UltimateShear";
 import UltimateFlexRect from "./screens/calculation/UltimateFlexRect";
 import UltimateFlexFlange from "./screens/calculation/UltimateFlexFlange";
+import BeamSelection from "./screens/BeamSelection";
 
 
 const Breadcrumbs = React.lazy(() => import("./views/Base/Breadcrumbs"));
@@ -107,6 +108,7 @@ const routes = [
   {path: CALCULATION_ULTIMATE_SHARING, name: "Shear Capacity and Shear Reinforcement", component: UltimateShear},
   {path: CALCULATION_ULTIMATE_FLEX_RECT, name: "Rectangular Beam Calculation", component: UltimateFlexRect},
   {path: CALCULATION_ULTIMATE_FLEX_FLANGE, name: "Flange Beam Calculation", component: UltimateFlexFlange},
+  {path: BEAM_SELECTION, name: "Beam Selection", component: BeamSelection},
 
 
   {path: "/", exact: true, name: "Home"},

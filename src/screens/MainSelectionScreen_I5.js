@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import MainImageButton from "../components/MainImageButton";
 import {Row} from "reactstrap";
 import {
+  BEAM_SELECTION,
   CALCULATION_ULTIMATE_FLEX_FLANGE,
   CALCULATION_ULTIMATE_FLEX_RECT,
   CALCULATION_ULTIMATE_SHARING,
@@ -58,7 +59,8 @@ class MainSelectionScreen_I5 extends Component {
             click={() => {
             this.props.setCurrentMethod(CALCULATION);
               this.props.setCurrentCategory(FLEXURE);
-            this.props.history.push(CALCULATION_ULTIMATE_FLEX_FLANGE)
+            // this.props.history.push(CALCULATION_ULTIMATE_FLEX_FLANGE)
+              this.props.history.push(BEAM_SELECTION)
           }} class="col-md-3"/>
         </Row>
       </div>
