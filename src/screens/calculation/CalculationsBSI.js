@@ -216,23 +216,11 @@ export const calcA = (h, c, bar, nBar, Es, As, b, M, l) => {
 
   return {
     "mainAnswer": ans,
-    "subAnswers": [
-      {
-        "name": "gammaB",
-        "value": gammaB
-      },
-      {
-        "name": "x",
-        "value": xDF
-      },
-      {
-        "name": "fs",
-        "value": FsDF
-      },
-      {
-        "name": "gamma",
-        "value": gamma
-      }
-    ]
+    "subAnswers": {
+      "gammaB": gammaB,
+      "x": xDF,
+      "fs": FsDF,
+      "gamma": gamma
+    },
   }
 }

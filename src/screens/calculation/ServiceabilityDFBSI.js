@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {calcEcmBSI, calcA} from "./CalculationsBSI";
 import {getPdf, savePdf} from "../../helpers/pdf";
@@ -17,18 +17,72 @@ const ServiceabilityDFBSI = (props) => {
     setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)))
     setIsSubmit(true)
 
+    // const pdfDoc = await getPdf('deflection_BS8110_work_sheet.pdf');
+    // const page = pdfDoc.getPage(0);
+    // setPdf(await savePdf(pdfDoc));
+  }
+  useEffect(async () => {
+
+    const subAnswers = {
+      "gammaB": 10,
+      "x": 20,
+      "fs": 30,
+      "gamma": 40
+    };
+
+    let gammaB = subAnswers["gammaB"].toFixed(4)
+    let x = subAnswers["x"].toFixed(4)
+    let fs = subAnswers["fs"].toFixed(4)
+    let gamma = subAnswers["gamma"].toFixed(4)
+
     const pdfDoc = await getPdf('deflection_BS8110_work_sheet.pdf');
     const page = pdfDoc.getPage(0);
-    page.drawText('This text was added with Deno!', {
-      x: 40,
-      y: page.getHeight() / 2 + 250,
-      size: 50,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(-45),
-    });
+
+    page.drawText( 100+" mm", {
+      x:64,
+      y:524,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+
+    page.drawText( 10+" mm", {
+      x:64,
+      y:402,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+
+    page.drawText( 1000+" mm", {
+      x:64,
+      y:285,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+
+    page.drawText( 80+" mm", {
+      x:64,
+      y:163,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+
+    page.drawText( 80+" mm", {
+      x:64,
+      y:163,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+
+    page.drawText( 80+" mm", {
+      x:64,
+      y:42,
+      size: 12,
+      color: rgb(0,0,0)
+    })
+
 
     setPdf(await savePdf(pdfDoc));
-  }
+  },[props])
 
 
   return (

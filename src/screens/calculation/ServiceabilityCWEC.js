@@ -71,63 +71,6 @@ const ServiceabilityCWEC = (props) => {
     setPdf(await savePdf(pdfDoc));
   }
 
-  // useEffect(async () => {
-  //   let subAnswer = {
-  //     "x": 10,
-  //     "d": 5,
-  //     "sigma": 15,
-  //     "rowPEff": 555,
-  //     "sRMax": 51
-  //   };
-  //   let x = subAnswer["x"];
-  //   let d = subAnswer["d"];
-  //   let sigma = subAnswer["sigma"];
-  //   let rowPEff = subAnswer["rowPEff"];
-  //   let sRMax = subAnswer["sRMax"];
-  //
-  //   const pdfDoc = await getPdf('crack_width_EC2_work_sheet.pdf');
-  //   const page = pdfDoc.getPage(0);
-  //
-  //   page.drawText( x+"", {
-  //     x:60,
-  //     y:514,
-  //     size: 12,
-  //     color: rgb(0,0,0)
-  //   })
-  //   page.drawText( d+"", {
-  //     x:170,
-  //     y:439,
-  //     size: 12,
-  //     color: rgb(0,0,0)
-  //   })
-  //   page.drawText( sigma+"", {
-  //     x:120,
-  //     y:389,
-  //     size: 12,
-  //     color: rgb(0,0,0)
-  //   })
-  //   page.drawText( rowPEff+"", {
-  //     x:154,
-  //     y:282,
-  //     size: 12,
-  //     color: rgb(0,0,0)
-  //   })
-  //   page.drawText( sRMax+"", {
-  //     x:94,
-  //     y:168,
-  //     size: 12,
-  //     color: rgb(0,0,0)
-  //   })
-  //   page.drawText( 100+"", {
-  //     x:234,
-  //     y:48,
-  //     size: 12,
-  //     color: rgb(0,0,0)
-  //   })
-  //
-  //   setPdf(await savePdf(pdfDoc));
-  //
-  // },[props])
   const tableValue = {
     "12": "27", "16": "29", "20": "30", "25": "31", "30": "33", "35": "34", "40": "35", "45": "36", "50": "37",
     "55": "38", "60": "39", "70": "41", "80": "42", "90": "44"
