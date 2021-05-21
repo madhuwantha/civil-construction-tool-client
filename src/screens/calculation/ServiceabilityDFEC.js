@@ -12,54 +12,27 @@ const ServiceabilityDFEC = (props) => {
   const [pdf, setPdf] = useState(null);
 
   const onSubmit = async (data) => {
-    let ans = await calcDef(
-      parseFloat(data["fck"]),
-      parseFloat(data["Es"]),
-      parseFloat(data["As"]),
-      parseFloat(data["b"]),
-      parseFloat(data["h"]),
-      parseFloat(data["c"]),
-      parseFloat(data["bar1"]),
-      parseFloat(data["M"]),
-      parseFloat(data["l"]),
-      parseFloat(data["nBar1"])
-    );
-    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)));
+    let fck = parseFloat(data["fck"]);
+    let Es = parseFloat(data["Es"]);
+    let As = parseFloat(data["As"]);
+    let b = parseFloat(data["b"]);
+    let h = parseFloat(data["h"]);
+    let c = parseFloat(data["c"]);
+    let bar1 = parseFloat(data["bar1"]);
+    let M = parseFloat(data["M"]);
+    let l = parseFloat(data["l"]);
+    let nBar1 = parseFloat(data["nBar1"]);
+
+    let ans = await calcDef(fck, Es, As, b, h, c, bar1, M, l, nBar1);
+    let mainAnswer = parseFloat(ans["mainAnswer"].toFixed(4));
+    let subAnswers = ans["subAnswers"];
+    let gammaUC = parseFloat(ans["gammaUC"]).toFixed(2);
+    let x = parseFloat(ans["x"]).toFixed(2);
+    let gammaCR = parseFloat(ans["gammaCR"]).toFixed(2);
+    let gamma = parseFloat(ans["gamma"]).toFixed(2);
+    setAnswer(mainAnswer);
     setIsSubmit(true);
-    console.log(
-      parseFloat(data["Es"]) +
-        "  " +
-        parseFloat(data["As"]) +
-        "  " +
-        parseFloat(data["b"]) +
-        "   " +
-        parseFloat(data["h"]) +
-        "  " +
-        parseFloat(data["c"]) +
-        "   " +
-        parseFloat(data["bar1"]) +
-        "   " +
-        parseFloat(data["M"]) +
-        "  " +
-        parseFloat(data["l"]) +
-        "  " +
-        parseFloat(data["nBar1"])
-    );
 
-    const pdfDoc = await getPdf("deflection_EC2_work_sheet.pdf");
-    const page = pdfDoc.getPage(0);
-    page.drawText("This text was added with Deno!", {
-      x: 40,
-      y: page.getHeight() / 2 + 250,
-      size: 50,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(-45),
-    });
-
-    setPdf(await savePdf(pdfDoc));
-  };
-
-  useEffect(async () => {
     const pdfDoc = await getPdf("deflection_EC2_work_sheet.pdf");
     const page = pdfDoc.getPage(0);
     const page2 = pdfDoc.getPage(1);
@@ -74,14 +47,14 @@ const ServiceabilityDFEC = (props) => {
     });
 
     page.drawText("xxxxxx", {
-      // Fy
+      // Fyk
       x: 164,
       y: 379,
       size: 12,
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(Es + "", {
       // Es
       x: 164,
       y: 364,
@@ -89,7 +62,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(As + "", {
       // As
       x: 164,
       y: 349,
@@ -97,7 +70,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(b + "", {
       // b
       x: 164,
       y: 334,
@@ -105,7 +78,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(h + "", {
       // h
       x: 164,
       y: 319,
@@ -113,7 +86,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(c + "", {
       // c
       x: 164,
       y: 304,
@@ -128,7 +101,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(M + "", {
       // M
       x: 164,
       y: 274,
@@ -144,7 +117,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(x + "", {
       // x
       x: 470,
       y: 130,
@@ -170,7 +143,7 @@ const ServiceabilityDFEC = (props) => {
     });
 
     page2.drawText("xxxxxx", {
-      // W max
+      // E
       x: 480,
       y: 463,
       size: 12,
@@ -178,7 +151,7 @@ const ServiceabilityDFEC = (props) => {
     });
 
     page2.drawText("xxxxxx", {
-      // W max
+      // 1 / r
       x: 480,
       y: 426,
       size: 12,
@@ -186,7 +159,7 @@ const ServiceabilityDFEC = (props) => {
     });
 
     page2.drawText("xxxxxx", {
-      // W max
+      // a
       x: 480,
       y: 353,
       size: 12,
@@ -194,7 +167,12 @@ const ServiceabilityDFEC = (props) => {
     });
 
     setPdf(await savePdf(pdfDoc));
-  }, [props]);
+  };
+
+  // useEffect(async () => {
+
+  //   setPdf(await savePdf(pdfDoc));
+  // }, [props]);
 
   return (
     <div className="container col-9 card">

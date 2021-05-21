@@ -12,82 +12,28 @@ const ServiceabilityDFBSI = (props) => {
   const [pdf, setPdf] = useState(null);
 
   const onSubmit = async (data) => {
-    let ans = await calcA(
-      parseFloat(data["h"]),
-      parseFloat(data["c"]),
-      parseFloat(data["bar1"]),
-      parseFloat(data["nBar1"]),
-      parseFloat(data["Es"]),
-      parseFloat(data["As"]),
-      parseFloat(data["b"]),
-      parseFloat(data["M"]),
-      parseFloat(data["l"])
-    );
-    setAnswer(parseFloat(ans["mainAnswer"].toFixed(4)));
+    let h = parseFloat(data["h"]);
+    let c = parseFloat(data["c"]);
+    let bar1 = parseFloat(data["bar1"]);
+    let nBar1 = parseFloat(data["nBar1"]);
+    let Es = parseFloat(data["Es"]);
+    let As = parseFloat(data["As"]);
+    let b = parseFloat(data["b"]);
+    let M = parseFloat(data["M"]);
+    let l = parseFloat(data["l"]);
+
+    let ans = await calcA(h, c, bar1, nBar1, Es, As, b, M, l);
+    let mainAnswer = parseFloat(ans["mainAnswer"].toFixed(2));
+    let subAnswers = ans["subAnswers"];
+    setAnswer(mainAnswer);
     setIsSubmit(true);
 
-    // const pdfDoc = await getPdf('deflection_BS8110_work_sheet.pdf');
-    // const page = pdfDoc.getPage(0);
-    // setPdf(await savePdf(pdfDoc));
-  };
-  useEffect(async () => {
-    const subAnswers = {
-      gammaB: 10,
-      x: 20,
-      fs: 30,
-      gamma: 40,
-    };
-
-    let gammaB = subAnswers["gammaB"].toFixed(4);
-    let x = subAnswers["x"].toFixed(4);
-    let fs = subAnswers["fs"].toFixed(4);
-    let gamma = subAnswers["gamma"].toFixed(4);
+    let gammaB = parseFloat(subAnswers["gammaB"]).toFixed(2);
+    let x = parseFloat(subAnswers["x"]).toFixed(2);
+    let fs = parseFloat(subAnswers["fs"]).toFixed(2);
+    let gamma = parseFloat(subAnswers["gamma"]).toFixed(2);
 
     const pdfDoc = await getPdf("deflection_BS8110_work_sheet.pdf");
-    // const page = pdfDoc.getPage(0);
-
-    // page.drawText( 100+" mm", {
-    //   x:64,
-    //   y:524,
-    //   size: 12,
-    //   color: rgb(0,0,0)
-    // })
-
-    // page.drawText( 10+" mm", {
-    //   x:64,
-    //   y:402,
-    //   size: 12,
-    //   color: rgb(0,0,0)
-    // })
-
-    // page.drawText( 1000+" mm", {
-    //   x:64,
-    //   y:285,
-    //   size: 12,
-    //   color: rgb(0,0,0)
-    // })
-
-    // page.drawText( 80+" mm", {
-    //   x:64,
-    //   y:163,
-    //   size: 12,
-    //   color: rgb(0,0,0)
-    // })
-
-    // page.drawText( 80+" mm", {
-    //   x:64,
-    //   y:163,
-    //   size: 12,
-    //   color: rgb(0,0,0)
-    // })
-
-    // page.drawText( 80+" mm", {
-    //   x:64,
-    //   y:42,
-    //   size: 12,
-    //   color: rgb(0,0,0)
-    // })
-
     const page = pdfDoc.getPage(0);
     const page2 = pdfDoc.getPage(1);
 
@@ -108,7 +54,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(Es + "", {
       // Es
       x: 164,
       y: 364,
@@ -116,7 +62,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(As + "", {
       // As
       x: 164,
       y: 349,
@@ -124,7 +70,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(b + "", {
       // b
       x: 164,
       y: 334,
@@ -132,7 +78,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(h + "", {
       // h
       x: 164,
       y: 319,
@@ -140,7 +86,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(c + "", {
       // c
       x: 164,
       y: 304,
@@ -155,7 +101,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(M + "", {
       // M
       x: 164,
       y: 274,
@@ -163,7 +109,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText((1 / gammaB).toFixed(2) + "", {
       // 1 / rb
       x: 480,
       y: 210,
@@ -171,7 +117,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(x + "", {
       // x
       x: 480,
       y: 128,
@@ -180,23 +126,23 @@ const ServiceabilityDFBSI = (props) => {
     });
 
     // Page 02
-    page2.drawText("xxxxxx", {
-      // P eff
+    page2.drawText(fs + "", {
+      // fs
       x: 470,
       y: 574,
       size: 12,
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
-      // 𝑺𝒓,𝒎𝒂𝒙 =
+    page2.drawText((1 / gamma).toFixed(2) + "", {
+      // 1 / r
       x: 470,
       y: 486,
       size: 12,
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(mainAnswer + "", {
       // Wk
       x: 470,
       y: 400,
@@ -205,7 +151,140 @@ const ServiceabilityDFBSI = (props) => {
     });
 
     setPdf(await savePdf(pdfDoc));
-  }, [props]);
+  };
+
+  // useEffect(async () => {
+  //   const subAnswers = {
+  //     gammaB: 10,
+  //     x: 20,
+  //     fs: 30,
+  //     gamma: 40,
+  //   };
+
+  //   let gammaB = subAnswers["gammaB"].toFixed(4);
+  //   let x = subAnswers["x"].toFixed(4);
+  //   let fs = subAnswers["fs"].toFixed(4);
+  //   let gamma = subAnswers["gamma"].toFixed(4);
+
+  //   const pdfDoc = await getPdf("deflection_BS8110_work_sheet.pdf");
+  //   const page = pdfDoc.getPage(0);
+  //   const page2 = pdfDoc.getPage(1);
+
+  //   // Page 01
+  //   page.drawText("xxxxxx", {
+  //     // Fck
+  //     x: 164,
+  //     y: 394,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // Fyk
+  //     x: 164,
+  //     y: 379,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // Es
+  //     x: 164,
+  //     y: 364,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // As
+  //     x: 164,
+  //     y: 349,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // b
+  //     x: 164,
+  //     y: 334,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // h
+  //     x: 164,
+  //     y: 319,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // c
+  //     x: 164,
+  //     y: 304,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+  //   page.drawText("xxxxxx", {
+  //     // theta
+  //     x: 164,
+  //     y: 289,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // M
+  //     x: 164,
+  //     y: 274,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // 1 / rb
+  //     x: 480,
+  //     y: 210,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page.drawText("xxxxxx", {
+  //     // x
+  //     x: 480,
+  //     y: 128,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   // Page 02
+  //   page2.drawText("xxxxxx", {
+  //     // P eff
+  //     x: 470,
+  //     y: 574,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page2.drawText("xxxxxx", {
+  //     // 𝑺𝒓,𝒎𝒂𝒙 =
+  //     x: 470,
+  //     y: 486,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   page2.drawText("xxxxxx", {
+  //     // Wk
+  //     x: 470,
+  //     y: 400,
+  //     size: 12,
+  //     color: rgb(0, 0, 0),
+  //   });
+
+  //   setPdf(await savePdf(pdfDoc));
+  // }, [props]);
 
   return (
     <div className="container col-9 card">

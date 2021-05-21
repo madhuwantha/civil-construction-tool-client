@@ -26,47 +26,13 @@ const ServiceabilityCWBSI = (props) => {
     let finalAns = parseFloat(ans["mainAnswer"].toFixed(4));
     setAnswer(finalAns);
     setIsSubmit(true);
-
     const subAnswers = ans["subAnswers"];
-
     let x = subAnswers["x"].toFixed(4);
     let fs = subAnswers["fs"].toFixed(4);
     let epsOne = subAnswers["epsOne"].toFixed(4);
     let epsM = subAnswers["epsM"].toFixed(4);
-
     const pdfDoc = await getPdf("crack_width_BS8110_work_sheet.pdf");
     const page = pdfDoc.getPage(0);
-    // page.drawText(x + " mm", {
-    //   x: 60,
-    //   y: 514,
-    //   size: 12,
-    //   color: rgb(0, 0, 0),
-    // });
-    // page.drawText(fs + "", {
-    //   x: 60,
-    //   y: 379,
-    //   size: 12,
-    //   color: rgb(0, 0, 0),
-    // });
-    // page.drawText(epsOne + "", {
-    //   x: 60,
-    //   y: 255,
-    //   size: 12,
-    //   color: rgb(0, 0, 0),
-    // });
-    // page.drawText(epsM + "", {
-    //   x: 65,
-    //   y: 155,
-    //   size: 12,
-    //   color: rgb(0, 0, 0),
-    // });
-    // page.drawText(finalAns + " mm", {
-    //   x: 80,
-    //   y: 54,
-    //   size: 12,
-    //   color: rgb(0, 0, 0),
-    // });
-
     const page2 = pdfDoc.getPage(1);
 
     // Page 01
@@ -86,7 +52,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(es + "", {
       // Es
       x: 164,
       y: 364,
@@ -94,7 +60,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(as + "", {
       // As
       x: 164,
       y: 349,
@@ -102,7 +68,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(b + "", {
       // b
       x: 164,
       y: 334,
@@ -110,7 +76,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(h + "", {
       // h
       x: 164,
       y: 319,
@@ -133,7 +99,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(m + "", {
       // M
       x: 164,
       y: 274,
@@ -141,7 +107,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(x + " ", {
       // x
       x: 470,
       y: 216,
@@ -149,7 +115,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(fs + "", {
       // Fs
       x: 470,
       y: 130,
@@ -157,8 +123,8 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
-      // E1
+    page.drawText(epsOne + "", {
+      // epsOne
       x: 470,
       y: 60,
       size: 12,
@@ -166,15 +132,15 @@ const ServiceabilityCWBSI = (props) => {
     });
 
     // Page 02
-    page2.drawText("xxxxxx", {
-      // Em
+    page2.drawText(epsM + "", {
+      // epsM
       x: 480,
       y: 574,
       size: 12,
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(finalAns + "", {
       // W max
       x: 480,
       y: 463,
