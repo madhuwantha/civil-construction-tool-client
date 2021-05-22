@@ -26,10 +26,10 @@ const ServiceabilityCWEC = (props) => {
     let ansDEC = await calcDef(parseFloat(data["fck"]), parseFloat(data["Es"]), parseFloat(data["AsT"]), parseFloat(data["b"]), parseFloat(data["h"]),
       parseFloat(data["c"]), parseFloat(data["bar1T"]), parseFloat(data["M"]), parseFloat(data["l"]), [parseFloat(data["nBar1T"])])
 
-    setAnsCBSI(parseFloat(ansCBSI.toFixed(4)));
-    setAnsDBSI(parseFloat(ansDBSI.toFixed(4)));
-    setAnsCEC(parseFloat(ansCEC.toFixed(4)));
-    setAnsDEC(parseFloat(ansDEC.toFixed(4)));
+    setAnsCBSI(parseFloat(ansCBSI['mainAnswer'].toFixed(4)));
+    setAnsDBSI(parseFloat(ansDBSI['mainAnswer'].toFixed(4)));
+    setAnsCEC(parseFloat(ansCEC['mainAnswer'].toFixed(4)));
+    setAnsDEC(parseFloat(ansDEC['mainAnswer'].toFixed(4)));
     setIsSubmit(true)
   }
 

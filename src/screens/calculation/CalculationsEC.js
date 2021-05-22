@@ -2,7 +2,7 @@ const k1 = 0.8;
 const k2 = 0.5;
 const k3 = 3.4;
 const k4 = 0.425;
-const phiInfCW = 2.2;
+export const phiInfCW = 2.2;
 const beta = 0.5;
 const k = 0.104;
 const phiInfDF = 2.8;
@@ -280,6 +280,8 @@ export const calcWk = (fck, Es, h, phi, As, b, m, nBar, c) => {
       sigma: sigma,
       rowPEff: rowPEff,
       sRMax: sRMax,
+      z: z,
+      ephSM: ephSM
     },
   };
 };
@@ -348,6 +350,8 @@ export const calcDef = (fck, Es, As, b, h, c, phi, M, l, nBar) => {
       x: xDF,
       gammaCR: gammaCR,
       gamma: gamma,
+      mcr: mcr,
+      eph: sy
     },
   };
 };

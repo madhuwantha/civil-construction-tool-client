@@ -13,6 +13,7 @@ const ServiceabilityDFEC = (props) => {
 
   const onSubmit = async (data) => {
     let fck = parseFloat(data["fck"]);
+    let fyk = parseFloat(data["fy"]);
     let Es = parseFloat(data["Es"]);
     let As = parseFloat(data["As"]);
     let b = parseFloat(data["b"]);
@@ -26,10 +27,12 @@ const ServiceabilityDFEC = (props) => {
     let ans = await calcDef(fck, Es, As, b, h, c, bar1, M, l, nBar1);
     let mainAnswer = parseFloat(ans["mainAnswer"].toFixed(4));
     let subAnswers = ans["subAnswers"];
-    let gammaUC = parseFloat(ans["gammaUC"]).toFixed(2);
-    let x = parseFloat(ans["x"]).toFixed(2);
-    let gammaCR = parseFloat(ans["gammaCR"]).toFixed(2);
-    let gamma = parseFloat(ans["gamma"]).toFixed(2);
+    let gammaUC = parseFloat(subAnswers["gammaUC"]).toFixed(2);
+    let x = parseFloat(subAnswers["x"]).toFixed(2);
+    let gammaCR = parseFloat(subAnswers["gammaCR"]).toFixed(2);
+    let gamma = parseFloat(subAnswers["gamma"]).toFixed(2);
+    let mcr = parseFloat(subAnswers["mcr"]).toFixed(2);
+    let eph =parseFloat(subAnswers["eph"]).toFixed(2);
     setAnswer(mainAnswer);
     setIsSubmit(true);
 
@@ -38,15 +41,15 @@ const ServiceabilityDFEC = (props) => {
     const page2 = pdfDoc.getPage(1);
 
     // Page 01
-    page.drawText("xxxxxx", {
-      // Fcu
+    page.drawText(fck + "", {
+      // Fck
       x: 164,
       y: 394,
       size: 12,
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(fyk + "", {
       // Fyk
       x: 164,
       y: 379,
@@ -93,8 +96,8 @@ const ServiceabilityDFEC = (props) => {
       size: 12,
       color: rgb(0, 0, 0),
     });
-    page.drawText("xxxxxx", {
-      // theta
+    page.drawText(l + "", {
+      // l
       x: 164,
       y: 289,
       size: 12,
@@ -109,7 +112,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(gammaUC + "", {
       // (1 / r) uc
       x: 490,
       y: 206,
@@ -126,7 +129,7 @@ const ServiceabilityDFEC = (props) => {
     });
 
     // Page 02
-    page2.drawText("xxxxxx", {
+    page2.drawText(gammaUC + "", {
       // ( 1 / r )uc
       x: 488,
       y: 566,
@@ -134,7 +137,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(mcr + "", {
       // Mcr
       x: 488,
       y: 505,
@@ -142,7 +145,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(eph + "", {
       // E
       x: 480,
       y: 463,
@@ -150,7 +153,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(gamma + "", {
       // 1 / r
       x: 480,
       y: 426,
@@ -158,7 +161,7 @@ const ServiceabilityDFEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(mainAnswer + "", {
       // a
       x: 480,
       y: 353,
