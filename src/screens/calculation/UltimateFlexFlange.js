@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import {getPdf, savePdf} from "../../helpers/pdf";
 import {degrees, rgb} from "pdf-lib";
-import {calcAs} from "./CalculationUFFBSI";
+import {calcAnswerAs} from "./CalculationUFFBSI";
 import {calcAnswer} from "./CalculationUFFEC";
 
 const UltimateFlexFlange = (props) => {
@@ -17,8 +17,8 @@ const UltimateFlexFlange = (props) => {
     let ans11 = calcAnswer(parseFloat(data["l2"]), parseFloat(data["bw"]), parseFloat(data["le"]), parseFloat(data["M"]),
       parseFloat(data["fck"]), parseFloat(data["hf"]), parseFloat(data["fyk"]),parseFloat(data["d"]));
     console.log(ans11)
-    let ans21 = calcAs(parseFloat(data["bw"]), parseFloat(data["le"]), data["type"], parseFloat(data["fcu"]),
-      parseFloat(data["M"]), parseFloat(data["d"]), parseFloat(data["hf"]), parseFloat(data["fyk"]));
+    let ans21 = calcAnswerAs(parseFloat(data["bw"]), parseFloat(data["le"]), data["type"], parseFloat(data["fcu"]),
+      parseFloat(data["M"]), parseFloat(data["d"]), parseFloat(data["hf"]), parseFloat(data["fyk"]), parseFloat(data["h"]));
     setAnswer11((parseFloat(ans11["mainAnswer"])).toFixed(4));
     setAnswer21((parseFloat(ans21["mainAnswer"])).toFixed(4));
     // setAnswer21(parseFloat(ans21?.toFixed(4)))
