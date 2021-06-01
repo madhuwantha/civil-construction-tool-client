@@ -20,54 +20,18 @@ export default {
       ]
     },
     {
-      "title": "Reqiurement for Crack Width Calculation",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/find_Steel_stress1.jpg"),
+      "title": "Calculation of Deflection According to Euro Code",
+      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/ec_def_ana1.jpg"),
       "buttons": []
     },
     {
       "title": "",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/find_Steel_stress2.jpg"),
+      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/ec_def_ana2.jpg"),
       "buttons": []
     },
     {
       "title": "",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/find_Steel_stress3.jpg"),
-      "buttons": []
-    },
-    {
-      "title": "",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/find_Steel_stress4.jpg"),
-      "buttons": []
-    },
-    {
-      "title": "Maximum Crack Spacing",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/EC2_crack_analy3.jpg"),
-      "buttons": []
-    },
-    {
-      "title": "",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/EC2_crack_analy4.jpg"),
-      "buttons": []
-    },
-    {
-      "title": "",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/EC2_crack_analy1.jpg"),
-      "buttons": []
-    },
-    {
-      "title": "",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/EC2_crack_analy2.jpg"),
-      "buttons": [
-        {
-          "name": "Effective Tension Area",
-          "imagePath": [require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/EC2_crack_analy5.jpg")],
-          "title": "Effective Tension Area"
-        }
-      ]
-    },
-    {
-      "title": "Flow Chart for Calculating Crack Width",
-      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/s16.JPG"),
+      "imagePath": require("../../assets/img/lesson/Deflection_EC_Analytical_Method/images/ec_def_ana3.jpg"),
       "buttons": []
     },
     {
