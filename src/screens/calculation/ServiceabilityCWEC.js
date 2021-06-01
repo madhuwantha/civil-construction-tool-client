@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { calcEcmEC, calcWk } from "./CalculationsEC";
-import { getPdf, savePdf } from "../../helpers/pdf";
-import { degrees, rgb } from "pdf-lib";
+import React, {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import {calcEcmEC, calcWk, phiInfCW} from "./CalculationsEC";
+import {getPdf, savePdf} from "../../helpers/pdf";
+import {degrees, rgb} from "pdf-lib";
 
 const ServiceabilityCWEC = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
@@ -13,6 +13,7 @@ const ServiceabilityCWEC = (props) => {
 
   const onSubmit = async (data) => {
     let fck = parseFloat(data["fck"]);
+    let fyk = parseFloat(data["fy"]);
     let Es = parseFloat(data["Es"]);
     let h = parseFloat(data["h"]);
     let bar1 = parseFloat(data["bar1"]);
@@ -47,6 +48,8 @@ const ServiceabilityCWEC = (props) => {
     let sigma = subAnswer["sigma"].toFixed(4);
     let rowPEff = subAnswer["rowPEff"].toFixed(4);
     let sRMax = subAnswer["sRMax"].toFixed(4);
+    let eSM = subAnswer["ephSM"].toFixed(4);
+    let z = subAnswer["z"].toFixed(4);
 
     const pdfDoc = await getPdf("crack_width_EC2_work_sheet.pdf");
     const page = pdfDoc.getPage(0);
@@ -61,7 +64,7 @@ const ServiceabilityCWEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxx", {
+    page.drawText(fyk + "", {
       // Fyk
       x: 164,
       y: 379,
@@ -108,7 +111,7 @@ const ServiceabilityCWEC = (props) => {
       size: 12,
       color: rgb(0, 0, 0),
     });
-    page.drawText("xxxxxx", {
+    page.drawText(phiInfCW + "", {
       // theta
       x: 164,
       y: 289,
@@ -132,7 +135,7 @@ const ServiceabilityCWEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(z + "", {
       // 𝑳𝒆𝒗𝒆𝒓 𝒂𝒓𝒎(
       x: 530,
       y: 133,
@@ -165,7 +168,7 @@ const ServiceabilityCWEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(eSM + "", {
       // 𝜺𝒔𝒎 =
       x: 480,
       y: 423,
@@ -173,7 +176,7 @@ const ServiceabilityCWEC = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page2.drawText("xxxxxx", {
+    page2.drawText(a + "", {
       // Wk
       x: 480,
       y: 393,
@@ -332,7 +335,7 @@ const ServiceabilityCWEC = (props) => {
         <div className="col-12 lesson-image-container">
           <p>At first we can consider about the Material Properties</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.fck && <span>This field is required</span>}
@@ -350,7 +353,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="fck"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                   onChange={(e) => setEcm(calcEcmEC(e.target.value))}
                 />
               </div>
@@ -431,7 +434,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="fy"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -450,7 +453,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="Es"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -460,7 +463,7 @@ const ServiceabilityCWEC = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Then move to the reinforcement area</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.As && <span>This field is required</span>}
@@ -478,7 +481,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="As"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -488,7 +491,7 @@ const ServiceabilityCWEC = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Details of the tension reinforcement bar (mm)</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             <div className="row">
@@ -573,7 +576,7 @@ const ServiceabilityCWEC = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Now details of the section</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.b && <span>This field is required</span>}
@@ -591,7 +594,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="b"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -610,7 +613,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="h"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -629,7 +632,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="c"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -639,7 +642,7 @@ const ServiceabilityCWEC = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Finally moment effect</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.M && <span>This field is required</span>}
@@ -657,7 +660,7 @@ const ServiceabilityCWEC = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="M"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -666,7 +669,7 @@ const ServiceabilityCWEC = (props) => {
 
         <div className="col-12 lesson-image-container">
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             <div className="col">
@@ -684,7 +687,7 @@ const ServiceabilityCWEC = (props) => {
           <div className="col-12 lesson-image-container">
             <p>Final Answer</p>
             <div
-              style={{ border: "1px solid black" }}
+              style={{border: "1px solid black"}}
               className="col-12 lesson-image-container"
             >
               <div className="input-group mb-3">

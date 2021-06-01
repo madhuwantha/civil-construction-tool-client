@@ -12,10 +12,12 @@ const ServiceabilityDFBSI = (props) => {
   const [pdf, setPdf] = useState(null);
 
   const onSubmit = async (data) => {
+    let fcu = parseFloat(data["fck"]);
     let h = parseFloat(data["h"]);
     let c = parseFloat(data["c"]);
     let bar1 = parseFloat(data["bar1"]);
     let nBar1 = parseFloat(data["nBar1"]);
+    let fy = parseFloat(data["fy"]);
     let Es = parseFloat(data["Es"]);
     let As = parseFloat(data["As"]);
     let b = parseFloat(data["b"]);
@@ -38,7 +40,7 @@ const ServiceabilityDFBSI = (props) => {
     const page2 = pdfDoc.getPage(1);
 
     // Page 01
-    page.drawText("xxxxxx", {
+    page.drawText(fcu + "", {
       // Fck
       x: 164,
       y: 394,
@@ -46,7 +48,7 @@ const ServiceabilityDFBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(fy + "", {
       // Fyk
       x: 164,
       y: 379,
@@ -93,8 +95,8 @@ const ServiceabilityDFBSI = (props) => {
       size: 12,
       color: rgb(0, 0, 0),
     });
-    page.drawText("xxxxxx", {
-      // theta
+    page.drawText(l + "", {
+      // l
       x: 164,
       y: 289,
       size: 12,

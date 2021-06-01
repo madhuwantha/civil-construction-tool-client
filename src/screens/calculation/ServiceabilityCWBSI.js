@@ -1,18 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { calcEcmBSI, calcWMax } from "./CalculationsBSI";
-import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import React, {useEffect, useRef, useState} from "react";
+import {useForm} from "react-hook-form";
+import {calcEcmBSI, calcWMax} from "./CalculationsBSI";
+import {degrees, PDFDocument, rgb, StandardFonts} from "pdf-lib";
 import * as Deno from "fs";
-import { getPdf, savePdf } from "../../helpers/pdf";
+import {getPdf, savePdf} from "../../helpers/pdf";
 
 const ServiceabilityCWBSI = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const {register, handleSubmit, errors} = useForm();
   const [isSubmit, setIsSubmit] = useState(false);
   const [answer, setAnswer] = useState(0);
   const [Ecm, setEcm] = useState(0);
   const [pdf, setPdf] = useState(null);
 
   const onSubmit = async (data) => {
+    let fcn = parseFloat(data["fcn"]);
+    let fy = parseFloat(data["fy"]);
     let corner = parseFloat(data["corner"]);
     let es = parseFloat(data["es"]);
     let as = parseFloat(data["as"]);
@@ -36,7 +38,7 @@ const ServiceabilityCWBSI = (props) => {
     const page2 = pdfDoc.getPage(1);
 
     // Page 01
-    page.drawText("xxxxxx", {
+    page.drawText(fcn + "", {
       // Fcu
       x: 164,
       y: 394,
@@ -44,7 +46,7 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(fy + "", {
       // Fy
       x: 164,
       y: 379,
@@ -84,14 +86,14 @@ const ServiceabilityCWBSI = (props) => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText("xxxxxx", {
+    page.drawText(corner + "", {
       // c
       x: 164,
       y: 304,
       size: 12,
       color: rgb(0, 0, 0),
     });
-    page.drawText("xxxxxx", {
+    page.drawText(phi + "", {
       // theta
       x: 164,
       y: 289,
@@ -279,7 +281,7 @@ const ServiceabilityCWBSI = (props) => {
         <div className="col-12 lesson-image-container">
           <p>At first we can consider about the Material Properties</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.fcn && <span>This field is required</span>}
@@ -297,7 +299,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="fcn"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                   onChange={(e) => setEcm(calcEcmBSI(e.target.value))}
                 />
               </div>
@@ -341,7 +343,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="fy"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -360,7 +362,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="es"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -370,7 +372,7 @@ const ServiceabilityCWBSI = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Then move to the reinforcement area</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.as && <span>This field is required</span>}
@@ -388,7 +390,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="as"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -414,7 +416,7 @@ const ServiceabilityCWBSI = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Details of the tension reinforcement bar (mm)</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             <div className="row">
@@ -499,7 +501,7 @@ const ServiceabilityCWBSI = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Now details of the section</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.b && <span>This field is required</span>}
@@ -517,7 +519,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="b"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -536,7 +538,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="h"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -555,7 +557,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="corner"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -565,7 +567,7 @@ const ServiceabilityCWBSI = (props) => {
         <div className="col-12 lesson-image-container">
           <p>Finally moment effect</p>
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             {errors.m && <span>This field is required</span>}
@@ -583,7 +585,7 @@ const ServiceabilityCWBSI = (props) => {
                   step="0.00001"
                   className="form-control"
                   aria-describedby="m"
-                  ref={register({ required: true })}
+                  ref={register({required: true})}
                 />
               </div>
             </div>
@@ -592,7 +594,7 @@ const ServiceabilityCWBSI = (props) => {
 
         <div className="col-12 lesson-image-container">
           <div
-            style={{ border: "1px solid black" }}
+            style={{border: "1px solid black"}}
             className="col-12 lesson-image-container"
           >
             <div className="col">
@@ -610,7 +612,7 @@ const ServiceabilityCWBSI = (props) => {
           <div className="col-12 lesson-image-container">
             <p>Final Answer</p>
             <div
-              style={{ border: "1px solid black" }}
+              style={{border: "1px solid black"}}
               className="col-12 lesson-image-container"
             >
               <div className="input-group mb-3">
